@@ -37,9 +37,10 @@ class ProviderFilter(django_filters.FilterSet):
             Div(
                 Div('cover', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row row g-4"'
-            ),
-            Submit('submit', _('filter'))
+            )
+
         )
+        self.helper.add_input(Submit('submit', 'Submit'))
     def filter_cover(self, queryset, name, value):
         if(value):
             cities = City.objects.filter(pk__in=value)
@@ -49,7 +50,7 @@ class ProviderFilter(django_filters.FilterSet):
     class Meta:
         model = Provider
         fields = {
-            'designation','services','goods','works',
+            'designation'
         }
 
 class ServiceFilter(django_filters.FilterSet):

@@ -38,10 +38,10 @@
         </a>
         <div class="collapse" id="collapseExample">
           <div class="card card-body">
-            <form action="" method="get" class="form form-inline">
-              {% bootstrap_form filter.form %}
+            <form action="." method="get" class="form form-inline">
+              {% csrf_token %} {{ filter.form|crispy }}
               <!-- Break -->
-              {% bootstrap_button 'filter' %}
+              <input type="submit" value="Submit" class="btn btn-success" />
             </form>
           </div>
         </div>

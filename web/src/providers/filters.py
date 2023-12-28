@@ -10,7 +10,7 @@ from .models import Provider, OFFERS, Service, Good, Work
 class ProviderFilter(django_filters.FilterSet):
     designation = django_filters.CharFilter(field_name='designation',lookup_expr='contains',label=_('Designation'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Designation should contain')}))
-    cover = django_filters.MultipleChoiceFilter(label=_('Teritorial cover'),choices=[(x.pk, x.name) for x in City.objects.all()],method='filter_cover')
+    cover = django_filters.MultipleChoiceFilter(label=_('Teritorial cover'),method='filter_cover')
     services = django_filters.ModelMultipleChoiceFilter(field_name='services',queryset=Service.objects.all())
     goods = django_filters.ModelMultipleChoiceFilter(field_name='goods',queryset=Good.objects.all())
     works = django_filters.ModelMultipleChoiceFilter(field_name='works',queryset=Work.objects.all())
@@ -18,6 +18,10 @@ class ProviderFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        try:
+            self.filters['cover'].extra['choices'] = [(x.pk, x.name) for x in City.objects.all()]
+        except (KeyError, AttributeError):
+            pass
         self.helper = FormHelper()
         self.helper.layout =  Layout(
             Div(

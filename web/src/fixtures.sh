@@ -8,4 +8,4 @@ python manage.py loaddata ./providers/fixtures/services.json
 echo "Migrating works"
 python manage.py loaddata ./providers/fixtures/works.json
 echo "Migrating providers"
-python manage.py loaddata ./providers/fixtures/providers.json
+python manage.py loaddata ./providers/fixtures/providers_first.json

@@ -1,4 +1,6 @@
 # Apply fixtures
+echo "Migrating"
+python manage.py migrate
 echo "Adding cities"
 python manage.py cities_light
 echo "Migrating goods"

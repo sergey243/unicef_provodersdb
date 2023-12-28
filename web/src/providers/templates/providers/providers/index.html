@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+<!--Loading libraries-->
+{% load static %} {% load i18n %} {% load render_table from django_tables2 %}
+<!-- Break -->
+{% load bootstrap5 %}{% load crispy_forms_tags %}
+<!--End loading libraries-->
+<!-- Title -->
+{% block title %}{% translate 'Providers' %}{% endblock %}
+<!-- End title -->
+<!-- Assets -->
+{% block assets %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+  integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+{% endblock %}
+<!-- End assets -->
+<!-- Content -->
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+  <div class="row g-4">
+    <div class="col-12">
+      <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4"></h6>
+        {% if filter %}
+        <a
+          class=""
+          data-bs-toggle="collapse"
+          href="#collapseExample"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          {% translate 'Filters' %}
+        </a>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <form action="" method="get" class="form form-inline">
+              {% bootstrap_form filter.form %}
+              <!-- Break -->
+              {% bootstrap_button 'filter' %}
+            </form>
+          </div>
+        </div>
+
+        {% endif %}
+        <div class="table-responsive">{% render_table table %}</div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <button class="btn btn-primary red" type="submit" disabled>
+              {% translate 'Bulk delete' %}
+            </button>
+          </div>
+          <div>
+            <a
+              href="{% url 'provider-create' %}"
+              class="btn btn-primary red"
+              type="submit"
+            >
+              {% translate 'Create new' %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+<!-- End content -->
+<!-- Js -->
+{% block js %}
+<script>
+  var checkboxes = $("input[type='checkbox']"),
+    submitButton = $("button[type='submit']");
+
+  checkboxes.click(function () {
+    submitButton.attr("disabled", !checkboxes.is(":checked"));
+  });
+</script>
+{% endblock %}
+<!-- End Js -->

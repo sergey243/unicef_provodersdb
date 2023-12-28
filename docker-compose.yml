@@ -1,0 +1,81 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: provider_mngt_db
+    image: postgis/postgis:16-3.4
+    #restart: always
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "6432:5432"
+    env_file:
+      - ./db/.env
+    networks:
+      - network
+
+  web:
+    container_name: provider_mngt_app
+    build: ./web
+    command: python manage.py runserver 0.0.0.0:8000
+    #entrypoint: ["/bin/bash", "./entrypoint.sh"]
+    #restart: always
+    volumes:
+      - ./web/src:/usr/src/app
+
+    expose:
+      - "443"
+      - "6800"
+      - "8000"
+    ports:
+      - "6801:6800"
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./web/.Env.dev
+    networks:
+      - network
+
+  pg_admin:
+    container_name: provider_mngt_pg_admin
+    image: dpage/pgadmin4:latest
+    #restart: always
+    ports:
+      - "8001:80"
+    expose:
+      - "80"
+    environment:
+      - GUNICORN_THREADS=1
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=password@123
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
+      - PGADMIN_CONFIG_LOGIN_BANNER="Authorised users only!"
+      - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
+    depends_on:
+      - db
+    networks:
+      - network
+  #nginx:
+  #container_name: provider_mngt_nginx
+  #build:
+  #context: .
+  #dockerfile: ./nginx/Dockerfile
+  #restart: always
+  #ports:
+  #  - "1447:443"
+  #  - "8080:80"
+  #  - "6800:6800"
+  #  - "5432:5432"
+  #networks:
+  #- network
+  #depends_on:
+  #- web
+  #- db
+  #volumes:
+  #- ./nginx/sites-available:/etc/nginx/sites-available/:z
+networks:
+  network:
+    driver: bridge

@@ -1,0 +1,1 @@
+ogrinfo world/data/TM_WORLD_BORDERS-0.3.shp

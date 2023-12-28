@@ -1,0 +1,10 @@
+{
+    "diffEditor.wordWrap": "inherit",
+    "html.format.wrapAttributes": "auto",
+    "html.format.indentHandlebars": true,
+    "html.format.enable": false,
+    "html.format.templating": true,
+    "html.format.wrapLineLength": 0,
+    "html.format.contentUnformatted": "",
+    "html.format.extraLiners": ""
+}

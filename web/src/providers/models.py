@@ -37,6 +37,14 @@ ADVANTAGES = (
     ('on-site deliveries',_('On-site deliveries'))
 )
 
+EVALUATION = (
+    (1,'poor'),
+    (2,'not satisfying'),
+    (3,'acceptable'),
+    (4,'good'),
+    (5,'excelent')
+)
+
 class Work(Model):
     created_at = fields.DateTimeField(editable=False)
     modified_at = fields.DateTimeField(editable=False)
@@ -254,3 +262,49 @@ class Provider(Model):
         get_latest_by = ["created_at","modified_at"]
         ordering = ["designation"]
         db_table = "providers"
+
+class Evaluation(Model):
+    created_at = fields.DateTimeField(editable=False)
+    modified_at = fields.DateTimeField(editable=False)
+    created_by = models.ForeignKey(get_user_model(),editable=False,related_name="ecreator",null=True,blank=True,on_delete=models.PROTECT)
+    last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="emodifier",null=True,blank=True,on_delete=models.PROTECT)
+    provider = models.ForeignKey('Provider',related_name="provider", on_delete=models.CASCADE)
+    works = models.ManyToManyField(Work,verbose_name=_("works evaluated"),editable=True,blank=True)
+    services = models.ManyToManyField(Service,verbose_name=_("services evaluated"),editable=True,blank=True)
+    goods = models.ManyToManyField(Good,verbose_name=_("good evaluated"),editable=True,blank=True)
+    lta = models.CharField(verbose_name=_('LTA number'),max_length=50,blank=False,null=False)
+    po_number = models.CharField(verbose_name=_('PO number'),max_length=50,blank=False,null=False)
+    po_amount = models.DecimalField(verbose_name=_('PO amount'),decimal_places=2,max_digits=20,blank=False,null=False)
+    description = fields.CharField(verbose_name=_("description"),max_length=500,null=True,blank=True)
+    fiability = fields.IntegerField(verbose_name=_('fiability'),choices=EVALUATION,blank=False, null=False)
+    timing = fields.IntegerField(verbose_name=_('timing'),choices=EVALUATION,blank=False, null=False)
+    best_value = fields.IntegerField(verbose_name=_('quality-price report'),choices=EVALUATION,blank=False, null=False)
+    tech_specification = fields.IntegerField(verbose_name=_('technical specifications'),choices=EVALUATION,blank=False, null=False)
+    comment = fields.CharField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
+
+    @property
+    def performance(self):
+        _performance = self.fiability + self.timing + self.best_value + self.tech_specification
+        if(_performance > 14): return 'A'
+        elif(_performance <= 14 and _performance >= 10): return 'B'
+        elif(_performance < 10 and _performance >= 3): return 'C'
+        else: return 'D'
+    
+    def __str__(self):
+        return '{}:'.format(self.designation)
+    
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created_at = timezone.now()
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.modified_at = timezone.now()
+        return super(Provider,self).save(*args,**kwargs)
+    
+    class Meta:
+        default_related_name = "evaluations"
+        get_latest_by = ["created_at","modified_at"]
+        get_latest_by = ["created_at","modified_at"]
+        ordering = ["provider"]
+        db_table = "evaluations"

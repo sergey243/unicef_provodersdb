@@ -9,7 +9,7 @@ from django.core.serializers import serialize
 from .models import Provider, Service, Work, Good, GoodsProvided, ServicesProvided, WorkExecuted
 from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
-from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm
+from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm
 
 
 #Providers views
@@ -193,5 +193,16 @@ class WorkDelete(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, _("The work was delete successfully"))
         return super().form_valid(form)
+    
+class EvaluationCreate(CreateView):
+    model = Work
+    template_name = 'providers/evaluations/form.html'
+    form_class = EvaluationForm
+
+class EvaluationCreate(UpdateView):
+    model = Work
+    template_name = 'providers/evaluations/form.html'
+    form_class = EvaluationForm
+
 
 

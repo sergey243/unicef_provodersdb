@@ -1,5 +1,32 @@
 from  django import forms
-from .models import Provider, Service, Good, Work
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, Column
+from .models import Provider, Service, Good, Work, Evaluation
+
+class ProviderFilterForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout =  Layout(
+            Div(
+                Div('designation', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row row g-4"'
+            ),
+            Div(
+                Div('services', css_class='form-group col-md-4 mb-0'),
+                Div('works', css_class='form-group col-md-4 mb-0'),
+                Div('goods', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row row g-4"'
+            ),
+            Div(
+                Div('cover', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row row g-4"'
+            )
+
+        )
+        self.helper.add_input(Submit('submit', 'Submit'))
+    
+
 
 class ProviderForm(forms.ModelForm):
     class Meta:
@@ -28,7 +55,13 @@ class GoodForm(forms.ModelForm):
 
 class WorkForm(forms.ModelForm):
     class Meta:
-        model = Service
+        model = Work
         fields = ("name", "description")
+
+class EvaluationForm(forms.ModelForm):
+    class Meta:
+        model = Evaluation
+        fields = ("provider","services","works","goods","lta","po_number","po_amount","description",
+                    "fiability","timing","best_value","tech_specification","comment")
 
         

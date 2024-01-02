@@ -6,6 +6,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, Column
 from django.db.models import Q
 from .models import Provider, OFFERS, Service, Good, Work
+from .forms import ProviderFilterForm
 
 class ProviderFilter(django_filters.FilterSet):
     designation = django_filters.CharFilter(field_name='designation',lookup_expr='contains',label=_('Designation'),
@@ -22,25 +23,6 @@ class ProviderFilter(django_filters.FilterSet):
             self.filters['cover'].extra['choices'] = [(x.pk, x.name) for x in City.objects.all()]
         except (KeyError, AttributeError):
             pass
-        self.helper = FormHelper()
-        self.helper.layout =  Layout(
-            Div(
-                Div('designation', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row row g-4"'
-            ),
-            Div(
-                Div('services', css_class='form-group col-md-4 mb-0'),
-                Div('works', css_class='form-group col-md-4 mb-0'),
-                Div('goods', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row row g-4"'
-            ),
-            Div(
-                Div('cover', css_class='form-group col-md-12 mb-0'),
-                css_class='form-row row g-4"'
-            )
-
-        )
-        self.helper.add_input(Submit('submit', 'Submit'))
     def filter_cover(self, queryset, name, value):
         if(value):
             cities = City.objects.filter(pk__in=value)
@@ -48,9 +30,10 @@ class ProviderFilter(django_filters.FilterSet):
         return q
     
     class Meta:
+        form = ProviderFilterForm
         model = Provider
         fields = {
-            'designation'
+            'designation',
         }
 
 class ServiceFilter(django_filters.FilterSet):
@@ -76,7 +59,6 @@ class GoodFilter(django_filters.FilterSet):
 class WorkFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(field_name='name',lookup_expr='contains',label=_('Name'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Name should contain')}))
-    
     class Meta:
         model = Work
         fields = {

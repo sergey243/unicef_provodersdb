@@ -26,7 +26,7 @@ class ProviderFilter(django_filters.FilterSet):
     def filter_cover(self, queryset, name, value):
         if(value):
             cities = City.objects.filter(pk__in=value)
-            q = queryset.filter(Q(city__in=cities) | Q(covered_cities_Goods__in=cities) | Q(covered_cities_works__in=cities) | Q(covered_cities_services__in=cities))
+            q = queryset.filter(Q(city__in=cities) | Q(covered_cities_Goods__in=cities) | Q(covered_cities_works__in=cities) | Q(covered_cities_services__in=cities)).distinct()
         return q
     
     class Meta:

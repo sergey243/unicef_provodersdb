@@ -94,7 +94,7 @@ class ServiceDetails(DetailView):
         return context
 
 class ServiceUpdate(UpdateView):
-    model = Provider
+    model = Service
     template_name = 'providers/services/form.html'
     form_class = ServiceForm
 
@@ -146,7 +146,7 @@ class GoodCreate(CreateView):
     form_class = GoodForm
 
 class GoodDelete(DeleteView):
-    model = Service
+    model = Good
     success_url = reverse_lazy('goods-list')
     
     def form_valid(self, form):

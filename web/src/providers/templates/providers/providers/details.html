@@ -395,13 +395,15 @@
 <script>
   $( document ).ready(function() {
     //var map = L.map('map').setView([-4.0335, 21.7501], 3);
-    var map  = L.map('map', {
-      center: [-4.0335162, 21.7500603],
-      zoom: 3
-    });
+    //var map  = L.map('map', {
+    //  center: [-4.0335162, 21.7500603],
+    //  zoom: 5
+    //});
+    var map  = L.map('map').setView([-4.0335162, 21.7500603], 20);
+    setTimeout(function(){ map.invalidateSize()}, 500);
 
    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
+        maxZoom: 5,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     var services = JSON.parse('{{ services_cities | safe }}')
@@ -445,7 +447,7 @@
 
     
     
-     setTimeout(function(){ map.invalidateSize()}, 12);
+     
   });
 
 </script>

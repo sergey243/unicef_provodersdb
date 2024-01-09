@@ -9,7 +9,7 @@ from .models import Provider, OFFERS, Service, Good, Work
 from .forms import ProviderFilterForm
 
 class ProviderFilter(django_filters.FilterSet):
-    designation = django_filters.CharFilter(field_name='designation',lookup_expr='contains',label=_('Designation'),
+    designation = django_filters.CharFilter(field_name='designation',lookup_expr='icontains',label=_('Designation'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Designation should contain')}))
     cover = django_filters.MultipleChoiceFilter(label=_('Teritorial cover'),method='filter_cover')
     services = django_filters.ModelMultipleChoiceFilter(field_name='services',queryset=Service.objects.all())
@@ -37,7 +37,7 @@ class ProviderFilter(django_filters.FilterSet):
         }
 
 class ServiceFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(field_name='name',lookup_expr='contains',label=_('Name'),
+    name = django_filters.CharFilter(field_name='name',lookup_expr='icontains',label=_('Name'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Name should contain')}))
     
     class Meta:
@@ -47,7 +47,7 @@ class ServiceFilter(django_filters.FilterSet):
         }
 
 class GoodFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(field_name='name',lookup_expr='contains',label=_('Name'),
+    name = django_filters.CharFilter(field_name='name',lookup_expr='icontains',label=_('Name'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Name should contain')}))
     
     class Meta:
@@ -57,7 +57,7 @@ class GoodFilter(django_filters.FilterSet):
         }
 
 class WorkFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(field_name='name',lookup_expr='contains',label=_('Name'),
+    name = django_filters.CharFilter(field_name='name',lookup_expr='icontains',label=_('Name'),
                                             widget=forms.widgets.TextInput(attrs={'placeholder': _('Name should contain')}))
     class Meta:
         model = Work

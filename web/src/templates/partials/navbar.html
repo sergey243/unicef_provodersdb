@@ -1,4 +1,4 @@
-{% load i18n %}{% load account %}
+{% load i18n %}{% load account %}{% load static %}
 <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
   <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -12,7 +12,7 @@
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
         <img
           class="rounded-circle me-lg-2"
-          src="img/user.jpg"
+          src="{% if user.profil.picture %}{% else %}{% static 'assets/images/avatar-3814049_1280.webp' %}{% endif %}"
           alt=""
           style="width: 40px; height: 40px"
         />

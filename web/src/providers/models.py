@@ -51,7 +51,7 @@ class Work(Model):
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="wcreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="wmodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
-    description = fields.CharField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
+    description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -79,7 +79,7 @@ class Service(Model):
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="screator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="smodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
-    description = fields.CharField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
+    description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     def __str__(self) -> str:
         return self.name
     
@@ -108,7 +108,7 @@ class Good(Model):
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="gcreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="gmodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
-    description = fields.CharField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
+    description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
     def __str__(self) -> str:
         return self.name
@@ -227,7 +227,7 @@ class Provider(Model):
     covered_cities_Goods = models.ManyToManyField(cities_models.City, related_name="covered_cities_goods",verbose_name=_('covered cities for goods'),blank=True)
     covered_cities_works = models.ManyToManyField(cities_models.City, related_name="covered_cities_works",verbose_name=_('covered cities for works'),blank=True)
     covered_cities_services = models.ManyToManyField(cities_models.City, related_name="covered_cities_services",verbose_name=_('covered cities for services'),blank=True)
-    comment = fields.CharField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
+    comment = fields.TextField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
 
     @property
     def is_contractor(self):
@@ -275,12 +275,12 @@ class Evaluation(Model):
     lta = models.CharField(verbose_name=_('LTA number'),max_length=50,blank=False,null=False)
     po_number = models.CharField(verbose_name=_('PO number'),max_length=50,blank=False,null=False)
     po_amount = models.DecimalField(verbose_name=_('PO amount'),decimal_places=2,max_digits=20,blank=False,null=False)
-    description = fields.CharField(verbose_name=_("description"),max_length=500,null=True,blank=True)
+    description = fields.TextField(verbose_name=_("description"),max_length=500,null=True,blank=True)
     fiability = fields.IntegerField(verbose_name=_('fiability'),choices=EVALUATION,blank=False, null=False)
     timing = fields.IntegerField(verbose_name=_('timing'),choices=EVALUATION,blank=False, null=False)
     best_value = fields.IntegerField(verbose_name=_('quality-price report'),choices=EVALUATION,blank=False, null=False)
     tech_specification = fields.IntegerField(verbose_name=_('technical specifications'),choices=EVALUATION,blank=False, null=False)
-    comment = fields.CharField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
+    comment = fields.TextField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
 
     @property
     def performance(self):
@@ -300,8 +300,10 @@ class Evaluation(Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.modified_at = timezone.now()
-        return super(Provider,self).save(*args,**kwargs)
+        return super(Evaluation,self).save(*args,**kwargs)
     
+    def get_absolute_url(self):
+        return reverse('provider-details',args=[self.provider.pk])
     class Meta:
         default_related_name = "evaluations"
         get_latest_by = ["created_at","modified_at"]

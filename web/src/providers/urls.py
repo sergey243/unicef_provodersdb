@@ -26,4 +26,12 @@ urlpatterns = [
     path('works/update/<int:pk>/',login_required(views.WorkUpdate.as_view()),name='work-update'),
     path('works/create/',login_required(views.WorkCreate.as_view()),name='work-create'),
     path('works/delete/<int:pk>/',login_required(views.WorkDelete.as_view()),name='work-delete'),
+
+    path('providers/evaluation/update/<int:pk>',login_required(views.EvaluationUpdate.as_view()),name='evaluation-update'),
+    path('providers/evaluation/create/<int:pk>/',login_required(views.EvaluationCreate.as_view()),name='evaluation-create'),
+    path('providers/evaluation/delete/<int:pk>/',login_required(views.EvaluationDelete.as_view()),name='evaluation-delete'),
+
+    path('providers/providers/export',login_required(views.CSVDownloadView.as_view()),name='extract-providers'),
+
+
 ]

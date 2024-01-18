@@ -46,6 +46,7 @@ urllib3 = "==2.1.0"
 django-table-sort = "*"
 django-tables2 = "*"
 pillow = "*"
+django-queryset-csv = "*"
 
 [dev-packages]
 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 <!-- break -->
-{% load static %} {% load i18n %}
+{% load static %} {% load i18n %} {% load render_table from django_tables2 %}
 <!-- Title -->
 {% block title %}Provider details{% endblock %}
 <!-- End title -->
@@ -23,11 +23,30 @@
     <div class="col-sm-12 col-xl-12">
       <div class="bg-light rounded h-100 p-4">
         <h6 class="mb-4">{{ object.designation }}</h6>
-        <p class="mb-4"><a  href = "{% url 'provider-update' object.pk %}">{% translate 'Edit' %}</a>  |  <a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a></p>
+        <p class="mb-4"><a  href = "{% url 'provider-update' object.pk %}">{% translate 'Edit' %}</a>  |  <a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a>
+         |
+          <a
+
+            href="{% url 'evaluation-create' object.pk %}"
+            >{% translate 'Evaluate' %}</a
+          >
+        </p>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button
+          <button
               class="nav-link active"
+              id="nav-eval-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-eval"
+              type="button"
+              role="tab"
+              aria-controls="nav-eval"
+              aria-selected="false"
+            >
+              {% translate 'Evaluations' %}
+            </button>
+            <button
+              class="nav-link"
               id="nav-home-tab"
               data-bs-toggle="tab"
               data-bs-target="#nav-home"
@@ -77,8 +96,18 @@
           </div>
         </nav>
         <div class="tab-content pt-3" id="nav-tabContent">
-          <div
+        <div
             class="tab-pane fade show active"
+            id="nav-eval"
+            role="tabpanel"
+            aria-labelledby="nav-eval-tab"
+          >
+            
+             <div class="table-responsive">{% render_table table %}</div>
+            
+          </div>
+          <div
+            class="tab-pane fade"
             id="nav-home"
             role="tabpanel"
             aria-labelledby="nav-home-tab"

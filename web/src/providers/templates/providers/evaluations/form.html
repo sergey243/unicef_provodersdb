@@ -17,19 +17,57 @@
         <h2>
           {% if object.pk %}
           <!-- Break -->
-          {% translate 'Editing good' %} {% else%}
+          {% translate 'Editing evaluation of' %}
           <!-- Break -->
-          {%translate 'Creating good' %}
+          {{ provider.designation | title }}
+          <br />
+
+          <!-- Break -->
+          {%else%}
+          <!-- Break -->
+          {%translate 'Making evaluation for' %}
+          <!-- Break -->
+          {{ provider.designation | title }}
           <!-- Break -->
           {% endif %}
         </h2>
+        {% if object.pk %}<a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a>{% endif %}
         <form method="post" action="">
-          {% csrf_token %} {% bootstrap_form form %}
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="provider"
+            value="{{ provider.pk }}"
+            id="id_provider"
+          />
+          {% bootstrap_form form %}
           <button class="btn btn-primary" type="submit">
             {% translate 'Submit' %}
           </button>
         </form>
       </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% translate 'Delete provider' %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% blocktrans %}Do you really want to delete the evaluation
+              {% endblocktrans %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate 'Cancel' %}</button>
+                <form method="post" action="{% url 'evaluation-delete' object.pk %}" >{% csrf_token %} 
+                    <button type="submit" class="btn btn-primary" >{% translate 'Confirm' %}</button>
+                </form>
+                
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
     </div>
   </div>
 </div>

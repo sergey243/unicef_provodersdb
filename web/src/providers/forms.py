@@ -4,6 +4,7 @@ from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, 
 from .models import Provider, Service, Good, Work, Evaluation
 
 class ProviderFilterForm(forms.Form):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -29,6 +30,9 @@ class ProviderFilterForm(forms.Form):
 
 
 class ProviderForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProviderForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs['rows'] = 5
     class Meta:
         model = Provider
         fields = ("designation", "responsible", "contacts", "phone",
@@ -44,21 +48,35 @@ class ProviderForm(forms.ModelForm):
                     'covered_cities_services','comment')
         
 class ServiceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs['rows'] = 5
     class Meta:
         model = Service
         fields = ("name", "description")
 
 class GoodForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GoodForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs['rows'] = 5
     class Meta:
         model = Good
         fields = ("name", "description")
 
 class WorkForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(WorkForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs['rows'] = 5
     class Meta:
         model = Work
         fields = ("name", "description")
 
 class EvaluationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EvaluationForm, self).__init__(*args, **kwargs)
+        self.fields['provider'].widget.attrs['disabled'] = 'disabled'
+        self.fields['description'].widget.attrs['rows'] = 5
+        self.fields['comment'].widget.attrs['rows'] = 5
     class Meta:
         model = Evaluation
         fields = ("provider","services","works","goods","lta","po_number","po_amount","description",

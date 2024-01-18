@@ -12,11 +12,11 @@ class DashboardView(SingleTableMixin,FilterView):
     paginate_by = 10
     model = City
     table_class = CitiesTable
-    fields = ('name',"region","providers__count")
+    fields = ('name',"region")
 
     def get_queryset(self, *args, **kwargs): 
         qs = super().get_queryset(*args, **kwargs) 
-        qs = qs.annotate(Count("providers")).order_by('providers__count')
+        qs = qs.annotate(Count("providers")).order_by('-providers__count')
         return qs
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

@@ -1,7 +1,8 @@
 from django.utils.safestring import mark_safe
 from django_tables2 import tables
 from django.utils.translation import gettext as _
-from .models import Provider, Service, Good, Work
+from django_tables2.utils import A
+from .models import Provider, Service, Good, Work, Evaluation
 
 class MaterializeCssCheckboxColumn(tables.columns.CheckBoxColumn):
     def render(self, value, bound_column, record):
@@ -59,3 +60,13 @@ class ServicesTable(tables.Table):
         model = Service
         template_name = "table.html"
         fields = ('check','name',"description" )
+
+class EvaluationTable(tables.Table):
+    performance = tables.columns.Column(verbose_name=_('Performance'),orderable=True)
+    lta = tables.columns.LinkColumn('evaluation-update', args=[A('pk')], orderable=False)
+    def render_performance(self, record):
+        return record.performance
+    class Meta:
+        model = Evaluation
+        template_name = "table.html"
+        fields = ('lta','po_number','po_amount')

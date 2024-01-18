@@ -1,15 +1,36 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from typing import Any
+from io import StringIO 
+from djqscsv import render_to_csv_response
+from django.db.models.base import Model as Model
+from django.shortcuts import render, redirect
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, View
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.utils.translation import gettext as _
 from django.core.serializers import serialize
-from .models import Provider, Service, Work, Good, GoodsProvided, ServicesProvided, WorkExecuted
-from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable
+from django.shortcuts import get_object_or_404
+from .models import Provider, Service, Work, Good, Evaluation
+from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable, EvaluationTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
 from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm
+
+
+
+class CSVDownloadView(View):
+     def get(self, request, *args, **kwargs):
+        fields = ['designation','responsible','contacts','phone','email','website',
+                  'city','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
+                  'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
+                  'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
+                  'equipments','competition','affiliations','affiliate_to_commerce_chamber',
+                  'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
+                  'comment']
+        qs = Provider.objects.all()
+        
+        return render_to_csv_response(qs)
 
 
 #Providers views
@@ -28,13 +49,19 @@ class ProvidersList(SingleTableMixin,FilterView):
         context = super().get_context_data(**kwargs)
         return context 
 
-class ProviderDetails(DetailView):
+class ProviderDetails(DetailView, SingleTableMixin):
     model = Provider
     template_name = 'providers/providers/details.html'
-    
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs): 
+        qs = super().get_queryset(*args, **kwargs) 
+        qs = qs.order_by("-created_at") 
+        return qs
     def get_context_data(self, **kwargs):
         object = self.get_object()
         context = super().get_context_data()
+        page = self.request.GET.get("page", 1)
         context['goods_provided'] = [str(x) for x in object.goods.through.objects.filter(provider = self.get_object())]
         context['services_provided'] = [str(x) for x in object.services.through.objects.filter(provider = self.get_object())]
         context['works_provided'] = [str(x) for x in object.works.through.objects.filter(provider = self.get_object())]
@@ -44,6 +71,8 @@ class ProviderDetails(DetailView):
         context['cities_services'] = [x.name for x in object.covered_cities_services.all()]
         context['cities_goods'] = [x.name for x in object.covered_cities_Goods.all()]
         context['cities_works'] =  [x.name for x in object.covered_cities_works.all()]
+        context['table'] = EvaluationTable(Evaluation.objects.filter(provider=object))
+        context['table'].paginate(page=self.request.GET.get("page", 1), per_page=10) 
     
         return context
 
@@ -51,8 +80,6 @@ class ProviderUpdate(UpdateView):
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
-
-
 
 class ProviderCreate(CreateView):
     model = Provider
@@ -195,14 +222,34 @@ class WorkDelete(DeleteView):
         return super().form_valid(form)
     
 class EvaluationCreate(CreateView):
-    model = Work
+    model = Evaluation
+    template_name = 'providers/evaluations/form.html'
+    form_class = EvaluationForm
+    
+    def get(self, request, pk, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        provider = get_object_or_404(Provider,pk=pk)
+        self.initial["provider"] = provider
+        form = self.form_class(initial=self.initial)
+        self.success_url = reverse('provider-details', kwargs={'pk': provider.pk})
+        return render(request,self.template_name,{'form':form, 'provider':provider})
+
+
+class EvaluationUpdate(UpdateView):
+    model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
 
-class EvaluationCreate(UpdateView):
-    model = Work
-    template_name = 'providers/evaluations/form.html'
-    form_class = EvaluationForm
+class EvaluationDelete(DeleteView):
+    model = Evaluation
+
+    def form_valid(self, form):
+        self.success_url = reverse_lazy('provider-details',kwargs={'pk': self.get_object().provider.pk})
+        messages.success(self.request, _("The evaluation was delete successfully"))
+        return super().form_valid(form)
+
+
+
 
 
 

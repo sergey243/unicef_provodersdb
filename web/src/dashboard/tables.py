@@ -11,4 +11,4 @@ class CitiesTable(tables.Table) :
     class Meta:
         model = City
         template_name = "table.html"
-        fields = ('name',"region","providers__count")
+        fields = ('name',"region")

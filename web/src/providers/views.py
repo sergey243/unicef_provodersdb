@@ -58,7 +58,10 @@ class ProviderExport(SingleTableMixin,FilterView,ListView):
             for provider in queryset:
                 row = []
                 for field in fields:
-                    row.append(provider[field])
+                    if(type(provider[field]) == str):
+                        row.append(provider[field].replace('\n', '\\n'))
+                    else:
+                        row.append(provider[field])
                 writer.writerow(row)
 
         return response

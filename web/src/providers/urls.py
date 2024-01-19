@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 urlpatterns = [
-    path('providers/explore/',login_required(views.ProvidersList.as_view()),name='providers-list'),
-    path('providers/providers-export/',login_required(views.ProviderExport.as_view()),name='providers-export'),
-    path('providers/<int:pk>/',login_required(views.ProviderDetails.as_view()),name='provider-details'),
-    path('providers/update/<int:pk>/',login_required(views.ProviderUpdate.as_view()),name='provider-update'),
-    path('providers/create/',login_required(views.ProviderCreate.as_view()),name='provider-create'),
-    path('providers/delete/<int:pk>/',login_required(views.ProviderDelete.as_view()),name='provider-delete'),
+    path('explore/',login_required(views.ProvidersList.as_view()),name='providers-list'),
+    path('export/',login_required(views.ProviderExport.as_view()),name='providers-export'),
+    path('explore/<int:pk>/',login_required(views.ProviderDetails.as_view()),name='provider-details'),
+    path('explore/update/<int:pk>/',login_required(views.ProviderUpdate.as_view()),name='provider-update'),
+    path('explore/create/',login_required(views.ProviderCreate.as_view()),name='provider-create'),
+    path('explore/delete/<int:pk>/',login_required(views.ProviderDelete.as_view()),name='provider-delete'),
     
     path('services/',login_required(views.ServicesList.as_view()),name='services-list'),
     path('services/<int:pk>/',login_required(views.ServiceDetails.as_view()),name='service-details'),
@@ -28,8 +28,8 @@ urlpatterns = [
     path('works/create/',login_required(views.WorkCreate.as_view()),name='work-create'),
     path('works/delete/<int:pk>/',login_required(views.WorkDelete.as_view()),name='work-delete'),
 
-    path('providers/evaluation/update/<int:pk>',login_required(views.EvaluationUpdate.as_view()),name='evaluation-update'),
-    path('providers/evaluation/create/<int:pk>/',login_required(views.EvaluationCreate.as_view()),name='evaluation-create'),
-    path('providers/evaluation/delete/<int:pk>/',login_required(views.EvaluationDelete.as_view()),name='evaluation-delete'),
+    path('explore/evaluation/update/<int:pk>',login_required(views.EvaluationUpdate.as_view()),name='evaluation-update'),
+    path('explore/evaluation/create/<int:pk>/',login_required(views.EvaluationCreate.as_view()),name='evaluation-create'),
+    path('explore/evaluation/delete/<int:pk>/',login_required(views.EvaluationDelete.as_view()),name='evaluation-delete'),
 
 ]

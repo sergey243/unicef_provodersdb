@@ -28,18 +28,18 @@
       <div class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-shop me-2"></i>{% translate 'Providers' %}</a>
           <div class="dropdown-menu bg-transparent border-0">
-              <a href="{% url 'providers-list' %}" class="dropdown-item {% if request.path|active:'providers/providers'  %} active {% endif %}">{% trans "Explore" %}</a>
-              <a href="{% url 'providers-export' %}" class="dropdown-item {% if request.path|active:'export'  %} active {% endif %}">{% trans "Export as CSV" %}</a>
+              <a href="{% url 'providers-list' %}" class="dropdown-item {% if request.path|active:'explore'  %} active {% endif %}">{% trans "Explore" %}</a>
+              <a href="{% url 'providers-export' %}" class="dropdown-item {% if request.path|active:'providers-export'  %} active {% endif %}">{% trans "Export as CSV" %}</a>
           </div>
       </div>
 
-      <a href="{% url 'services-list' %}" class="nav-item nav-link {% if request.path|active:'providers/services'  %} active {% endif %}"
+      <a href="{% url 'services-list' %}" class="nav-item nav-link {% if request.path|active:'services'  %} active {% endif %}"
         ><i class="fa fa-suitcase me-2"></i>{% translate 'Services' %}</a
       >
-      <a href="{% url 'goods-list' %}" class="nav-item nav-link {% if request.path|active:'providers/goods'  %} active {% endif %}"
+      <a href="{% url 'goods-list' %}" class="nav-item nav-link {% if request.path|active:'goods'  %} active {% endif %}"
         ><i class="fa fa-cart-plus me-2"></i>{% translate 'Goods' %}</a
       >
-      <a href="{% url 'works-list' %}" class="nav-item nav-link {% if request.path|active:'providers/works'  %} active {% endif %}"
+      <a href="{% url 'works-list' %}" class="nav-item nav-link {% if request.path|active:'works'  %} active {% endif %}"
         ><i class="fa fa-industry me-2"></i>{% translate 'Works' %}</a
       >
       </div>

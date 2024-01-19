@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 urlpatterns = [
-    path('providers/',login_required(views.ProvidersList.as_view()),name='providers-list'),
-    path('providers/export/',login_required(views.ProviderExport.as_view()),name='providers-export'),
+    path('providers/explore/',login_required(views.ProvidersList.as_view()),name='providers-list'),
+    path('providers/providers-export/',login_required(views.ProviderExport.as_view()),name='providers-export'),
     path('providers/<int:pk>/',login_required(views.ProviderDetails.as_view()),name='provider-details'),
     path('providers/update/<int:pk>/',login_required(views.ProviderUpdate.as_view()),name='provider-update'),
     path('providers/create/',login_required(views.ProviderCreate.as_view()),name='provider-create'),
@@ -31,8 +31,5 @@ urlpatterns = [
     path('providers/evaluation/update/<int:pk>',login_required(views.EvaluationUpdate.as_view()),name='evaluation-update'),
     path('providers/evaluation/create/<int:pk>/',login_required(views.EvaluationCreate.as_view()),name='evaluation-create'),
     path('providers/evaluation/delete/<int:pk>/',login_required(views.EvaluationDelete.as_view()),name='evaluation-delete'),
-
-    path('providers/providers/export',login_required(views.CSVDownloadView.as_view()),name='extract-providers'),
-
 
 ]

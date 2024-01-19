@@ -179,3 +179,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 DJANGO_TABLES2_TABLE_ATTRS = {
     'class': 'table table-hover',
 }
+
+LOGIN_REDIRECT_URL = '/'

@@ -28,9 +28,16 @@ class CSVDownloadView(View):
                   'equipments','competition','affiliations','affiliate_to_commerce_chamber',
                   'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
                   'comment']
-        qs = Provider.objects.all()
+        qs = Provider.objects.all().values('designation','responsible','contacts','phone','email','website',
+                  'city','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
+                  'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
+                  'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
+                  'equipments','competition','affiliations','affiliate_to_commerce_chamber',
+                  'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
+                  'comment')
         
-        return render_to_csv_response(qs)
+        return render_to_csv_response(qs, delimiter='|')
 
 
 #Providers views

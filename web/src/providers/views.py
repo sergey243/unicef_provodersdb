@@ -43,7 +43,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView):
                   'equipments','competition','affiliations','affiliate_to_commerce_chamber',
                   'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
                   'comment']
-        queryset = self.get_queryset()
+        f = ProviderFilter(request.POST,queryset=self.get_queryset())
         response = HttpResponse(content_type='text/csv')
         filename = u"providers.csv"
         response['Content-Disposition'] = u'attachment; filename="{0}"'.format(filename)
@@ -54,8 +54,8 @@ class ProviderExport(SingleTableMixin,FilterView,ListView):
             quoting=csv.QUOTE_ALL
         )
         writer.writerow(fields)
-        if(queryset.exists()):
-            for provider in queryset:
+        if(f.is_valid() and f.qs.exists()):
+            for provider in f.qs:
                 row = []
                 for field in fields:
                     if(type(provider[field]) == str):

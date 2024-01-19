@@ -1,9 +1,11 @@
+import csv
 from typing import Any
-from io import StringIO 
+from django.db.models.query import QuerySet
+from django.http import HttpResponse
 from djqscsv import render_to_csv_response
 from django.db.models.base import Model as Model
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, View
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, View, ListView
 from django.contrib import messages
 from django.urls import reverse_lazy,reverse
 from django_filters.views import FilterView
@@ -17,6 +19,49 @@ from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
 from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm
 
 
+class ProviderExport(SingleTableMixin,FilterView,ListView):
+    model = Provider
+    filterset_class = ProviderFilter
+    template_name = 'providers/providers/export.html'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        return qs.values('designation','responsible','contacts','phone','email','website',
+                  'city','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
+                  'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
+                  'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
+                  'equipments','competition','affiliations','affiliate_to_commerce_chamber',
+                  'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
+                  'comment')
+    def post(self, request, *args, **kwargs)-> HttpResponse:
+        fields = ['designation','responsible','contacts','phone','email','website',
+                  'city','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
+                  'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
+                  'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
+                  'equipments','competition','affiliations','affiliate_to_commerce_chamber',
+                  'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
+                  'comment']
+        queryset = self.get_queryset()
+        response = HttpResponse(content_type='text/csv')
+        filename = u"providers.csv"
+        response['Content-Disposition'] = u'attachment; filename="{0}"'.format(filename)
+        writer = csv.writer(
+            response,
+            delimiter='|',
+            quotechar='"',
+            quoting=csv.QUOTE_ALL
+        )
+        if(queryset.exists()):
+            for provider in queryset:
+                row = []
+                for field in fields:
+                    row.append(provider[field])
+                writer.writerow(row)
+
+        return response
+        
 
 class CSVDownloadView(View):
      def get(self, request, *args, **kwargs):

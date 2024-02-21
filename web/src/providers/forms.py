@@ -50,7 +50,7 @@ class ProviderForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ServiceForm, self).__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['rows'] = 5
+        self.fields['description'].widget.attrs['rows'] = 5
     class Meta:
         model = Service
         fields = ("name", "description")
@@ -58,7 +58,7 @@ class ServiceForm(forms.ModelForm):
 class GoodForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(GoodForm, self).__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['rows'] = 5
+        self.fields['description'].widget.attrs['rows'] = 5
     class Meta:
         model = Good
         fields = ("name", "description")
@@ -66,7 +66,7 @@ class GoodForm(forms.ModelForm):
 class WorkForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WorkForm, self).__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['rows'] = 5
+        self.fields['description'].widget.attrs['rows'] = 5
     class Meta:
         model = Work
         fields = ("name", "description")

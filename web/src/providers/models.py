@@ -291,7 +291,7 @@ class Evaluation(Model):
         else: return 'D'
     
     def __str__(self):
-        return '{}:'.format(self.designation)
+        return '{}:'.format(self.pk)
     
 
     def save(self, *args, **kwargs):

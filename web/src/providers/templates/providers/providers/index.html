@@ -44,7 +44,14 @@
         <div class="table-responsive">{% render_table table %}</div>
         <div class="d-flex justify-content-between">
           <div>
-            <button class="btn btn-primary red" type="submit" disabled>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              id="delbutton"
+              type="button"
+              class="btn btn-primary red"
+              disabled
+            >
               {% translate 'Bulk delete' %}
             </button>
           </div>
@@ -58,6 +65,63 @@
             </a>
           </div>
         </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  {% translate 'Delete service' %}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                {% blocktrans %}Do you really want to delete theses providers
+                <!-- break -->
+                {% endblocktrans %}{{object.name }}
+                <!-- break -->
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  {% translate 'Cancel' %}
+                </button>
+                <form method="post" action="{% url 'providers-delete' %}">
+                  {% csrf_token %}
+                  <input
+                    id="selection"
+                    name="selection"
+                    type="text"
+                    value="[]"
+                    hidden
+                  />
+                  <button
+                    id="delbutton"
+                    type="submit"
+                    class="btn btn-primary red"
+                  >
+                    {% translate 'Confirm' %}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
       </div>
     </div>
   </div>
@@ -67,11 +131,48 @@
 <!-- Js -->
 {% block js %}
 <script>
-  var checkboxes = $("input[type='checkbox']"),
-    submitButton = $("button[type='submit']");
+  $(document).ready(function () {
+    var checkbox = $("tbody input[type='checkbox']"),
+      submitButton = $("#delbutton"),
+      selection = [],
+      full_selection = [],
+      selected = $("#selection"),
+      maincheckbox = $("thead input[type='checkbox']"),
+      csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
-  checkboxes.click(function () {
-    submitButton.attr("disabled", !checkboxes.is(":checked"));
+    $("tbody input[type='checkbox']").each(function (index, item) {
+      full_selection.push(item.value);
+    });
+    checkbox.click(function () {
+      submitButton.attr("disabled", !checkbox.is(":checked"));
+    });
+    var delbutton = $("#bulkdelete");
+
+    var selection = new Array();
+    maincheckbox.change(function () {
+      checkbox.prop("checked", this.checked);
+      submitButton.attr("disabled", !this.checked);
+      if (this.checked) {
+        selection = full_selection;
+      } else {
+        selection = [];
+      }
+    });
+    checkbox.change(function () {
+      if (this.checked) {
+        selection.push(this.value);
+      } else {
+        const index = selection.indexOf(this.value);
+        if (index > -1) {
+          // only splice array when item is found
+          selection.splice(index, 1); // 2nd parameter means remove one item only
+        }
+      }
+      $("input#selection").prop("value", selection.join(","));
+    });
+    submitButton.click(function () {
+      console.log(selection.join(","));
+    });
   });
 </script>
 {% endblock %}

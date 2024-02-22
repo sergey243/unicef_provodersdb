@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from .models import Provider, Service, Work, Good, Evaluation
 from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable, EvaluationTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
-from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm
+from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm, BulkDeleteForm
 
 
 class ProviderExport(SingleTableMixin,FilterView,ListView):
@@ -131,6 +131,22 @@ class ProviderDelete(DeleteView):
         messages.success(self.request, _("The provider was delete successfully"))
         return super().form_valid(form)
 
+def providers_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.get("ids", [])
+        form = BulkDeleteForm(request.POST)
+        if form.is_valid():
+            selection = form.cleaned_data['selection']
+            _selection = list()
+            try:
+                for id in selection:
+                    _selection.append(int(id))
+                Provider.objects.filter(pk__in=_selection).delete()
+            except Exception as e:
+                pass
+            
+    return redirect('providers-list')
+
 #Services views    
 class ServicesList(SingleTableMixin,FilterView):
     paginate_by = 10
@@ -173,6 +189,22 @@ class ServiceDelete(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, _("The service was delete successfully"))
         return super(ServiceDelete,self).form_valid(form)
+    
+def services_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.get("ids", [])
+        form = BulkDeleteForm(request.POST)
+        if form.is_valid():
+            selection = form.cleaned_data['selection']
+            _selection = list()
+            try:
+                for id in selection:
+                    _selection.append(int(id))
+                Service.objects.filter(pk__in=_selection).delete()
+            except Exception as e:
+                pass
+            
+    return redirect('services-list')
 
 class GoodsList(SingleTableMixin,FilterView):
     paginate_by = 10
@@ -216,6 +248,22 @@ class GoodDelete(DeleteView):
         messages.success(self.request, _("The good was delete successfully"))
         return super().form_valid(form)
 
+def goods_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.get("ids", [])
+        form = BulkDeleteForm(request.POST)
+        if form.is_valid():
+            selection = form.cleaned_data['selection']
+            _selection = list()
+            try:
+                for id in selection:
+                    _selection.append(int(id))
+                Good.objects.filter(pk__in=_selection).delete()
+            except Exception as e:
+                pass
+            
+    return redirect('goods-list')
+
 class WorksList(SingleTableMixin,FilterView):
     paginate_by = 10
     model = Work
@@ -256,6 +304,22 @@ class WorkDelete(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, _("The work was delete successfully"))
         return super().form_valid(form)
+    
+def works_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.get("ids", [])
+        form = BulkDeleteForm(request.POST)
+        if form.is_valid():
+            selection = form.cleaned_data['selection']
+            _selection = list()
+            try:
+                for id in selection:
+                    _selection.append(int(id))
+                Work.objects.filter(pk__in=_selection).delete()
+            except Exception as e:
+                pass
+            
+    return redirect('works-list')
     
 class EvaluationCreate(CreateView):
     model = Evaluation

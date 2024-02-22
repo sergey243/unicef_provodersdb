@@ -2,6 +2,7 @@ from  django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, Column
 from .models import Provider, Service, Good, Work, Evaluation
+from utils.fields import CommaSeparatedField
 
 class ProviderFilterForm(forms.Form):
 
@@ -46,6 +47,9 @@ class ProviderForm(forms.ModelForm):
                     'reason_no_affiliate','offers_previously_provided','selection_mode',
                     'advantages','covered_cities_Goods','covered_cities_works',
                     'covered_cities_services','comment')
+        
+class BulkDeleteForm(forms.Form):
+    selection = CommaSeparatedField()
         
 class ServiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

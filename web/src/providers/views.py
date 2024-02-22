@@ -36,7 +36,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView):
                   'comment')
     def post(self, request, *args, **kwargs)-> HttpResponse:
         fields = ['designation','responsible','contacts','phone','email','website',
-                  'city','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
                   'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
                   'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
                   'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',

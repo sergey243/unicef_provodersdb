@@ -339,6 +339,12 @@ class EvaluationUpdate(UpdateView):
     model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["provider"] = self.object.provider
+
+        return context
+
 
 class EvaluationDelete(DeleteView):
     model = Evaluation

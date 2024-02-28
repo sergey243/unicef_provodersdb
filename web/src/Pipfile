@@ -47,6 +47,8 @@ django-table-sort = "*"
 django-tables2 = "*"
 pillow = "*"
 django-queryset-csv = "*"
+pandas = "*"
+xlsxwriter = "*"
 
 [dev-packages]
 

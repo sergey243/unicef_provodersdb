@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import fields, Model 
+from django.db.models import fields, Model, Q
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
@@ -38,16 +38,50 @@ ADVANTAGES = (
 )
 
 EVALUATION = (
-    (1,'poor'),
-    (2,'not satisfying'),
-    (3,'acceptable'),
-    (4,'good'),
-    (5,'excelent')
+    (1,_('poor')),
+    (2,_('not satisfying')),
+    (3,_('acceptable')),
+    (4,_('good')),
+    (5,_('excelent'))
 )
 
+EVALUATION_CONCLUSION = (
+    (0, _("Yes, we can keep working with this provider.")),
+    (1, _("No, we should not be working with this provider anymore."))
+)
+
+class Site(Model):
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
+    created_by = models.ForeignKey(get_user_model(),editable=False,related_name="site_creator",null=True,blank=True,on_delete=models.PROTECT)
+    last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="site_modifier",null=True,blank=True,on_delete=models.PROTECT)
+    name = models.CharField(verbose_name=_('name'),unique=True,blank=False,null=False,max_length=150)
+    city = models.ForeignKey('cities_light.City',verbose_name= _('city'), on_delete=models.SET_NULL, null=True, blank=True)
+    address = fields.TextField(verbose_name=_("description"),editable=True,max_length=250,null=True,blank=True)
+    description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
+    
+    def __str__(self) -> str:
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created_at = timezone.now()
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.modified_at = timezone.now()
+        return super(Site,self).save(*args,**kwargs)
+
+    class Meta:
+        db_table_comment = "Work sites of Unicef"
+        default_related_name = "sites"
+        get_latest_by = ["created_at","modified_at"]
+        get_latest_by = ["created_at","modified_at"]
+        ordering = ["name"]
+        db_table = "sites"
+
 class Work(Model):
-    created_at = fields.DateTimeField(editable=False)
-    modified_at = fields.DateTimeField(editable=False)
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="wcreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="wmodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
@@ -74,8 +108,8 @@ class Work(Model):
         db_table = "works"
 
 class Service(Model):
-    created_at = fields.DateTimeField(editable=False)
-    modified_at = fields.DateTimeField(editable=False)
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="screator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="smodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
@@ -103,8 +137,8 @@ class Service(Model):
         db_table = "services"
 
 class Good(Model):
-    created_at = fields.DateTimeField(editable=False)
-    modified_at = fields.DateTimeField(editable=False)
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="gcreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="gmodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
@@ -179,8 +213,8 @@ class WorkExecuted(models.Model):
         unique_together = ('provider', 'works')
 
 class Provider(Model):
-    created_at = fields.DateTimeField(editable=False)
-    modified_at = fields.DateTimeField(editable=False)
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="pcreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="pmodifier",null=True,blank=True,on_delete=models.PROTECT)
     designation = fields.CharField(verbose_name=_("designation"),unique=True,max_length=250,null=False,blank=False)
@@ -188,13 +222,13 @@ class Provider(Model):
     works = models.ManyToManyField(Work,verbose_name=_("works executed"),through=WorkExecuted,editable=True,blank=True)
     services = models.ManyToManyField(Service,verbose_name=_("services provided"),through=ServicesProvided,editable=True,blank=True)
     goods = models.ManyToManyField(Good,verbose_name=_("good provided"),through=GoodsProvided,editable=True,blank=True)
-    contacts = fields.CharField(verbose_name=_("contacts"),max_length=500,null=True,blank=True)
+    contacts = fields.TextField(verbose_name=_("contacts"),max_length=500,null=True,blank=True)
     phone = fields.CharField(verbose_name=_("phone"),max_length=150,null=True,blank=True)
     email = fields.EmailField(verbose_name=_("email"),max_length=150,null=True,blank=True)
     website = fields.CharField(verbose_name=_("website"),max_length=500,null=True,blank=True)
     country = models.ForeignKey('cities_light.Country',verbose_name= _('country'),on_delete=models.SET_NULL, null=True, blank=True,related_name="country") 
     city = models.ForeignKey('cities_light.City',verbose_name= _('city'), on_delete=models.SET_NULL, null=True, blank=True)
-    address = fields.CharField(verbose_name=_("address"),max_length=250,null=False,blank=False)
+    address = fields.TextField(verbose_name=_("address"),max_length=500,null=False,blank=False)
     subsidiaries = fields.CharField(verbose_name=_("subsidiaries"),max_length=500, blank=True, null=True)
     tax_id = fields.CharField(verbose_name=_("tax id"),max_length=50, blank=False, null=True)
     rccm = fields.CharField(verbose_name=_("R.C.C.M"),max_length=50, blank=False, null=True)
@@ -215,9 +249,9 @@ class Provider(Model):
     goods_orgin = fields.CharField(verbose_name=_('origin of goods'), max_length=250,blank=True,null=True)
     partners = fields.CharField(verbose_name=_("partners"),max_length=500, blank=True, null=True)
     workspaces = fields.CharField(verbose_name=_("workspace"),max_length=500, blank=True, null=True)
-    equipments = fields.CharField(verbose_name=_("equipments"),max_length=500, blank=True, null=True)
-    competition = fields.CharField(verbose_name=_("competition"),max_length=500, blank=True, null=True)
-    affiliations = fields.CharField(verbose_name=_("affiliations"),max_length=500, blank=True, null=True)
+    equipments = fields.TextField(verbose_name=_("equipments"),max_length=500, blank=True, null=True)
+    competition = fields.TextField(verbose_name=_("competition"),max_length=500, blank=True, null=True)
+    affiliations = fields.TextField(verbose_name=_("affiliations"),max_length=500, blank=True, null=True)
     affiliate_to_commerce_chamber = fields.BooleanField(verbose_name=_("is member of the commerce chamber"),default=False, blank=False, null=False)
     reason_no_affiliate = fields.CharField(verbose_name=_("reason for not being member of commerce chamber"),max_length=500, blank=True, null=True)
     offers_previously_provided = fields.CharField(verbose_name=_("offers previously provided"),max_length=500, blank=True, null=True,
@@ -240,6 +274,12 @@ class Provider(Model):
     @property
     def is_good_provider(self):
         return GoodsProvided.objects.filter(provider= self ).exists()
+    
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        duplicate = Provider.objects.filter(models.Q(unicef_vendor_number= self.unicef_vendor_number)|models.Q(ungm_number= self.ungm_number))
+        if duplicate.exists() and not self.pk:
+            raise ValidationError(_('A provider with the same vendor number or Unicef number exist.'))
 
 
     def save(self, *args, **kwargs):
@@ -264,11 +304,14 @@ class Provider(Model):
         db_table = "providers"
 
 class Evaluation(Model):
-    created_at = fields.DateTimeField(editable=False)
-    modified_at = fields.DateTimeField(editable=False)
+    created_at = fields.DateTimeField(editable=False,verbose_name=_("created at"))
+    modified_at = fields.DateTimeField(editable=False,verbose_name=_("last modified at"))
     created_by = models.ForeignKey(get_user_model(),editable=False,related_name="ecreator",null=True,blank=True,on_delete=models.PROTECT)
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="emodifier",null=True,blank=True,on_delete=models.PROTECT)
-    provider = models.ForeignKey('Provider',related_name="provider", on_delete=models.CASCADE)
+    provider = models.ForeignKey('Provider',related_name="provider", on_delete=models.CASCADE, verbose_name=_('provider'))
+    site = models.ForeignKey('Site',verbose_name=_("site"),on_delete=models.CASCADE,blank=False,null=False)
+    period_start = models.DateField(verbose_name=_('period start'),blank=False,null=False)
+    period_end = models.DateField(verbose_name=_('period end'),blank=False,null=False)
     works = models.ManyToManyField(Work,verbose_name=_("works evaluated"),editable=True,blank=True)
     services = models.ManyToManyField(Service,verbose_name=_("services evaluated"),editable=True,blank=True)
     goods = models.ManyToManyField(Good,verbose_name=_("good evaluated"),editable=True,blank=True)
@@ -280,6 +323,7 @@ class Evaluation(Model):
     timing = fields.IntegerField(verbose_name=_('timing'),choices=EVALUATION,blank=False, null=False)
     best_value = fields.IntegerField(verbose_name=_('quality-price report'),choices=EVALUATION,blank=False, null=False)
     tech_specification = fields.IntegerField(verbose_name=_('technical specifications'),choices=EVALUATION,blank=False, null=False)
+    conclusion = models.IntegerField(verbose_name=_("conclusion"),choices=EVALUATION_CONCLUSION,blank=False,null=False)
     comment = fields.TextField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
 
     @property
@@ -292,14 +336,15 @@ class Evaluation(Model):
     
     def __str__(self):
         return '{}:'.format(self.pk)
-    
 
     def save(self, *args, **kwargs):
+        
         if not self.id:
             self.created_at = timezone.now()
         if not self.created_at:
             self.created_at = timezone.now()
         self.modified_at = timezone.now()
+        
         return super(Evaluation,self).save(*args,**kwargs)
     
     def get_absolute_url(self):

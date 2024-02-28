@@ -29,7 +29,7 @@
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-shop me-2"></i>{% translate 'Providers' %}</a>
           <div class="dropdown-menu bg-transparent border-0">
               <a href="{% url 'providers-list' %}" class="dropdown-item {% if request.path|active:'explore'  %} active {% endif %}">{% trans "Explore" %}</a>
-              <a href="{% url 'providers-export' %}" class="dropdown-item {% if request.path|active:'export'  %} active {% endif %}">{% trans "Export as CSV" %}</a>
+              <a href="{% url 'providers-export' %}" class="dropdown-item {% if request.path|active:'export'  %} active {% endif %}">{% trans "Export" %}</a>
           </div>
       </div>
 

@@ -6,7 +6,14 @@
 {%translate 'Creating provider' %} {% endif %} {% endblock %}
 <!-- End title -->
 <!-- Assets -->
-{% block assets %}{% endblock %}
+{% block assets %}
+<style>
+  form div.required label::after {
+    content: " *";
+    color: red;
+  }
+</style>
+{% endblock %}
 <!-- End assets -->
 <!-- Content -->
 {% block content %}
@@ -23,8 +30,11 @@
           <!-- Break -->
           {% endif %}
         </h2>
-        <form method="post" action="">
+        <form method="post" action="" novalidate>
+          {{ form.media }}
+          <!-- Break -->
           {% csrf_token %} {% bootstrap_form form %}
+
           <button class="btn btn-primary" type="submit">
             {% translate 'Submit' %}
           </button>
@@ -36,5 +46,7 @@
 {% endblock content %}
 <!-- End content -->
 <!-- Js -->
-{% block js %}{% endblock %}
+{% block js %}
+<script></script>
+{% endblock %}
 <!-- End Js -->

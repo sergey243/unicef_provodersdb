@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'django_admin_listfilter_dropdown',
     "django_tables2",
+    "bootstrap_datepicker_plus",
     "profiles",
     'world',
     'providers',

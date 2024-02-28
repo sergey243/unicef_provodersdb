@@ -6,7 +6,14 @@
 {%translate 'Creating good' %} {% endif %} {% endblock %}
 <!-- End title -->
 <!-- Assets -->
-{% block assets %}{% endblock %}
+{% block assets %}
+<style>
+  form div.required label::after {
+    content: " *";
+    color: red;
+  }
+</style>
+{% endblock %}
 <!-- End assets -->
 <!-- Content -->
 {% block content %}
@@ -14,26 +21,27 @@
   <div class="row g-4">
     <div class="col-sm-12 col-xl-12">
       <div class="bg-light rounded h-100 p-4">
-        <h2>
+       
           {% if object.pk %}
           <!-- Break -->
-          {% translate 'Editing evaluation of' %}
+           <h2>{% translate 'Editing evaluation of' %}
           <!-- Break -->
-          {{ provider.designation | title }}
-          <br />
-
+          {{ provider.designation | title }}</h2>
+          <!-- Break -->
+          <p><b>{% translate 'Creation date: '  %}</b>{{ object.created_at }}
+          <br/><b>{% translate 'Creator: '  %}</b>{{ creator }}</p>
           <!-- Break -->
           {%else%}
           <!-- Break -->
-          {%translate 'Making evaluation for' %}
+          <h2>{%translate 'Making evaluation for' %}
           <!-- Break -->
-          {{ provider.designation | title }}
+          {{ provider.designation | title }}</h2>
           <!-- Break -->
           {% endif %}
-        </h2>
+        
         {% if object.pk %}<a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a>{% endif %}
-        <form method="post" action="">
-          {% csrf_token %}
+        <form method="post" action="" novalidate>
+          {% csrf_token %}{{ form.media }}
           <input
             type="hidden"
             name="provider"
@@ -41,7 +49,8 @@
             id="id_provider"
           />
           {% bootstrap_form form %}
-          <button class="btn btn-primary" type="submit">
+          
+          <button class="btn btn-primary" type="submit" >
             {% translate 'Submit' %}
           </button>
         </form>

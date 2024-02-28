@@ -1,11 +1,17 @@
+from typing import Any
 from  django import forms
+from django.db.models import Q
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, Column
+from crispy_forms.layout import Layout, Fieldset, Submit, Div
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 from .models import Provider, Service, Good, Work, Evaluation
 from utils.fields import CommaSeparatedField
 
 class ProviderFilterForm(forms.Form):
-
+    error_css_class = 'error'
+    required_css_class = 'required'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -31,9 +37,16 @@ class ProviderFilterForm(forms.Form):
 
 
 class ProviderForm(forms.ModelForm):
+    error_css_class = 'error'
+    required_css_class = 'required'
     def __init__(self, *args, **kwargs):
         super(ProviderForm, self).__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['rows'] = 5
+        self.fields['contacts'].widget.attrs['rows'] = 3
+        self.fields['affiliations'].widget.attrs['rows'] = 3
+        self.fields['equipments'].widget.attrs['rows'] = 3
+        self.fields['subsidiaries'].widget.attrs['rows'] = 3
+        self.fields['comment'].widget.attrs['rows'] = 3
+        self.fields['competition'].widget.attrs['rows'] = 3
     class Meta:
         model = Provider
         fields = ("designation", "responsible", "contacts", "phone",
@@ -49,6 +62,8 @@ class ProviderForm(forms.ModelForm):
                     'covered_cities_services','comment')
         
 class BulkDeleteForm(forms.Form):
+    error_css_class = 'error'
+    required_css_class = 'required'
     selection = CommaSeparatedField()
         
 class ServiceForm(forms.ModelForm):
@@ -60,6 +75,8 @@ class ServiceForm(forms.ModelForm):
         fields = ("name", "description")
 
 class GoodForm(forms.ModelForm):
+    error_css_class = 'error'
+    required_css_class = 'required'
     def __init__(self, *args, **kwargs):
         super(GoodForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget.attrs['rows'] = 5
@@ -68,6 +85,8 @@ class GoodForm(forms.ModelForm):
         fields = ("name", "description")
 
 class WorkForm(forms.ModelForm):
+    error_css_class = 'error'
+    required_css_class = 'required'
     def __init__(self, *args, **kwargs):
         super(WorkForm, self).__init__(*args, **kwargs)
         self.fields['description'].widget.attrs['rows'] = 5
@@ -76,14 +95,74 @@ class WorkForm(forms.ModelForm):
         fields = ("name", "description")
 
 class EvaluationForm(forms.ModelForm):
+    error_css_class = 'error'
+    required_css_class = 'required'
     def __init__(self, *args, **kwargs):
         super(EvaluationForm, self).__init__(*args, **kwargs)
         self.fields['provider'].widget.attrs['disabled'] = 'disabled'
         self.fields['description'].widget.attrs['rows'] = 5
         self.fields['comment'].widget.attrs['rows'] = 5
+        self.fields['period_start'].widget = DatePickerInput()
+        self.fields['period_end'].widget = DatePickerInput()
+
+    def clean(self) -> "dict[str, Any]":
+        clean_data = super().clean()
+        site = clean_data.get("site")
+        provider = clean_data.get("provider")
+        period_start = clean_data.get("period_start")
+        period_end = clean_data.get("period_end") 
+        if(period_start == None or period_end == None):
+            return clean_data
+        if(self.instance):
+            queryset = Evaluation.objects.filter(~Q(pk=self.instance.pk),provider=provider,site=site)
+            
+            if queryset.filter(period_start__gte=period_start, period_end__lte=period_end).exists():
+                print("catch one")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(Q(period_start__lt=period_start) & Q(period_start__lt=period_end), period_end__lte=period_end).exists():
+                print("catch two")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(Q(period_start__gte=period_start) & Q(period_start__lt=period_end),period_end__gte=period_end).exists():
+                print("catch three")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(period_start__lte=period_start, period_end__gte=period_end).exists():
+                print("catch four")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+        else:
+            queryset = Evaluation.objects.filter(provider=provider,site=site)
+            if queryset.filter(period_start__gte=period_start, period_end__lte=period_end).exists():
+                print("catch five")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(Q(period_start__lt=period_start) & Q(period_start__lt=period_end), period_end__lte=period_end).exists():
+                print("catch six")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(Q(period_start__gte=period_start) & Q(period_start__lt=period_end),period_end__gte=period_end).exists():
+                print("catch seven")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+            elif queryset.filter(period_start__lte=period_start, period_end__gte=period_end).exists():
+                print("catch sept")
+                raise ValidationError(_('Evaluation timing confict with another evalution.'))
+        return clean_data
+    
+    def clean_provider(self):
+        return self.cleaned_data["provider"]
+        
+
+    def clean_period_end(self):
+        period_end = self.cleaned_data["period_end"]
+        period_start = self.cleaned_data["period_start"]
+        if(period_end != None and period_start != None):
+            if period_end <= period_start:
+                raise ValidationError(_('Period start cannot preceed or be equal to period end'))
+            
+
+
+        # Always return a value to use as the new cleaned data, even if
+        # this method didn't change it.
+        return period_end
     class Meta:
         model = Evaluation
-        fields = ("provider","services","works","goods","lta","po_number","po_amount","description",
-                    "fiability","timing","best_value","tech_specification","comment")
+        fields = ("provider","site","services","works","goods","period_start","period_end","lta","po_number","po_amount","description",
+                    "fiability","timing","best_value","tech_specification","conclusion","comment")
 
         

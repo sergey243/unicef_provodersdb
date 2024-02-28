@@ -1,9 +1,10 @@
 import csv
 from typing import Any
 from django.db.models.query import QuerySet
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from djqscsv import render_to_csv_response
 from django.db.models.base import Model as Model
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, View, ListView
 from django.contrib import messages
@@ -13,13 +14,16 @@ from django_tables2.views import SingleTableMixin
 from django.utils.translation import gettext as _
 from django.core.serializers import serialize
 from django.shortcuts import get_object_or_404
+import pandas as pd
+from io import BytesIO
 from .models import Provider, Service, Work, Good, Evaluation
 from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable, EvaluationTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
 from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm, BulkDeleteForm
 
 
-class ProviderExport(SingleTableMixin,FilterView,ListView):
+class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixin):
+    permission_required = ("providers.provider.can_view_provider")
     model = Provider
     filterset_class = ProviderFilter
     template_name = 'providers/providers/export.html'
@@ -35,42 +39,40 @@ class ProviderExport(SingleTableMixin,FilterView,ListView):
                   'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
                   'comment')
     def post(self, request, *args, **kwargs)-> HttpResponse:
-        fields = ['designation','responsible','contacts','phone','email','website',
-                  'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
-                  'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
-                  'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
-                  'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
-                  'equipments','competition','affiliations','affiliate_to_commerce_chamber',
-                  'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
-                  'comment']
-        f = ProviderFilter(request.POST,queryset=self.get_queryset())
-        response = HttpResponse(content_type='text/csv')
-        filename = u"providers.csv"
-        response['Content-Disposition'] = u'attachment; filename="{0}"'.format(filename)
-        writer = csv.writer(
-            response,
-            delimiter='|',
-            quotechar='"',
-            quoting=csv.QUOTE_ALL
-        )
-        writer.writerow(fields)
-        if(f.is_valid() and f.qs.exists()):
-            for provider in f.qs:
-                row = []
-                for field in fields:
-                    if(type(provider[field]) == str):
-                        row.append(provider[field].replace('\n', '\\n'))
-                    else:
-                        row.append(provider[field])
-                writer.writerow(row)
 
-        return response
+        f = ProviderFilter(request.POST,queryset=self.get_queryset())
+
+        if(f.is_valid()):
+
+            df = pd.DataFrame(list(f.qs.values('designation','responsible','contacts','phone','email','website',
+                    'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                    'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
+                    'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
+                    'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
+                    'equipments','competition','affiliations','affiliate_to_commerce_chamber',
+                    'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
+                    'comment')))
+            print(df.shape)
+            with BytesIO() as b:
+                # Use the StringIO object as the filehandle.
+                writer = pd.ExcelWriter(b, engine='xlsxwriter')
+                df.to_excel(writer, sheet_name='Sheet1')
+                writer.close()
+                filename = 'providers'
+                content_type = 'application/vnd.ms-excel'
+                response = HttpResponse(b.getvalue(), content_type=content_type)
+                response['Content-Disposition'] = 'attachment; filename="' + filename + '.xlsx"'
+                return response
+        context = dict()
+        context['filter'] = f
+        return render(request,self.template_name,context)
         
 
 
 
 #Providers views
-class ProvidersList(SingleTableMixin,FilterView):
+class ProvidersList(PermissionRequiredMixin,SingleTableMixin,FilterView):
+    permission_required = ("providers.provider.can_view_provider")
     paginate_by = 10
     model = Provider
     template_name = 'providers/providers/index.html'
@@ -325,25 +327,75 @@ class EvaluationCreate(CreateView):
     model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
-    
+
     def get(self, request, pk, *args, **kwargs):
-        form = self.form_class(initial=self.initial)
         provider = get_object_or_404(Provider,pk=pk)
         self.initial["provider"] = provider
         form = self.form_class(initial=self.initial)
+        form.fields['goods'].queryset = provider.goods.all()
+        form.fields['works'].queryset = provider.works.all()
+        form.fields['services'].queryset = provider.services.all()
         self.success_url = reverse('provider-details', kwargs={'pk': provider.pk})
         return render(request,self.template_name,{'form':form, 'provider':provider})
+    def post(self, request: HttpRequest, pk:int,*args: str, **kwargs: Any) -> HttpResponse:
+        form = EvaluationForm(request.POST)
+        context = dict()
+        provider = get_object_or_404(Provider,pk=pk)
+        form.initial["provider"] = provider.pk
+        if form.is_valid():
+            evaluation = form.save(commit=False)
+            evaluation.created_by = request.user
+            evaluation.provider = provider
+            evaluation.save()
+            return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
+        form.fields['goods'].queryset = provider.goods.all()
+        form.fields['works'].queryset = provider.works.all()
+        form.fields['services'].queryset = provider.services.all()
+        context["provider"] = provider
+        context["form"] = form
+        return render(request, self.template_name, context)
+
 
 
 class EvaluationUpdate(UpdateView):
     model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context["provider"] = self.object.provider
 
-        return context
+    def get(self, request, pk, *args, **kwargs):
+        context = dict()
+        user = request.user
+        evaluation = self.get_object()
+        form = EvaluationForm(instance=evaluation)
+        form.fields['goods'].queryset = evaluation.provider.goods.all()
+        form.fields['works'].queryset = evaluation.provider.works.all()
+        form.fields['services'].queryset = evaluation.provider.services.all()
+        context["form"] = form
+        context["object"] = evaluation
+        context["provider"] = evaluation.provider
+        context["creator"] = user.get_username()
+        return render(request,self.template_name,context)
+        
+    
+    def post(self, request: HttpRequest, pk:int, *args: str, **kwargs: Any) -> HttpResponse:
+        context = dict()
+        user = request.user
+        evaluation = get_object_or_404(Evaluation,pk=pk)
+        form = EvaluationForm(request.POST,instance=evaluation)
+        provider = get_object_or_404(Provider,pk=request.POST["provider"])
+        if form.is_valid():
+            _evaluation = form.save()
+            _evaluation.last_modify_by = user            
+            _evaluation.save()
+            return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
+        form.fields['goods'].queryset = provider.goods.all()
+        form.fields['works'].queryset = provider.works.all()
+        form.fields['services'].queryset = provider.services.all()
+        context["form"] = form
+        context["provider"] = provider
+        context["object"] = evaluation
+        context["creator"] = user.get_username()
+        return render(request, self.template_name, context)
 
 
 class EvaluationDelete(DeleteView):

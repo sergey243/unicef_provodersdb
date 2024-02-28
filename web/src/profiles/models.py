@@ -30,6 +30,8 @@ class Profile(models.Model):
         
     
     def full_name(self):
+        if(self.first_name == None):
+            return self.user.get_username()
         return '{} {}'.format(self.first_name, self.last_name)
 
 

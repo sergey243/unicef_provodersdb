@@ -17,6 +17,8 @@ class MaterializeCssCheckboxColumn(tables.columns.CheckBoxColumn):
 
 class ProviderTable(tables.Table) :
     check = MaterializeCssCheckboxColumn(accessor='pk')
+    created_at = tables.columns.DateColumn(accessor="created_at",verbose_name=_('Created at'),format='d/m/Y')
+    created_by = tables.columns.DateColumn(accessor="created_by",verbose_name=_('Created by'))
     designation = tables.columns.LinkColumn(accessor="designation",verbose_name=_('Designation'))
     city = tables.columns.Column(accessor="city.name",verbose_name=_('City'))
     is_service_provider = tables.columns.Column(verbose_name=_('Services'),orderable=False)
@@ -25,7 +27,7 @@ class ProviderTable(tables.Table) :
     class Meta:
         model = Provider
         template_name = "table.html"
-        fields = ('check',"designation","city",'is_contractor',"is_service_provider","is_good_provider" )
+        fields = ('check',"created_at","created_by","designation","city",'is_contractor',"is_service_provider","is_good_provider" )
     def render_is_service_provider(self, record):
         return _('Yes') if record.is_service_provider else _('No')
     def render_is_contractor(self, record):
@@ -62,11 +64,13 @@ class ServicesTable(tables.Table):
         fields = ('check','name',"description" )
 
 class EvaluationTable(tables.Table):
+    created_at = tables.columns.DateColumn(accessor="created_at",verbose_name=_('Created at'),format='d/m/Y')
+    created_by = tables.columns.DateColumn(accessor="created_by",verbose_name=_('Created by'))
     performance = tables.columns.Column(verbose_name=_('Performance'),orderable=True)
-    lta = tables.columns.LinkColumn('evaluation-update', args=[A('pk')], orderable=False)
+    po_number = tables.columns.LinkColumn('evaluation-update', args=[A('pk')], orderable=True)
     def render_performance(self, record):
         return record.performance
     class Meta:
         model = Evaluation
         template_name = "table.html"
-        fields = ('lta','po_number','po_amount')
+        fields = ('created_at','created_by','po_number','period_start','period_end','lta','po_amount')

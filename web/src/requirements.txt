@@ -1,3 +1,4 @@
+annotated-types==0.6.0
 asgiref==3.7.2
 backports.zoneinfo==0.2.1
 beautifulsoup4==4.12.2
@@ -11,13 +12,16 @@ Django==4.2.8
 django-admin-list-filter-dropdown==1.0.3
 django-allauth==0.58.2
 django-autoslug==1.9.9
+django-bootstrap-datepicker-plus==5.0.5
 django-bootstrap-v5==1.0.11
+django-bootstrap4==24.1
 django-bootstrap5==23.3
 django-cities-light==3.10.0
 django-crispy-forms==2.1
 django-filter==23.5
 django-model-utils==4.3.1
 django-multiselectfield==0.1.12
+django-queryset-csv==1.1.0
 django-table-sort==0.5.0
 django-tables2==2.7.0
 idna==3.6
@@ -28,6 +32,8 @@ pillow==10.2.0
 progressbar2==4.2.0
 psycopg2-binary==2.9.9
 pycparser==2.21
+pydantic==2.6.2
+pydantic_core==2.16.3
 PyJWT==2.8.0
 python-dateutil==2.8.2
 python-utils==3.8.1
@@ -41,7 +47,8 @@ sqlparse==0.4.4
 swapper==1.3.0
 tqdm==4.66.1
 typing_extensions==4.9.0
-tzdata==2023.4
+tzdata==2024.1
+unicodecsv==0.14.1
 Unidecode==1.3.7
 urllib3==2.1.0
-XlsxWriter==3.1.9
+XlsxWriter==3.2.0

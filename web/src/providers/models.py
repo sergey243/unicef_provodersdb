@@ -60,7 +60,10 @@ class Site(Model):
     address = fields.TextField(verbose_name=_("description"),editable=True,max_length=250,null=True,blank=True)
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
-    def _str_(self) -> str:
+    def __str__(self) -> str:
+        return self.name
+    
+    def __repr__(self):
         return self.name
     
     def save(self, *args, **kwargs):
@@ -92,8 +95,12 @@ class Work(Model):
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
 
-    def _str_(self) -> str:
+    def __str__(self) -> str:
         return self.name
+    
+    def __repr__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.id:
             self.created_at = timezone.now()
@@ -124,7 +131,12 @@ class Service(Model):
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="smodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
-    def _str_(self) -> str:
+
+    
+    def __str__(self) -> str:
+        return self.name
+    
+    def __repr__(self):
         return self.name
     
     def save(self, *args, **kwargs):
@@ -159,7 +171,9 @@ class Good(Model):
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
-    def _str_(self) -> str:
+    def __str__(self) -> str:
+        return self.name
+    def __repr__(self):
         return self.name
     def save(self, *args, **kwargs):
         if not self.id:
@@ -192,7 +206,9 @@ class ServicesProvided(models.Model):
     def save(self, *args, **kwargs):
         return super(ServicesProvided,self).save(*args,**kwargs) 
     
-    def _str_(self):
+    def __str__(self):
+        return self.service.name
+    def __repr__(self):
         return self.service.name
     class Meta:
         db_table_comment = "Services actually provided by the providers retained by Unicef per city"
@@ -207,7 +223,9 @@ class GoodsProvided(models.Model):
     goods = models.ForeignKey(Good, on_delete=models.CASCADE)
     def save(self, *args, **kwargs):
         return super(GoodsProvided,self).save(*args,**kwargs) 
-    def _str_(self):
+    def __str__(self):
+        return self.goods.name
+    def __repr__(self):
         return self.goods.name
     class Meta:
         db_table_comment = "Goods actually provided by the providers retained by Unicef per city"
@@ -223,7 +241,10 @@ class WorkExecuted(models.Model):
     def save(self, *args, **kwargs):
         return super(WorkExecuted,self).save(*args,**kwargs) 
 
-    def _str_(self):
+    def __str__(self):
+        return self.works.name
+    
+    def __repr__(self):
         return self.works.name
     class Meta:
         default_related_name = "works_executed"
@@ -310,7 +331,7 @@ class Provider(Model):
         self.modified_at = timezone.now()
         return super(Provider,self).save(*args,**kwargs)
 
-    def _str_(self):
+    def __str__(self):
         return self.designation
 
     def get_absolute_url(self):
@@ -359,7 +380,7 @@ class Evaluation(Model):
         elif(_performance < 10 and _performance >= 3): return 'C'
         else: return 'D'
     
-    def _str_(self):
+    def __str__(self):
         return '{}:'.format(self.pk)
 
     def save(self, *args, **kwargs):

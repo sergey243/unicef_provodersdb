@@ -1,0 +1,462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-29 09:37+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/404.html:8 templates/500.html:8 templates/partials/sidebar.html:29
+msgid "Providers"
+msgstr "Fournisseurs"
+
+#: templates/404.html:24 templates/500.html:23
+msgid "Page Not Found"
+msgstr "Ressource indisponible"
+
+#: templates/404.html:26
+msgid ""
+" We’re sorry, the page you have looked for does not\n"
+"        exist. "
+msgstr ""
+
+#: templates/404.html:30 templates/500.html:29
+msgid "Go Back To Home"
+msgstr ""
+
+#: templates/500.html:25
+msgid ""
+"The server encountered an unexpected condition that\n"
+"        prevented it from fulfilling the request. "
+msgstr ""
+"Le serveur a rencontré une condition inattendue qui\n"
+" l'a empêché de répondre à la demande. "
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Compte inactif"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Ce compte est inactif"
+
+#: templates/account/email.html:5
+msgid "Account"
+msgstr "Compte"
+
+#: templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr "Adresse E-mail"
+
+#: templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Les adresses e-mail suivantes sont associées à votre compte :"
+
+#: templates/account/email.html:24
+msgid "Verified"
+msgstr "Vérifié"
+
+#: templates/account/email.html:26
+msgid "Unverified"
+msgstr "Non vérifié"
+
+#: templates/account/email.html:28
+msgid "Primary"
+msgstr "Principale"
+
+#: templates/account/email.html:34
+msgid "Make Primary"
+msgstr "Rendre princale"
+
+#: templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr "Renvoyer vérification"
+
+#: templates/account/email.html:36
+msgid "Remove"
+msgstr "Retirer"
+
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "Alerte"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"Vous n'avez actuellement aucune adresse e-mail configurée. Vous devriez "
+"vraiment ajouter une adresse e-mail pour recevoir des notifications, "
+"réinitialiser votre mot de passe, etc."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr "Ajouter une adresse e-mail"
+
+#: templates/account/email.html:53
+msgid "Add E-mail"
+msgstr "Ajouter adresse e-mail"
+
+#: templates/account/email.html:62
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Voulez-vous vraiment supprimer l'adresse e-mail sélectionnée ?"
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because user %(user_display)s has given yours "
+"as an e-mail address to connect their account.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Bonjour de la part de %(site_name)s !\n"
+"\n"
+"Vous recevez cet e-mail car l'utilisateur %(user_display)s a donné le vôtre "
+"comme adresse e-mail pour connecter leur compte.\n"
+"\n"
+"Pour confirmer que c'est correct, accédez à %(activate_url)s\n"
+
+#: templates/account/email/email_confirmation_message.txt:7
+#, python-format
+msgid ""
+"Thank you from %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Merci de la part de %(site_name)s !\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Merci de confirmer votre adresse e-mail"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+"Bonjour de la part de %(site_name)s !\n"
+"\n"
+"Vous recevez cet e-mail parce que vous ou quelqu'un d'autre avez demandé un "
+"mot de passe pour votre compte utilisateur.\n"
+"Il peut être ignoré en toute sécurité si vous n'avez pas demandé une "
+"réinitialisation du mot de passe. Cliquez sur le lien ci-dessous pour "
+"réinitialiser votre mot de passe."
+
+#: templates/account/email/password_reset_key_message.txt:8
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr ""
+"Au cas où vous l'auriez oublié, votre nom d'utilisateur est %(username)s."
+
+#: templates/account/email/password_reset_key_message.txt:10
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Merci d'utiliser %(site_name)s !\n"
+"%(site_domain)s"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "E-mail de réinitialisation du mot de passe"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr "Confirmez votre adresse email"
+
+#: templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Veuillez confirmer que <a href=\"mailto:%(email)s\">%(email)s</a> est une "
+"adresse e-mail de l'utilisateur %(user_display)s."
+
+#: templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Ce lien de confirmation par e-mail a expiré ou n'est pas valide. Veuillez <a "
+"href=\"%(email_url)s\">émettez une nouvelle demande de confirmation par e-"
+"mail</a>."
+
+#: templates/account/login.html:5 templates/account/login.html:18
+#: templates/account/login.html:38
+msgid "Sign In"
+msgstr "Se connecter"
+
+#: templates/account/login.html:35
+msgid "Forgot Password?"
+msgstr "Mot de passe oublié?"
+
+#: templates/account/logout.html:12 templates/account/logout.html:25
+msgid "Sign Out"
+msgstr "Se déconnecter"
+
+#: templates/account/logout.html:14
+msgid "Are you sure you want to sign out?"
+msgstr "Êtes-vous certain de vouloir vous déconnecter?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+"Vous ne pouvez pas supprimer votre adresse e-mail principale (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "E-mail de confirmation envoyé à %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Vous avez confirmé %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Adresse e-mail %(email)s supprimée."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr "Connectez-vous avec succès en tant que %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr "Vous vous êtes déconnecté."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Mot de passe changé avec succès."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Mot de passe défini avec succès."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Adresse e-mail principale définie."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Votre adresse e-mail principale doit être vérifiée."
+
+#: templates/account/openid/login.html:9
+msgid "OpenID Sign In"
+msgstr "Connexion OpenID"
+
+#: templates/account/password_change.html:3
+#: templates/account/password_change.html:13
+#: templates/account/password_change.html:26
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Changer le mot de passe"
+
+#: templates/account/password_reset.html:5
+#: templates/account/password_reset.html:13
+#: templates/account/password_reset_done.html:5
+#: templates/account/password_reset_done.html:15
+msgid "Password Reset"
+msgstr "Réinitialisation du mot de passe"
+
+#: templates/account/password_reset.html:31
+msgid "Reset My Password"
+msgstr "Réinitialiser mon mot de passe"
+
+#: templates/account/password_reset.html:36
+msgid ""
+"Please contact us if you have any trouble resetting\n"
+"          your password."
+msgstr ""
+"Veuillez nous contacter si vous rencontrez des problèmes de "
+"réinitialisation\n"
+"          votre mot de passe."
+
+#: templates/account/password_reset_done.html:21
+msgid ""
+"We have sent you an e-mail. Please contact us if you\n"
+"          do not receive it within a few minutes."
+msgstr ""
+"Nous vous avons envoyé un e-mail. Veuillez nous contacter si vous\n"
+"ne le recevez pas dans quelques minutes."
+
+#: templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr "Mauvais jeton"
+
+#: templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Le lien de réinitialisation du mot de passe n'était pas valide, peut-être "
+"parce qu'il a déjà étéutilisé. Veuillez demander une <a href="
+"\"%(passwd_reset_url)s\">nouvelle réinitialisation du mot de passe</a>."
+
+#: templates/account/password_reset_from_key.html:17
+msgid "change password"
+msgstr "changer le mot de passe"
+
+#: templates/account/password_reset_from_key.html:20
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Votre mot de passe est maintenant modifié."
+
+#: templates/account/password_set.html:3 templates/account/password_set.html:13
+#: templates/account/password_set.html:25
+msgid "Set Password"
+msgstr "Définir le mot de passe"
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr "S'inscrire"
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Vous avez déjà un compte ? Alors veuillez vous <a href=\"%(login_url)s"
+"\">connectez-vous</a>."
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Inscriptions closes"
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Nous sommes désolés, mais les inscriptions sont actuellement fermées."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Note"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "vous êtes déjà connecté en tant que %(user_display)s."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:8
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Vérifiez votre adresse e-mail"
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Nous vous avons envoyé un e-mail pour vérification. Suivez le lien fourni "
+"pour finalisez le processus d'inscription. Veuillez nous contacter si vous "
+"ne le recevez pasdans quelques minutes."
+
+#: templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Cette partie du site nous demande de vérifier que\n"
+"vous êtes celui que vous prétendez être. À cette fin, nous exigeons que "
+"vous\n"
+"vérifiez que vous êtes propriétaire de votre adresse e-mail. "
+
+#: templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Remarque :</strong> vous pouvez toujours <a href=\"%(email_url)s"
+"\">modifier votre e-adresse e-mail</a>."
+
+#: templates/partials/navbar.html:26
+msgid "My Profile"
+msgstr "Mon profil"
+
+#: templates/partials/navbar.html:28
+msgid "Log Out"
+msgstr "Se déconnecter"
+
+#: templates/partials/sidebar.html:26
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/partials/sidebar.html:31
+msgid "Explore"
+msgstr "Explorer"
+
+#: templates/partials/sidebar.html:32
+msgid "Export"
+msgstr "Exporter"
+
+#: templates/partials/sidebar.html:37
+msgid "Services"
+msgstr "Servces"
+
+#: templates/partials/sidebar.html:40
+msgid "Goods"
+msgstr "Biens"
+
+#: templates/partials/sidebar.html:43
+msgid "Works"
+msgstr "Travaux"
+
+#: templates/table.html:64
+msgid "previous "
+msgstr "précédent"
+
+#: templates/table.html:88
+msgid " next"
+msgstr " suivant"

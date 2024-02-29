@@ -36,6 +36,7 @@ pydantic==2.6.2
 pydantic_core==2.16.3
 PyJWT==2.8.0
 python-dateutil==2.8.2
+python-gettext==5.0
 python-utils==3.8.1
 python3-openid==3.2.0
 pytz==2023.3.post1

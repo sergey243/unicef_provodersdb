@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,6 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    
 ]
 
 ROOT_URLCONF = "provider_mngt.urls"
@@ -132,13 +134,28 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGES = [
+    ('fr', _('French')),
+    ('en-us', _('English')),
+]
+
+LANGUAGE_CODE = "fr"
 
 TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
+
+USE_L10N = True
+
+LOCALE_PATHS = [
+    os.path.join(APP_DIR, 'locale'),
+]
+PHRASE_ENABLED = True
+PHRASE_PROJECT_ID = 'YOUR_PROJECT_ID'
+PHRASE_PREFIX = '{{__'
+PHRASE_SUFFIX = '__}}'
 
 
 # Static files (CSS, JavaScript, Images)

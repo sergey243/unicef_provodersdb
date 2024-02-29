@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy,reverse
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.core.serializers import serialize
 from django.shortcuts import get_object_or_404
 import pandas as pd

@@ -1,6 +1,6 @@
 from django.utils.safestring import mark_safe
 from django_tables2 import tables
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django_tables2.utils import A
 from .models import Provider, Service, Good, Work, Evaluation
 

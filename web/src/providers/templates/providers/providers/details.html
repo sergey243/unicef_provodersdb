@@ -246,8 +246,8 @@
                         <p>
                           <b>{% translate 'Annual turn over' %}</b><br />
                           <ol>
-                            <li>{% translate 'Past year to registration' %}:{% if object.last_turnover %} {{ object.last_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
-                            <li>{% translate 'Two years past registration' %}: {% if object.past_annual_turnover %} {{ object.past_annual_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
+                            <li>{% translate 'Previous year to registration' %}:{% if object.last_turnover %} {{ object.last_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
+                            <li>{% translate 'Two years before registration' %}: {% if object.past_annual_turnover %} {{ object.past_annual_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
                           </ol>
                       
                         </p>

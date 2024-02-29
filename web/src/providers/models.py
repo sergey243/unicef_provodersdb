@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import fields, Model, Q
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from cities_light import models as cities_models
 from multiselectfield import MultiSelectField
 from django.urls import reverse
@@ -28,7 +28,7 @@ CURRENCIES = (
 SELECTION_MODE = (
     ('tender',_('On tender call')),
     ('consultation',_('Restricted consultation')),
-    ('excusive',_('On direct order'))
+    ('exclusive',_('On direct order'))
 )
 
 ADVANTAGES = (

@@ -1,6 +1,6 @@
 from django import forms
 import django_filters 
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from cities_light.models import City
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Div, MultiField, Row, Column

@@ -2,7 +2,7 @@ from typing import Any
 from  django import forms
 from django.db.models import Q
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Div
 from bootstrap_datepicker_plus.widgets import DatePickerInput
@@ -153,9 +153,8 @@ class EvaluationForm(forms.ModelForm):
         period_start = self.cleaned_data["period_start"]
         if(period_end != None and period_start != None):
             if period_end <= period_start:
-                raise ValidationError(_('Period start cannot preceed or be equal to period end'))
+                raise ValidationError(_('Period start cannot be greater or equal to period end'))
             
-
 
         # Always return a value to use as the new cleaned data, even if
         # this method didn't change it.

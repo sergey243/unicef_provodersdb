@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 11:32+0100\n"
+"POT-Creation-Date: 2024-02-29 12:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,12 +41,26 @@ msgstr "Nom"
 msgid "Name should contain"
 msgstr "Le nom doit contenir"
 
-#: forms.py:121 forms.py:124 forms.py:127 forms.py:130 forms.py:135
-#: forms.py:138 forms.py:141 forms.py:144
+#: forms.py:55
+#, fuzzy
+#| msgid "A provider with the same vendor number or Unicef number exist."
+msgid "Provider with same UNGM number exist."
+msgstr ""
+"Il existe un fournisseur avec le même numéro de fournisseur ou numéro Unicef."
+
+#: forms.py:62
+#, fuzzy
+#| msgid "A provider with the same vendor number or Unicef number exist."
+msgid "Provider with same Unicef vendor number number exist."
+msgstr ""
+"Il existe un fournisseur avec le même numéro de fournisseur ou numéro Unicef."
+
+#: forms.py:135 forms.py:137 forms.py:139 forms.py:141 forms.py:145
+#: forms.py:147 forms.py:149 forms.py:151
 msgid "Evaluation timing confict with another evalution."
 msgstr "Le timing de l’évaluation est en conflit avec une autre évaluation."
 
-#: forms.py:156
+#: forms.py:163
 msgid "Period start cannot be greater or equal to period end"
 msgstr ""
 "Le début de la période ne peut pas être supérieur ou égal à la fin de la "
@@ -375,7 +389,7 @@ msgstr "fin de période"
 
 #: models.py:315
 msgid "works evaluated"
-msgstr "œuvres évaluées"
+msgstr "travaux évaluées"
 
 #: models.py:316
 msgid "services evaluated"
@@ -403,7 +417,7 @@ msgstr "fiabilité"
 
 #: models.py:323
 msgid "timing"
-msgstr "Horaire"
+msgstr "Ponctualité"
 
 #: models.py:324
 msgid "quality-price report"
@@ -830,9 +844,9 @@ msgid ""
 "Services, goods or works offered to Unicef, other united nation agencies, "
 "bilateral coperation agencies, or gorvenmental or non governmental engencies"
 msgstr ""
-"Services, biens ou travaux offerts à Unicef, à d'autres agences des "
-"Nations Unies,agences de coopération bilatérales, agences gouvernementales "
-"ou non gouvernementales"
+"Services, biens ou travaux offerts à Unicef, à d'autres agences des Nations "
+"Unies,agences de coopération bilatérales, agences gouvernementales ou non "
+"gouvernementales"
 
 #: templates/providers/providers/details.html:349
 #: templates/providers/providers/details.html:353

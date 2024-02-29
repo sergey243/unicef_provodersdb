@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
     "django_tables2",
     "bootstrap_datepicker_plus",
+    'permissions_auditor',
     "profiles",
     'world',
     'providers',

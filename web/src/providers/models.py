@@ -60,7 +60,7 @@ class Site(Model):
     address = fields.TextField(verbose_name=_("description"),editable=True,max_length=250,null=True,blank=True)
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
-    def __str__(self) -> str:
+    def _str_(self) -> str:
         return self.name
     
     def save(self, *args, **kwargs):
@@ -72,6 +72,11 @@ class Site(Model):
         return super(Site,self).save(*args,**kwargs)
 
     class Meta:
+        permissions = (("can_create_site", _("can create a new site")),
+                       ("can_remove_site", _("can remove site")),
+                       ("can_change_site", _("can update a site")),
+                       ("can_visualize_site", _("can visualize sites")),
+                    )
         db_table_comment = "Work sites of Unicef"
         default_related_name = "sites"
         get_latest_by = ["created_at","modified_at"]
@@ -87,7 +92,7 @@ class Work(Model):
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
 
-    def __str__(self) -> str:
+    def _str_(self) -> str:
         return self.name
     def save(self, *args, **kwargs):
         if not self.id:
@@ -100,6 +105,11 @@ class Work(Model):
     def get_absolute_url(self):
         return reverse('work-details',args=[self.pk])   
     class Meta:
+        permissions = (("can_create_work", _("can create a new work")),
+                       ("can_remove_work", _("can remove work")),
+                       ("can_change_work", _("can update a work")),
+                       ("can_visualize_work", _("can visualize work")),
+                    )
         db_table_comment = "Works required by Unicef"
         default_related_name = "works"
         get_latest_by = ["created_at","modified_at"]
@@ -114,7 +124,7 @@ class Service(Model):
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="smodifier",null=True,blank=True,on_delete=models.PROTECT)
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
-    def __str__(self) -> str:
+    def _str_(self) -> str:
         return self.name
     
     def save(self, *args, **kwargs):
@@ -129,6 +139,11 @@ class Service(Model):
         return reverse('service-details',args=[self.pk])
     
     class Meta:
+        permissions = (("can_create_service", _("can create a new service")),
+                       ("can_remove_service", _("can remove service")),
+                       ("can_change_service", _("can update a service")),
+                       ("can_visualize_service", _("can visualize service")),
+                    )
         db_table_comment = "Services required by Unicef"
         default_related_name = "services"
         get_latest_by = ["created_at","modified_at"]
@@ -144,7 +159,7 @@ class Good(Model):
     name = fields.CharField(verbose_name=_("name"),editable=True,unique=True,max_length=500,null=False,blank=False)      
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
-    def __str__(self) -> str:
+    def _str_(self) -> str:
         return self.name
     def save(self, *args, **kwargs):
         if not self.id:
@@ -158,6 +173,11 @@ class Good(Model):
         return reverse('good-details',args=[self.pk])
     
     class Meta:
+        permissions = (("can_create_good", _("can create a new good")),
+                       ("can_remove_good", _("can remove good")),
+                       ("can_change_good", _("can update a good")),
+                       ("can_visualize_good", _("can visualize good")),
+                    )
         db_table_comment = "Goods required by Unicef"
         default_related_name = "goods"
         get_latest_by = ["created_at","modified_at"]
@@ -172,7 +192,7 @@ class ServicesProvided(models.Model):
     def save(self, *args, **kwargs):
         return super(ServicesProvided,self).save(*args,**kwargs) 
     
-    def __str__(self):
+    def _str_(self):
         return self.service.name
     class Meta:
         db_table_comment = "Services actually provided by the providers retained by Unicef per city"
@@ -187,7 +207,7 @@ class GoodsProvided(models.Model):
     goods = models.ForeignKey(Good, on_delete=models.CASCADE)
     def save(self, *args, **kwargs):
         return super(GoodsProvided,self).save(*args,**kwargs) 
-    def __str__(self):
+    def _str_(self):
         return self.goods.name
     class Meta:
         db_table_comment = "Goods actually provided by the providers retained by Unicef per city"
@@ -203,7 +223,7 @@ class WorkExecuted(models.Model):
     def save(self, *args, **kwargs):
         return super(WorkExecuted,self).save(*args,**kwargs) 
 
-    def __str__(self):
+    def _str_(self):
         return self.works.name
     class Meta:
         default_related_name = "works_executed"
@@ -290,12 +310,17 @@ class Provider(Model):
         self.modified_at = timezone.now()
         return super(Provider,self).save(*args,**kwargs)
 
-    def __str__(self):
+    def _str_(self):
         return self.designation
 
     def get_absolute_url(self):
         return reverse('provider-details',args=[self.pk])
     class Meta:
+        permissions = (("can_create_provider", _("can create a new provider")),
+                       ("can_remove_provider", _("can remove provider")),
+                       ("can_change_provider", _("can update a provider")),
+                       ("can_visualize_provider", _("can visualize provider")),
+                    )
         db_table_comment = "Provider identified and retained by Unicef"
         default_related_name = "providers"
         get_latest_by = ["created_at","modified_at"]
@@ -334,7 +359,7 @@ class Evaluation(Model):
         elif(_performance < 10 and _performance >= 3): return 'C'
         else: return 'D'
     
-    def __str__(self):
+    def _str_(self):
         return '{}:'.format(self.pk)
 
     def save(self, *args, **kwargs):
@@ -350,6 +375,11 @@ class Evaluation(Model):
     def get_absolute_url(self):
         return reverse('provider-details',args=[self.provider.pk])
     class Meta:
+        permissions = (("can_create_evaluation", _("can create a new evaluation")),
+                       ("can_remove_evaluation", _("can remove evaluation")),
+                       ("can_change_evaluation", _("can update an evaluation")),
+                       ("can_visualize_evaluation", _("can visualize evaluation")),
+                    )
         default_related_name = "evaluations"
         get_latest_by = ["created_at","modified_at"]
         get_latest_by = ["created_at","modified_at"]

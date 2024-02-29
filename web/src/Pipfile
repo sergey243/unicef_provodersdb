@@ -49,6 +49,7 @@ pillow = "*"
 django-queryset-csv = "*"
 pandas = "*"
 xlsxwriter = "*"
+django-permissions-auditor = "*"
 
 [dev-packages]
 

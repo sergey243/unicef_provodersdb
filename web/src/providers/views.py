@@ -23,7 +23,7 @@ from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm,
 
 
 class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixin):
-    permission_required = ("providers.provider.can_view_provider")
+    permission_required = ("providers.can_visualize_provider")
     model = Provider
     filterset_class = ProviderFilter
     template_name = 'providers/providers/export.html'
@@ -31,7 +31,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
         return qs.values('designation','responsible','contacts','phone','email','website',
-                  'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'city_name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
                   'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
                   'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
                   'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
@@ -45,7 +45,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
         if(f.is_valid()):
 
             df = pd.DataFrame(list(f.qs.values('designation','responsible','contacts','phone','email','website',
-                    'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                    'city_name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
                     'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
                     'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
                     'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
@@ -72,7 +72,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
 
 #Providers views
 class ProvidersList(PermissionRequiredMixin,SingleTableMixin,FilterView):
-    permission_required = ("providers.provider.can_view_provider")
+    permission_required = ("providers.can_visualize_provider")
     paginate_by = 10
     model = Provider
     template_name = 'providers/providers/index.html'
@@ -87,7 +87,8 @@ class ProvidersList(PermissionRequiredMixin,SingleTableMixin,FilterView):
         context = super().get_context_data(**kwargs)
         return context 
 
-class ProviderDetails(DetailView, SingleTableMixin):
+class ProviderDetails(DetailView, SingleTableMixin,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_provider")
     model = Provider
     template_name = 'providers/providers/details.html'
     paginate_by = 10
@@ -114,18 +115,21 @@ class ProviderDetails(DetailView, SingleTableMixin):
     
         return context
 
-class ProviderUpdate(UpdateView):
+class ProviderUpdate(UpdateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_change_provider")
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
 
-class ProviderCreate(CreateView):
+class ProviderCreate(CreateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_create_provider")
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
 
 
-class ProviderDelete(DeleteView):
+class ProviderDelete(DeleteView,PermissionRequiredMixin):
+    permission_required = ("providers.can_remove_provider")
     model = Provider
     success_url = reverse_lazy('providers-list')
     
@@ -143,14 +147,15 @@ def providers_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Provider.objects.filter(pk__in=_selection).delete()
+                Provider.objects.filter(pk_in=_selection).delete()
             except Exception as e:
                 pass
             
     return redirect('providers-list')
 
 #Services views    
-class ServicesList(SingleTableMixin,FilterView):
+class ServicesList(SingleTableMixin,FilterView,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_service")
     paginate_by = 10
     model = Service
     template_name = 'providers/services/index.html'
@@ -165,7 +170,8 @@ class ServicesList(SingleTableMixin,FilterView):
         context = super(ServicesList, self).get_context_data(**kwargs)
         return context 
 
-class ServiceDetails(DetailView):
+class ServiceDetails(DetailView,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_service")
     model = Service
     template_name = 'providers/services/details.html'
     
@@ -174,17 +180,20 @@ class ServiceDetails(DetailView):
 
         return context
 
-class ServiceUpdate(UpdateView):
+class ServiceUpdate(UpdateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_change_service")
     model = Service
     template_name = 'providers/services/form.html'
     form_class = ServiceForm
 
-class ServiceCreate(CreateView):
+class ServiceCreate(CreateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_create_service")
     model = Service
     template_name = 'providers/services/form.html'
     form_class = ServiceForm
 
-class ServiceDelete(DeleteView):
+class ServiceDelete(DeleteView,PermissionRequiredMixin):
+    permission_required = ("providers.can_remove_service")
     model = Service
     success_url = reverse_lazy('services-list')
     
@@ -202,13 +211,14 @@ def services_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Service.objects.filter(pk__in=_selection).delete()
+                Service.objects.filter(pk_in=_selection).delete()
             except Exception as e:
                 pass
             
     return redirect('services-list')
 
-class GoodsList(SingleTableMixin,FilterView):
+class GoodsList(SingleTableMixin,FilterView,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_good")
     paginate_by = 10
     model = Good
     template_name = 'providers/goods/index.html'
@@ -223,7 +233,8 @@ class GoodsList(SingleTableMixin,FilterView):
         context = super().get_context_data(**kwargs)
         return context 
 
-class GoodDetails(DetailView):
+class GoodDetails(DetailView,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_good")
     model = Good
     template_name = 'providers/goods/details.html'
     
@@ -232,17 +243,20 @@ class GoodDetails(DetailView):
 
         return context
 
-class GoodUpdate(UpdateView):
+class GoodUpdate(UpdateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_change_good")
     model = Good
     template_name = 'providers/goods/form.html'
     form_class = GoodForm
 
-class GoodCreate(CreateView):
+class GoodCreate(CreateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_create_good")
     model = Good
     template_name = 'providers/goods/form.html'
     form_class = GoodForm
 
-class GoodDelete(DeleteView):
+class GoodDelete(DeleteView,PermissionRequiredMixin):
+    permission_required = ("providers.can_remove_good")
     model = Good
     success_url = reverse_lazy('goods-list')
     
@@ -260,13 +274,14 @@ def goods_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Good.objects.filter(pk__in=_selection).delete()
+                Good.objects.filter(pk_in=_selection).delete()
             except Exception as e:
                 pass
             
     return redirect('goods-list')
 
-class WorksList(SingleTableMixin,FilterView):
+class WorksList(SingleTableMixin,FilterView,PermissionRequiredMixin):
+    permission_required = ("providers.can_visualize_work")
     paginate_by = 10
     model = Work
     template_name = 'providers/works/index.html'
@@ -281,7 +296,8 @@ class WorksList(SingleTableMixin,FilterView):
         context = super().get_context_data(**kwargs)
         return context 
     
-class WorkDetails(DetailView):
+class WorkDetails(DetailView,PermissionRequiredMixin):
+    permission_required = ("providers.work.providers.can_visualize_work")
     model = Work
     template_name = 'providers/works/details.html'
     
@@ -289,17 +305,20 @@ class WorkDetails(DetailView):
         context = super().get_context_data()
         return context
 
-class WorkUpdate(UpdateView):
+class WorkUpdate(UpdateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_change_work")
     model = Work
     template_name = 'providers/works/form.html'
     form_class = WorkForm
 
-class WorkCreate(CreateView):
+class WorkCreate(CreateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_create_work")
     model = Work
     template_name = 'providers/works/form.html'
     form_class = WorkForm
 
-class WorkDelete(DeleteView):
+class WorkDelete(DeleteView,PermissionRequiredMixin):
+    permission_required = ("providers.can_remove_work")
     model = Work
     success_url = reverse_lazy('works-list')
     
@@ -317,13 +336,14 @@ def works_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Work.objects.filter(pk__in=_selection).delete()
+                Work.objects.filter(pk_in=_selection).delete()
             except Exception as e:
                 pass
             
     return redirect('works-list')
     
-class EvaluationCreate(CreateView):
+class EvaluationCreate(CreateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_create_evaluation")
     model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
@@ -357,7 +377,8 @@ class EvaluationCreate(CreateView):
 
 
 
-class EvaluationUpdate(UpdateView):
+class EvaluationUpdate(UpdateView,PermissionRequiredMixin):
+    permission_required = ("providers.can_change_evaluation")
     model = Evaluation
     template_name = 'providers/evaluations/form.html'
     form_class = EvaluationForm
@@ -398,7 +419,7 @@ class EvaluationUpdate(UpdateView):
         return render(request, self.template_name, context)
 
 
-class EvaluationDelete(DeleteView):
+class EvaluationDelete(DeleteView,PermissionRequiredMixin):
     model = Evaluation
 
     def form_valid(self, form):

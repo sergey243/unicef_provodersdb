@@ -47,6 +47,21 @@ class ProviderForm(forms.ModelForm):
         self.fields['subsidiaries'].widget.attrs['rows'] = 3
         self.fields['comment'].widget.attrs['rows'] = 3
         self.fields['competition'].widget.attrs['rows'] = 3
+    
+    def clean_ungm_number(self):
+        ungm_number = self.cleaned_data["ungm_number"]
+        queryset = Provider.objects.filter(ungm_number=ungm_number)
+        if(queryset.exists()):
+            raise ValidationError(_('Provider with same UNGM number exist.'))
+        return ungm_number
+    
+    def clean_unicef_vendor_number(self):
+        unicef_vendor_number = self.cleaned_data["unicef_vendor_number"]
+        queryset = Provider.objects.filter(unicef_vendor_number=unicef_vendor_number)
+        if(queryset.exists()):
+            raise ValidationError(_('Provider with same Unicef vendor number number exist.'))
+        return unicef_vendor_number
+
     class Meta:
         model = Provider
         fields = ("designation", "responsible", "contacts", "phone",
@@ -117,30 +132,22 @@ class EvaluationForm(forms.ModelForm):
             queryset = Evaluation.objects.filter(~Q(pk=self.instance.pk),provider=provider,site=site)
             
             if queryset.filter(period_start__gte=period_start, period_end__lte=period_end).exists():
-                print("catch one")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(Q(period_start__lt=period_start) & Q(period_start__lt=period_end), period_end__lte=period_end).exists():
-                print("catch two")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(Q(period_start__gte=period_start) & Q(period_start__lt=period_end),period_end__gte=period_end).exists():
-                print("catch three")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(period_start__lte=period_start, period_end__gte=period_end).exists():
-                print("catch four")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
         else:
             queryset = Evaluation.objects.filter(provider=provider,site=site)
             if queryset.filter(period_start__gte=period_start, period_end__lte=period_end).exists():
-                print("catch five")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(Q(period_start__lt=period_start) & Q(period_start__lt=period_end), period_end__lte=period_end).exists():
-                print("catch six")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(Q(period_start__gte=period_start) & Q(period_start__lt=period_end),period_end__gte=period_end).exists():
-                print("catch seven")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
             elif queryset.filter(period_start__lte=period_start, period_end__gte=period_end).exists():
-                print("catch sept")
                 raise ValidationError(_('Evaluation timing confict with another evalution.'))
         return clean_data
     

@@ -8,6 +8,23 @@
   </a>
 
   <div class="navbar-nav align-items-center ms-auto">
+    <div class="nav-item">
+    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}">
+      
+      <select name="language" class="form-control-inline">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
+          {% for language in languages %}
+              <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                  {{ language.name_local }} ({{ language.code }})
+              </option>
+          {% endfor %}
+      </select>
+      <input type="submit" class="btn btn-light" value="Go">
+    </form>
+    </div>
     <div class="nav-item dropdown">
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
         <img
@@ -23,7 +40,6 @@
       <div
         class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
       >
-        <a href="#" class="dropdown-item">{% trans 'My Profile' %}</a>
         <a href="{% url 'account_logout' %}" class="dropdown-item"
           >{% trans 'Log Out' %}</a
         >

@@ -140,7 +140,7 @@ LANGUAGES = [
     ('en-us', _('English')),
 ]
 
-LANGUAGE_CODE = "fr"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 

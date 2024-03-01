@@ -268,7 +268,7 @@ msgstr "services fournis"
 
 #: models.py:265
 msgid "good provided"
-msgstr "bien fourni"
+msgstr "biens fournis"
 
 #: models.py:266
 msgid "contacts"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: templates/providers/providers/details.html:141
 msgid "Address and Contacts"
-msgstr ""
+msgstr "Adresse et contacts"
 
 #: templates/providers/providers/details.html:152
 msgid "Address"
@@ -838,7 +838,7 @@ msgstr "Email"
 #: templates/providers/providers/details.html:172
 #: templates/providers/providers/details.html:176
 msgid "Website"
-msgstr ""
+msgstr "Site web"
 
 #: templates/providers/providers/details.html:180
 msgid "Subsidiaries"

@@ -35,7 +35,7 @@ msgstr "Fournisseurs services"
 
 #: dashboard/templates/dashboard/index.html:30
 msgid "Contractors"
-msgstr "contracteur"
+msgstr "contracteurs"
 
 #: dashboard/templates/dashboard/index.html:41
 msgid "Goods Providers"

@@ -51,15 +51,17 @@ class ProviderForm(forms.ModelForm):
     def clean_ungm_number(self):
         ungm_number = self.cleaned_data["ungm_number"]
         queryset = Provider.objects.filter(ungm_number=ungm_number)
-        if(queryset.exists()):
-            raise ValidationError(_('Provider with same UNGM number exist.'))
+        if(queryset.exists() & ungm_number != None):
+            if(queryset.count() == 1 and queryset.first().pk == self.instance.pk ): pass
+            else: raise ValidationError(_('Provider with same UNGM number exist.'))
         return ungm_number
     
     def clean_unicef_vendor_number(self):
         unicef_vendor_number = self.cleaned_data["unicef_vendor_number"]
         queryset = Provider.objects.filter(unicef_vendor_number=unicef_vendor_number)
-        if(queryset.exists()):
-            raise ValidationError(_('Provider with same Unicef vendor number number exist.'))
+        if(queryset.exists() and unicef_vendor_number != None):
+            if(queryset.count() == 1 and queryset.first().pk == self.instance.pk ): pass
+            else: raise ValidationError(_('Provider with same UNGM number exist.'))
         return unicef_vendor_number
 
     class Meta:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 09:37+0100\n"
+"POT-Creation-Date: 2024-03-01 13:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/404.html:8 templates/500.html:8 templates/partials/sidebar.html:29
-msgid "Providers"
-msgstr "Fournisseurs"
+#: templates/403.html:8
+msgid "403"
+msgstr ""
+
+#: templates/403.html:24
+msgid "Forbidden action"
+msgstr "Action non autorisée"
+
+#: templates/403.html:26
+msgid ""
+" We’re sorry, the action is forbidden.<!--Break-->\n"
+"        "
+msgstr ""
+" Nous sommes désolés, l'action n'est pas autorisée.<!--Break-->\n"
+"        "
+#: templates/403.html:30 templates/404.html:30 templates/500.html:29
+msgid "Go Back To Home"
+msgstr "Retourner à l'acceuil"
+
+#: templates/404.html:8
+msgid "404"
+msgstr "404"
 
 #: templates/404.html:24 templates/500.html:23
 msgid "Page Not Found"
@@ -31,9 +50,11 @@ msgid ""
 " We’re sorry, the page you have looked for does not\n"
 "        exist. "
 msgstr ""
+" Nous sommes désolés, la page que vous avez recherchée n'existe pas\n"
+"        exister. "
 
-#: templates/404.html:30 templates/500.html:29
-msgid "Go Back To Home"
+#: templates/500.html:8
+msgid "500"
 msgstr ""
 
 #: templates/500.html:25
@@ -400,6 +421,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
+"Cette partie du site nous demande de vérifier que\n"
+"vous êtes celui que vous prétendez être. À cette fin, nous exigeons que vous\n"
+"vérifiez que vous êtes propriétaire de votre adresse e-mail. "
 
 #: templates/account/verified_email_required.html:16
 msgid ""
@@ -432,6 +456,10 @@ msgstr "Se déconnecter"
 #: templates/partials/sidebar.html:26
 msgid "Dashboard"
 msgstr "Tableau de bord"
+
+#: templates/partials/sidebar.html:29
+msgid "Providers"
+msgstr "Fournisseurs"
 
 #: templates/partials/sidebar.html:31
 msgid "Explore"

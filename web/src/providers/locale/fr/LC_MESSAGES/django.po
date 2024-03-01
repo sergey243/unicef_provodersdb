@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 12:35+0100\n"
+"POT-Creation-Date: 2024-03-01 13:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,26 +41,19 @@ msgstr "Nom"
 msgid "Name should contain"
 msgstr "Le nom doit contenir"
 
-#: forms.py:55
+#: forms.py:56 forms.py:64
 #, fuzzy
 #| msgid "A provider with the same vendor number or Unicef number exist."
 msgid "Provider with same UNGM number exist."
 msgstr ""
 "Il existe un fournisseur avec le même numéro de fournisseur ou numéro Unicef."
 
-#: forms.py:62
-#, fuzzy
-#| msgid "A provider with the same vendor number or Unicef number exist."
-msgid "Provider with same Unicef vendor number number exist."
-msgstr ""
-"Il existe un fournisseur avec le même numéro de fournisseur ou numéro Unicef."
-
-#: forms.py:135 forms.py:137 forms.py:139 forms.py:141 forms.py:145
-#: forms.py:147 forms.py:149 forms.py:151
+#: forms.py:137 forms.py:139 forms.py:141 forms.py:143 forms.py:147
+#: forms.py:149 forms.py:151 forms.py:153
 msgid "Evaluation timing confict with another evalution."
 msgstr "Le timing de l’évaluation est en conflit avec une autre évaluation."
 
-#: forms.py:163
+#: forms.py:165
 msgid "Period start cannot be greater or equal to period end"
 msgstr ""
 "Le début de la période ne peut pas être supérieur ou égal à la fin de la "
@@ -162,178 +155,250 @@ msgstr "Oui, nous pouvons continuer à travailler avec ce fournisseur."
 msgid "No, we should not be working with this provider anymore."
 msgstr "Non, nous ne devrions plus travailler avec ce fournisseur."
 
-#: models.py:54 models.py:83 models.py:111 models.py:140 models.py:216
-#: models.py:307
+#: models.py:54 models.py:91 models.py:128 models.py:167 models.py:257
+#: models.py:353
 msgid "created at"
 msgstr "date de création"
 
-#: models.py:55 models.py:84 models.py:112 models.py:141 models.py:217
-#: models.py:308
+#: models.py:55 models.py:92 models.py:129 models.py:168 models.py:258
+#: models.py:354
 msgid "last modified at"
 msgstr "dernière modification"
 
-#: models.py:58 models.py:87 models.py:115 models.py:144
+#: models.py:58 models.py:95 models.py:132 models.py:171
 msgid "name"
 msgstr "nom"
 
-#: models.py:59 models.py:230
+#: models.py:59 models.py:271
 msgid "city"
 msgstr "ville"
 
-#: models.py:60 models.py:61 models.py:88 models.py:116 models.py:145
-#: models.py:321
+#: models.py:60 models.py:61 models.py:96 models.py:133 models.py:172
+#: models.py:367
 msgid "description"
 msgstr "description"
 
-#: models.py:220
+#: models.py:78
+msgid "can create a new site"
+msgstr ""
+
+#: models.py:79
+msgid "can remove site"
+msgstr ""
+
+#: models.py:80
+msgid "can update a site"
+msgstr ""
+
+#: models.py:81
+msgid "can visualize sites"
+msgstr ""
+
+#: models.py:115
+msgid "can create a new work"
+msgstr ""
+
+#: models.py:116
+msgid "can remove work"
+msgstr ""
+
+#: models.py:117
+msgid "can update a work"
+msgstr ""
+
+#: models.py:118
+msgid "can visualize work"
+msgstr ""
+
+#: models.py:154
+#, fuzzy
+#| msgid "Creating service"
+msgid "can create a new service"
+msgstr "Création service"
+
+#: models.py:155
+#, fuzzy
+#| msgid "Provide services in"
+msgid "can remove service"
+msgstr "Fournit des services à"
+
+#: models.py:156
+#, fuzzy
+#| msgid "After sales service"
+msgid "can update a service"
+msgstr "Service après-vente"
+
+#: models.py:157
+#, fuzzy
+#| msgid "After sales service"
+msgid "can visualize service"
+msgstr "Service après-vente"
+
+#: models.py:190
+msgid "can create a new good"
+msgstr ""
+
+#: models.py:191
+msgid "can remove good"
+msgstr ""
+
+#: models.py:192
+msgid "can update a good"
+msgstr ""
+
+#: models.py:193
+msgid "can visualize good"
+msgstr ""
+
+#: models.py:261
 msgid "designation"
 msgstr "désignation"
 
-#: models.py:221
+#: models.py:262
 msgid "responsible"
 msgstr "responsable"
 
-#: models.py:222
+#: models.py:263
 msgid "works executed"
 msgstr "travaux exécutés"
 
-#: models.py:223
+#: models.py:264
 msgid "services provided"
 msgstr "services fournis"
 
-#: models.py:224
+#: models.py:265
 msgid "good provided"
 msgstr "bien fourni"
 
-#: models.py:225
+#: models.py:266
 msgid "contacts"
 msgstr "contacts"
 
-#: models.py:226
+#: models.py:267
 msgid "phone"
 msgstr "téléphone"
 
-#: models.py:227
+#: models.py:268
 msgid "email"
 msgstr "email"
 
-#: models.py:228
+#: models.py:269
 msgid "website"
 msgstr "site web"
 
-#: models.py:229
+#: models.py:270
 msgid "country"
 msgstr "pays"
 
-#: models.py:231
+#: models.py:272
 msgid "address"
 msgstr "adresse"
 
-#: models.py:232
+#: models.py:273
 msgid "subsidiaries"
 msgstr "filiales"
 
-#: models.py:233
+#: models.py:274
 msgid "tax id"
 msgstr "numéro d'identification fiscale"
 
-#: models.py:234 templates/providers/providers/details.html:211
+#: models.py:275 templates/providers/providers/details.html:211
 msgid "R.C.C.M"
 msgstr "R.C.C.M"
 
-#: models.py:235
+#: models.py:276
 msgid "national ID"
 msgstr "identification national"
 
-#: models.py:236
+#: models.py:277
 msgid "bank domiciliation"
 msgstr "domiciliation bancaire"
 
-#: models.py:237
+#: models.py:278
 msgid "active since"
 msgstr "Actif depuis"
 
-#: models.py:238 templates/providers/providers/details.html:228
+#: models.py:279 templates/providers/providers/details.html:228
 msgid "UNGM number"
 msgstr "Numéro UNGM"
 
-#: models.py:239
+#: models.py:280
 msgid "unicef vendo ID"
 msgstr "ID de vendeur Unicef"
 
-#: models.py:240
+#: models.py:281
 msgid "is manifactor"
 msgstr "est manifacteur"
 
-#: models.py:241
+#: models.py:282
 msgid "is importer"
 msgstr "est importateur"
 
-#: models.py:242
+#: models.py:283
 msgid "is retailer"
 msgstr "est un détaillant"
 
-#: models.py:243
+#: models.py:284
 msgid "is wholeseller"
 msgstr "est grossiste"
 
-#: models.py:244
+#: models.py:285
 msgid "annual turnover currency"
 msgstr "devise du chiffre d'affaires annuel"
 
-#: models.py:245
+#: models.py:286
 msgid "previous annual turnover"
 msgstr "chiffre d'affaires annuel précédent"
 
-#: models.py:246
+#: models.py:287
 msgid "2 years back annual turnover"
 msgstr "chiffre d'affaires annuel 2 ans en arrière "
 
-#: models.py:247
+#: models.py:288
 msgid "number of full time employees"
 msgstr "nombre d'employés à temps plein"
 
-#: models.py:248
+#: models.py:289
 msgid "is acrredited provider"
 msgstr "est un fournisseur accrédité"
 
-#: models.py:249
+#: models.py:290
 msgid "origin of goods"
 msgstr "origine des marchandises"
 
-#: models.py:250
+#: models.py:291
 msgid "partners"
 msgstr "partenaires"
 
-#: models.py:251
+#: models.py:292
 msgid "workspace"
 msgstr "espace de travail"
 
-#: models.py:252
+#: models.py:293
 msgid "equipments"
 msgstr "équipements"
 
-#: models.py:253
+#: models.py:294
 msgid "competition"
 msgstr "compétition "
 
-#: models.py:254
+#: models.py:295
 msgid "affiliations"
 msgstr "affiliations"
 
-#: models.py:255
+#: models.py:296
 msgid "is member of the commerce chamber"
 msgstr "est membre de la chambre de commerce"
 
-#: models.py:256
+#: models.py:297
 msgid "reason for not being member of commerce chamber"
 msgstr "raison pour laquelle il n'est pas membre de la chambre de commerce"
 
-#: models.py:257
+#: models.py:298
 msgid "offers previously provided"
 msgstr "offres précédemment fournies"
 
-#: models.py:258
+#: models.py:299
 msgid ""
 "ordres received from Unicef, other united state organizations, bilateral "
 "coperation agencies or gorvenemental agencies fro the pqst three year"
@@ -342,94 +407,138 @@ msgstr ""
 "coopération bilatéraux ou agences gouvernementales depuis les trois "
 "dernières années"
 
-#: models.py:259
+#: models.py:300
 msgid "mode of selection"
 msgstr "mode de sélection"
 
-#: models.py:260
+#: models.py:301
 msgid "proposed advantages"
 msgstr "avantages proposés"
 
-#: models.py:261
+#: models.py:302
 msgid "covered cities for goods"
 msgstr "villes couvertes pour les biens"
 
-#: models.py:262
+#: models.py:303
 msgid "covered cities for works"
 msgstr "villes couvertes pour travaux"
 
-#: models.py:263
+#: models.py:304
 msgid "covered cities for services"
 msgstr "villes couvertes pour les services"
 
-#: models.py:264 models.py:327
+#: models.py:305 models.py:373
 msgid "comment"
 msgstr "commentaire"
 
-#: models.py:282
+#: models.py:323
 msgid "A provider with the same vendor number or Unicef number exist."
 msgstr ""
 "Il existe un fournisseur avec le même numéro de fournisseur ou numéro Unicef."
 
-#: models.py:311
+#: models.py:340
+#, fuzzy
+#| msgid "Creating provider"
+msgid "can create a new provider"
+msgstr "Création fournisseur"
+
+#: models.py:341
+#, fuzzy
+#| msgid "Delete provider"
+msgid "can remove provider"
+msgstr "Supprimer le fournisseur"
+
+#: models.py:342
+#, fuzzy
+#| msgid "Delete provider"
+msgid "can update a provider"
+msgstr "Supprimer le fournisseur"
+
+#: models.py:343
+#, fuzzy
+#| msgid "is acrredited provider"
+msgid "can visualize provider"
+msgstr "est un fournisseur accrédité"
+
+#: models.py:357
 msgid "provider"
 msgstr "fournisseur"
 
-#: models.py:312
+#: models.py:358
 msgid "site"
 msgstr "site"
 
-#: models.py:313
+#: models.py:359
 msgid "period start"
 msgstr "début de période"
 
-#: models.py:314
+#: models.py:360
 msgid "period end"
 msgstr "fin de période"
 
-#: models.py:315
+#: models.py:361
 msgid "works evaluated"
 msgstr "travaux évaluées"
 
-#: models.py:316
+#: models.py:362
 msgid "services evaluated"
 msgstr "services évalués"
 
-#: models.py:317
+#: models.py:363
 msgid "good evaluated"
 msgstr "bien évalué"
 
-#: models.py:318
+#: models.py:364
 msgid "LTA number"
 msgstr "Numéro LTA"
 
-#: models.py:319
+#: models.py:365
 msgid "PO number"
 msgstr "Numéro de bon de commande"
 
-#: models.py:320
+#: models.py:366
 msgid "PO amount"
 msgstr "Montant du bon de commande"
 
-#: models.py:322
+#: models.py:368
 msgid "fiability"
 msgstr "fiabilité"
 
-#: models.py:323
+#: models.py:369
 msgid "timing"
 msgstr "Ponctualité"
 
-#: models.py:324
+#: models.py:370
 msgid "quality-price report"
 msgstr "rapport qualité prix"
 
-#: models.py:325
+#: models.py:371
 msgid "technical specifications"
 msgstr "spécifications techniques"
 
-#: models.py:326
+#: models.py:372
 msgid "conclusion"
 msgstr "conclusion"
+
+#: models.py:399
+msgid "can create a new evaluation"
+msgstr ""
+
+#: models.py:400
+#, fuzzy
+#| msgid "Making evaluation for"
+msgid "can remove evaluation"
+msgstr "Faire une évaluation pour"
+
+#: models.py:401
+#, fuzzy
+#| msgid "Editing evaluation of"
+msgid "can update an evaluation"
+msgstr "Édition de l'évaluation de"
+
+#: models.py:402
+msgid "can visualize evaluation"
+msgstr ""
 
 #: tables.py:20 tables.py:67
 msgid "Created at"
@@ -988,22 +1097,29 @@ msgstr ""
 " <!-- break -->\n"
 " "
 
-#: views.py:133
+#: views.py:145
 msgid "The provider was delete successfully"
 msgstr ""
 
-#: views.py:192
+#: views.py:210
 msgid "The service was delete successfully"
 msgstr "Le fournisseur a été supprimé avec succès"
 
-#: views.py:250
+#: views.py:274
 msgid "The good was delete successfully"
 msgstr "Le bien a été supprimé avec succès"
 
-#: views.py:307
+#: views.py:337
 msgid "The work was delete successfully"
 msgstr "Les travaux a été supprimé avec succès"
 
-#: views.py:406
+#: views.py:440
 msgid "The evaluation was delete successfully"
 msgstr "L'évaluation a été supprimée avec succès"
+
+#, fuzzy
+#~| msgid "A provider with the same vendor number or Unicef number exist."
+#~ msgid "Provider with same Unicef vendor number number exist."
+#~ msgstr ""
+#~ "Il existe un fournisseur avec le même numéro de fournisseur ou numéro "
+#~ "Unicef."

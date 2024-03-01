@@ -13,10 +13,11 @@ from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.utils.translation import gettext_lazy as _
 from django.core.serializers import serialize
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 import pandas as pd
 from io import BytesIO
-from .models import Provider, Service, Work, Good, Evaluation
+from .models import Provider, Service, Work, Good, Evaluation, SELECTION_MODE, ADVANTAGES
 from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable, EvaluationTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
 from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm, BulkDeleteForm
@@ -31,7 +32,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
         return qs.values('designation','responsible','contacts','phone','email','website',
-                  'city_name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                  'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
                   'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
                   'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
                   'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
@@ -45,7 +46,7 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
         if(f.is_valid()):
 
             df = pd.DataFrame(list(f.qs.values('designation','responsible','contacts','phone','email','website',
-                    'city_name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
+                    'city__name','address','subsidiaries','tax_id','rccm','national_id','bank_domiciliation',
                     'active_since','ungm_number','unicef_vendor_number','is_manifactor','is_importer',
                     'is_retailer','is_wholeseller','annual_turnover_crncy','last_turnover','past_annual_turnover',
                     'employees_count','is_accredited_provider','goods_orgin','partners','workspaces',
@@ -112,7 +113,14 @@ class ProviderDetails(DetailView, SingleTableMixin,PermissionRequiredMixin):
         context['cities_works'] =  [x.name for x in object.covered_cities_works.all()]
         context['table'] = EvaluationTable(Evaluation.objects.filter(provider=object))
         context['table'].paginate(page=self.request.GET.get("page", 1), per_page=10) 
-    
+        if object.selection_mode:
+            for mode in SELECTION_MODE:
+                if(mode[0] == object.selection_mode):
+                    context['selection_mode'] = mode[1]
+                    break
+        else:
+            context['selection_mode'] = None
+
         return context
 
 class ProviderUpdate(UpdateView,PermissionRequiredMixin):
@@ -137,6 +145,7 @@ class ProviderDelete(DeleteView,PermissionRequiredMixin):
         messages.success(self.request, _("The provider was delete successfully"))
         return super().form_valid(form)
 
+@permission_required("providers.can_remove_provider")
 def providers_delete(request):
     if request.method == 'POST':
         ids = request.POST.get("ids", [])
@@ -200,7 +209,8 @@ class ServiceDelete(DeleteView,PermissionRequiredMixin):
     def form_valid(self, form):
         messages.success(self.request, _("The service was delete successfully"))
         return super(ServiceDelete,self).form_valid(form)
-    
+
+@permission_required("providers.can_remove_service")
 def services_delete(request):
     if request.method == 'POST':
         ids = request.POST.get("ids", [])
@@ -264,6 +274,7 @@ class GoodDelete(DeleteView,PermissionRequiredMixin):
         messages.success(self.request, _("The good was delete successfully"))
         return super().form_valid(form)
 
+@permission_required("providers.can_remove_good")
 def goods_delete(request):
     if request.method == 'POST':
         ids = request.POST.get("ids", [])
@@ -326,6 +337,7 @@ class WorkDelete(DeleteView,PermissionRequiredMixin):
         messages.success(self.request, _("The work was delete successfully"))
         return super().form_valid(form)
     
+@permission_required("providers.can_remove_work")   
 def works_delete(request):
     if request.method == 'POST':
         ids = request.POST.get("ids", [])
@@ -421,6 +433,7 @@ class EvaluationUpdate(UpdateView,PermissionRequiredMixin):
 
 class EvaluationDelete(DeleteView,PermissionRequiredMixin):
     model = Evaluation
+    permission_required = ("providers.can_remove_evaluation")
 
     def form_valid(self, form):
         self.success_url = reverse_lazy('provider-details',kwargs={'pk': self.get_object().provider.pk})

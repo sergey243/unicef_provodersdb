@@ -19,24 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 #: dashboard/tables.py:7
 msgid "name"
-msgstr ""
+msgstr "nom"
 
 #: dashboard/tables.py:8
 msgid "region"
-msgstr ""
+msgstr "région"
 
 #: dashboard/tables.py:9
 msgid "Count"
-msgstr ""
+msgstr "Comptes"
 
 #: dashboard/templates/dashboard/index.html:19
 msgid "Services Providers"
-msgstr ""
+msgstr "Fournisseurs services"
 
 #: dashboard/templates/dashboard/index.html:30
 msgid "Contractors"
-msgstr ""
+msgstr "contracteur"
 
 #: dashboard/templates/dashboard/index.html:41
 msgid "Goods Providers"
-msgstr ""
+msgstr "Fournisseurs biens"

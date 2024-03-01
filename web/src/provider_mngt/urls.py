@@ -24,15 +24,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path('',include('dashboard.urls')),
     path('providers/',include('providers.urls')),
     path('',include('profiles.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-urlpatterns += i18n_patterns(
-    path('i18n/', include('django.conf.urls.i18n')),
-    prefix_default_language=False,
-)
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -121,7 +121,7 @@ msgstr "Service après-vente"
 
 #: models.py:36
 msgid "Discounts/rebates"
-msgstr "Remises/remises"
+msgstr "Remises/rabais"
 
 #: models.py:37
 msgid "On-site deliveries"

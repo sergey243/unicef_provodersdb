@@ -4,6 +4,7 @@ FROM python:3.8-slim-bullseye
 RUN apt-get update
 RUN apt-get install binutils libproj-dev gdal-bin -y
 RUN apt-get install python3-gdal
+RUN apt-get install gettext
 
 # set work directory
 WORKDIR /usr/src/app

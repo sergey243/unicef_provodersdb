@@ -3,8 +3,8 @@ FROM python:3.8-slim-bullseye
 # Installing os dependencies
 RUN apt-get update
 RUN apt-get install binutils libproj-dev gdal-bin -y
-RUN apt-get install python3-gdal
-RUN apt-get install gettext
+RUN apt-get install python3-gdal -y
+RUN apt-get install gettext -y
 
 # set work directory
 WORKDIR /usr/src/app

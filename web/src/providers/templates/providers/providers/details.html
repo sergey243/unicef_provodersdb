@@ -10,7 +10,7 @@
 <style>
   #map {
       width: 100%;
-      height: 400px;
+      height: 500px;
 
   }
 </style>
@@ -439,7 +439,7 @@
     //  zoom: 5
     //});
     var map  = L.map('map').setView([-4.0335162, 21.7500603], 20);
-    setTimeout(function(){ map.invalidateSize()}, 500);
+    
 
    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 5,
@@ -482,8 +482,11 @@
       });
       var marker = L.marker([item['fields']['latitude'], item['fields']['longitude']],{icon: violetIcon}).addTo(map);
     });
+    map.panTo(new L.LatLng(5.0335162, 6.7500603));
 
-
+    setTimeout(function(){
+       map.invalidateSize();
+       window.dispatchEvent(new Event("resize"));}, 1000);
     
     
      

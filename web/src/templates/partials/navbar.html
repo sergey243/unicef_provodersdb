@@ -41,8 +41,11 @@
       <div
         class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0"
       >
+        <a href="{% url 'account_change_password' %}" class="dropdown-item"
+          >{% translate 'Change password' %}</a
+        >
         <a href="{% url 'account_logout' %}" class="dropdown-item"
-          >{% trans 'Log Out' %}</a
+          >{% translate 'Log Out' %}</a
         >
       </div>
     </div>

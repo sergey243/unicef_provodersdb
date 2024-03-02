@@ -1,5 +1,7 @@
 from typing import Any
 from  django import forms
+from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -47,13 +49,20 @@ class ProviderForm(forms.ModelForm):
         self.fields['subsidiaries'].widget.attrs['rows'] = 3
         self.fields['comment'].widget.attrs['rows'] = 3
         self.fields['competition'].widget.attrs['rows'] = 3
+        self.fields['offers_previously_provided'].widget.attrs['rows'] = 3
+        self.fields['address'].widget.attrs['rows'] = 3
     
     def clean_ungm_number(self):
         ungm_number = self.cleaned_data["ungm_number"]
         queryset = Provider.objects.filter(ungm_number=ungm_number)
-        if(queryset.exists() & ungm_number != None):
+        if(queryset.exists() and ungm_number != None):
             if(queryset.count() == 1 and queryset.first().pk == self.instance.pk ): pass
-            else: raise ValidationError(_('Provider with same UNGM number exist.'))
+            else: 
+                url = reverse_lazy('provider-details', args=[queryset.first().pk])
+                link_text = _("see provider")
+                link = mark_safe('<a href="{url}">{link_text}</a>')
+                error_text = _('Provider with same UNGM number exist')
+                raise ValidationError('{} ({}).'.format(error_text,link))
         return ungm_number
     
     def clean_unicef_vendor_number(self):
@@ -61,7 +70,13 @@ class ProviderForm(forms.ModelForm):
         queryset = Provider.objects.filter(unicef_vendor_number=unicef_vendor_number)
         if(queryset.exists() and unicef_vendor_number != None):
             if(queryset.count() == 1 and queryset.first().pk == self.instance.pk ): pass
-            else: raise ValidationError(_('Provider with same UNGM number exist.'))
+            else:
+                url = reverse_lazy('provider-details', args=[queryset.first().pk])
+                link_text = _("see provider")
+                link = mark_safe('<a href="{url}">{link_text}</a>')
+                error_text = _('Provider with same Unicef vendor number exist')
+                raise ValidationError('{} ({}).'.format(error_text,link))
+
         return unicef_vendor_number
 
     class Meta:

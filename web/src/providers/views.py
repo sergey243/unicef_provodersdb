@@ -53,7 +53,6 @@ class ProviderExport(SingleTableMixin,FilterView,ListView,PermissionRequiredMixi
                     'equipments','competition','affiliations','affiliate_to_commerce_chamber',
                     'reason_no_affiliate','offers_previously_provided','selection_mode','advantages',
                     'comment')))
-            print(df.shape)
             with BytesIO() as b:
                 # Use the StringIO object as the filehandle.
                 writer = pd.ExcelWriter(b, engine='xlsxwriter')
@@ -128,12 +127,41 @@ class ProviderUpdate(UpdateView,PermissionRequiredMixin):
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
+    def post(self, request: HttpRequest, pk:int, *args: str, **kwargs: Any) -> HttpResponse:
+        context = dict()
+        user = request.user
+        provider = get_object_or_404(Provider,pk=pk)
+        form = ProviderForm(request.POST,request.FILES,instance=provider)
+        if form.is_valid():
+            _provider = form.save()
+            _provider.last_modify_by = user            
+            _provider.save()
+            return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
+        context["form"] = form
+        context["object"] = provider
+        context["creator"] = user.get_username()
+        return render(request, self.template_name, context)
 
 class ProviderCreate(CreateView,PermissionRequiredMixin):
     permission_required = ("providers.can_create_provider")
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
+    def post(self, request: HttpRequest, pk:int, *args: str, **kwargs: Any) -> HttpResponse:
+        context = dict()
+        user = request.user
+        provider = get_object_or_404(Provider,pk=pk)
+        form = ProviderForm(request.POST,request.FILES,instance=provider)
+        if form.is_valid():
+            _provider = form.save()
+            _provider.last_modify_by = user   
+            _provider.created_by = user          
+            _provider.save()
+            return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
+        context["form"] = form
+        context["object"] = provider
+        context["creator"] = user.get_username()
+        return render(request, self.template_name, context)
 
 
 class ProviderDelete(DeleteView,PermissionRequiredMixin):

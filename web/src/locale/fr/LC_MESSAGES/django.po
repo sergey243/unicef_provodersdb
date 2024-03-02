@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 13:30+0100\n"
+"POT-Creation-Date: 2024-03-02 18:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,7 @@ msgid ""
 msgstr ""
 " Nous sommes désolés, l'action n'est pas autorisée.<!--Break-->\n"
 "        "
+
 #: templates/403.html:30 templates/404.html:30 templates/500.html:29
 msgid "Go Back To Home"
 msgstr "Retourner à l'acceuil"
@@ -304,6 +305,7 @@ msgstr "Connexion OpenID"
 #: templates/account/password_reset_from_key.html:7
 #: templates/account/password_reset_from_key_done.html:4
 #: templates/account/password_reset_from_key_done.html:7
+#: templates/partials/navbar.html:45
 msgid "Change Password"
 msgstr "Changer le mot de passe"
 
@@ -422,7 +424,8 @@ msgid ""
 "verify ownership of your e-mail address. "
 msgstr ""
 "Cette partie du site nous demande de vérifier que\n"
-"vous êtes celui que vous prétendez être. À cette fin, nous exigeons que vous\n"
+"vous êtes celui que vous prétendez être. À cette fin, nous exigeons que "
+"vous\n"
 "vérifiez que vous êtes propriétaire de votre adresse e-mail. "
 
 #: templates/account/verified_email_required.html:16
@@ -445,11 +448,7 @@ msgstr ""
 "<strong>Remarque :</strong> vous pouvez toujours <a href=\"%(email_url)s"
 "\">modifier votre e-adresse e-mail</a>."
 
-#: templates/partials/navbar.html:26
-msgid "My Profile"
-msgstr "Mon profil"
-
-#: templates/partials/navbar.html:28
+#: templates/partials/navbar.html:48
 msgid "Log Out"
 msgstr "Se déconnecter"
 
@@ -481,10 +480,13 @@ msgstr "Biens"
 msgid "Works"
 msgstr "Travaux"
 
-#: templates/table.html:64
+#: templates/table.html:64 templates/table.old.html:64
 msgid "previous "
 msgstr "précédent"
 
-#: templates/table.html:88
+#: templates/table.html:88 templates/table.old.html:88
 msgid " next"
 msgstr " suivant"
+
+#~ msgid "My Profile"
+#~ msgstr "Mon profil"

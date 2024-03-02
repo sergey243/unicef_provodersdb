@@ -3,6 +3,8 @@ from django.db.models import fields, Model, Q
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy,reverse
+from django.utils.html import mark_safe, format_html
 from cities_light import models as cities_models
 from multiselectfield import MultiSelectField
 from django.urls import reverse
@@ -295,7 +297,7 @@ class Provider(Model):
     affiliations = fields.TextField(verbose_name=_("affiliations"),max_length=500, blank=True, null=True)
     affiliate_to_commerce_chamber = fields.BooleanField(verbose_name=_("is member of the commerce chamber"),default=False, blank=False, null=False)
     reason_no_affiliate = fields.CharField(verbose_name=_("reason for not being member of commerce chamber"),max_length=500, blank=True, null=True)
-    offers_previously_provided = fields.CharField(verbose_name=_("offers previously provided"),max_length=500, blank=True, null=True,
+    offers_previously_provided = fields.TextField(verbose_name=_("offers previously provided"),max_length=500, blank=True, null=True,
                                                   help_text=_("ordres received from Unicef, other united state organizations, bilateral coperation agencies or gorvenemental agencies fro the pqst three year"))
     selection_mode = fields.CharField(verbose_name=_("mode of selection"),max_length=50, blank=True, null=True,choices=SELECTION_MODE, default='tender')
     advantages = MultiSelectField(verbose_name=_("proposed advantages"),choices=ADVANTAGES, blank=True, null=True,max_choices=3, max_length=2048)
@@ -318,9 +320,24 @@ class Provider(Model):
     
     def clean(self):
         from django.core.exceptions import ValidationError
-        duplicate = Provider.objects.filter(models.Q(unicef_vendor_number= self.unicef_vendor_number)|models.Q(ungm_number= self.ungm_number))
-        if duplicate.exists() and not self.pk:
-            raise ValidationError(_('A provider with the same vendor number or Unicef number exist.'))
+        queryset = Provider.objects.filter(unicef_vendor_number= self.unicef_vendor_number)
+        if queryset.exists() and self.unicef_vendor_number != None:
+            if(queryset.count() == 1 and queryset.first().pk == self.pk ): pass
+            else:
+                url = reverse_lazy('provider-details', args=[queryset.first().pk])
+                link_text = _("see provider")
+                link = '<a href="{}">{}</a>'.format(url,link_text)
+                error_text = _('Provider with same  Unicef vendor number exist')
+                raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
+        queryset = Provider.objects.filter(ungm_number= self.ungm_number)
+        if queryset.exists() and self.ungm_number != None:
+            if(queryset.count() == 1 and queryset.first().pk == self.pk ): pass
+            else:
+                url = reverse_lazy('provider-details', args=[queryset.first().pk])
+                link_text = _("see provider")
+                link = '<a href="{}">{}</a>'.format(url,link_text)
+                error_text = _('Provider with same UNGM number exist')
+                raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
 
 
     def save(self, *args, **kwargs):

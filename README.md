@@ -1,9 +1,9 @@
 <h2>Containers structure</h2>
 <p>The applciation has been deployed in 4 containers: <br/>
   <ol>
-    <li>The web application container (django app)</li>
-    <li>The web server (nginx)</li>
-    <li>The Postgres administration server</li>
+    <li>The web application container (django app) that exposes  on dev configuration the port 8000</li>
+    <li>The web server (nginx) through which the web application will be accessed on 443</li>
+    <li>The Postgres administration server that exposes the 80 as 8001</li>
     <li>The relational database management server (Postgres)</li>
   </ol>
 </p>
@@ -13,6 +13,7 @@
   <li>Change the credentials details in the file <b>./web/.env</b></li>
   <li>Set the <b>DEBUG</b> variable to <b>0</b> to disable the debug mode</li>
   <li>Within the <b>docker-compose</b> file, update the <b>pg_admin</b> container credentials as required</li>
+  <li>Within the <b>docker-compose</b> file, update the <b>web</b> container parmeters by commenting the <b>port</b> section</li>
 </ol>
 </p>
 <h2>Deployment steps</h2>

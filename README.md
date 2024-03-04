@@ -14,5 +14,8 @@
     <li>Change directory to the copied repositry into the repository and buld the docker containers using the command: <b>$ docker-compose build</b></li>
     <li>Open the web application container: <b>$ docker-compose run web bash</b></li>
     <li>Within the web application container, run the base configuration file: <b>$ bash ./initapp.sh && exit</b></br>You will be prompted to enter the details of the superuser</li>
+    <li>Switch to production configuration by commenting the following line <b>command: bash -c "python manage.py makemigrations  && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"</b> on the Dockercompse file, and uncommenting the following <b>command: bash -c "python manage.py makemigrations && python manage.py collectstatic --noinput && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"</b></li>
   </ol>
 </p>
+<h2>Production configuration</h2>
+<p>The nginx server has been configure to run on https. Genera a </p>

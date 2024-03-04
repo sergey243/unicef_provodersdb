@@ -1067,7 +1067,7 @@ msgstr ""
 #: templates/providers/providers/export.html:8
 #: templates/providers/providers/index.html:8
 msgid "Providers"
-msgstr "Forunisseurs"
+msgstr "Fournisseurs"
 
 #: templates/providers/providers/form.html:5
 #: templates/providers/providers/form.html:30

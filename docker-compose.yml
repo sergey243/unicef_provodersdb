@@ -20,13 +20,12 @@ services:
     container_name: provider_mngt_app
     build: ./web
     # Production
-    #command: gunicorn provider_mngt.wsgi:application --bind 0.0.0.0:8000
+    #command: bash -c "python manage.py makemigrations && python manage.py collectstatic --noinput && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
     # Dev command
-    command: python manage.py runserver 0.0.0.0:8000
-    #entrypoint: ["/bin/bash", "./entrypoint.sh"]
-    #restart: always
+    command: bash -c "python manage.py makemigrations  && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./web/src:/usr/src/app
+      - ./nginx/certs/:/etc/certs
 
     expose:
       - "443"
@@ -62,11 +61,14 @@ services:
     networks:
       - network
   nginx:
+    image: nginx:latest
     container_name: provider_mngt_nginx
-    build: ./nginx
+    #build: ./nginx
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d
     ports:
-      - "1337:80"
-      - "1447:443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - web
     networks:

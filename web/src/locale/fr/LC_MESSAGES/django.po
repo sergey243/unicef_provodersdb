@@ -480,11 +480,11 @@ msgstr "Biens"
 msgid "Works"
 msgstr "Travaux"
 
-#: templates/table.html:64 templates/table.old.html:64
+#: templates/table.html:64 templates/table.html:64
 msgid "previous "
-msgstr "précédent"
+msgstr "précédent " 
 
-#: templates/table.html:88 templates/table.old.html:88
+#: templates/table.html:88 templates/table.html:88
 msgid " next"
 msgstr " suivant"
 

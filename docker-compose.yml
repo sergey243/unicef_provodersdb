@@ -19,6 +19,9 @@ services:
   web:
     container_name: provider_mngt_app
     build: ./web
+    # Production
+    #command: gunicorn provider_mngt.wsgi:application --bind 0.0.0.0:8000
+    # Dev command
     command: python manage.py runserver 0.0.0.0:8000
     #entrypoint: ["/bin/bash", "./entrypoint.sh"]
     #restart: always
@@ -35,7 +38,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ./web/.Env.dev
+      - ./web/.env
     networks:
       - network
 
@@ -58,24 +61,18 @@ services:
       - db
     networks:
       - network
-  #nginx:
-  #container_name: provider_mngt_nginx
-  #build:
-  #context: .
-  #dockerfile: ./nginx/Dockerfile
-  #restart: always
-  #ports:
-  #  - "1447:443"
-  #  - "8080:80"
-  #  - "6800:6800"
-  #  - "5432:5432"
-  #networks:
-  #- network
-  #depends_on:
-  #- web
-  #- db
-  #volumes:
-  #- ./nginx/sites-available:/etc/nginx/sites-available/:z
+  nginx:
+    container_name: provider_mngt_nginx
+    build: ./nginx
+    ports:
+      - "1337:80"
+      - "1447:443"
+    depends_on:
+      - web
+    networks:
+      - network
+    #volumes:
+    #  - ./nginx/sites-available:/etc/nginx/sites-available/:z
 networks:
   network:
     driver: bridge

@@ -21,7 +21,9 @@
         <form action="" method="get" class="form form-inline">
           {% bootstrap_form filter.form %}
           <!-- Break -->
-          {% bootstrap_button 'filter' %}
+          <button type="submit" class="btn btn-primary">
+            {% trans 'filter' %}
+          </button>
         </form>
         {% endif %}
         <div class="table-responsive">{% render_table table %}</div>

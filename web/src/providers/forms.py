@@ -1,7 +1,7 @@
 from typing import Any
 from  django import forms
 from django.urls import reverse_lazy
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -52,6 +52,19 @@ class ProviderForm(forms.ModelForm):
         self.fields['offers_previously_provided'].widget.attrs['rows'] = 3
         self.fields['address'].widget.attrs['rows'] = 3
     
+    def clean_tax_id(self):
+        tax_id = self.cleaned_data["tax_id"]
+        queryset = Provider.objects.filter(tax_id=tax_id)
+        if(queryset.exists() and tax_id != None):
+            if(queryset.count() == 1 and queryset.first().pk == self.instance.pk ): pass
+            else: 
+                url = reverse_lazy('provider-details', args=[queryset.first().pk])
+                link_text = _("see provider")
+                link = '<a target="_blank" href="{}">{}</a>'.format(url,link_text)
+                error_text = _('Provider with same tax identification number exist')
+                raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
+        return tax_id
+    
     def clean_ungm_number(self):
         ungm_number = self.cleaned_data["ungm_number"]
         queryset = Provider.objects.filter(ungm_number=ungm_number)
@@ -60,9 +73,9 @@ class ProviderForm(forms.ModelForm):
             else: 
                 url = reverse_lazy('provider-details', args=[queryset.first().pk])
                 link_text = _("see provider")
-                link = mark_safe('<a href="{url}">{link_text}</a>')
+                link = '<a target="_blank" href="{}">{}</a>'.format(url,link_text)
                 error_text = _('Provider with same UNGM number exist')
-                raise ValidationError('{} ({}).'.format(error_text,link))
+                raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
         return ungm_number
     
     def clean_unicef_vendor_number(self):
@@ -73,11 +86,38 @@ class ProviderForm(forms.ModelForm):
             else:
                 url = reverse_lazy('provider-details', args=[queryset.first().pk])
                 link_text = _("see provider")
-                link = mark_safe('<a href="{url}">{link_text}</a>')
+                link = '<a target="_blank" href="{}">{}</a>'.format(url,link_text)
                 error_text = _('Provider with same Unicef vendor number exist')
-                raise ValidationError('{} ({}).'.format(error_text,link))
+                raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
 
         return unicef_vendor_number
+    def clean_covered_cities_Goods(self):
+        covered_cities_Goods = self.cleaned_data["covered_cities_Goods"]
+        goods = self.cleaned_data["goods"]
+        if(covered_cities_Goods.exists() and not goods.exists()):
+            raise ValidationError(_('No good had been selected, please select the goods provided in the field Goods provided.'))
+        if(not covered_cities_Goods.exists() and goods.exists()):
+            raise ValidationError(_('No city had been selected for goods, please select the city/cities where googs are provided.'))
+        return covered_cities_Goods
+
+   
+    def clean_covered_cities_works(self):
+        covered_cities_works = self.cleaned_data["covered_cities_works"]
+        works = self.cleaned_data["works"]
+        if(covered_cities_works.exists() and not works.exists()):
+            raise ValidationError(_('No work had been selected, please select the work provided in the field works provided.'))
+        if(not covered_cities_works.exists() and works.exists()):
+            raise ValidationError(_('No city had been selected for work, please select the city/cities where works are provided.'))
+        return covered_cities_works
+
+    def clean_covered_cities_services(self):
+        covered_cities_services = self.cleaned_data["covered_cities_services"]
+        services = self.cleaned_data["services"]
+        if(covered_cities_services.exists() and not services.exists()):
+            raise ValidationError(_('No service had been selected, please select the services provided in the field Services provided.'))
+        if(not covered_cities_services.exists() and services.exists()):
+            raise ValidationError(_('No city had been selected for services, please select the city/cities where services are provided'))
+        return covered_cities_services
 
     class Meta:
         model = Provider

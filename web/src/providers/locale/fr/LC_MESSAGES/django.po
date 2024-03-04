@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-02 19:45+0100\n"
+"POT-Creation-Date: 2024-03-04 11:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,8 +30,8 @@ msgstr "La désignation doit contenir"
 msgid "Teritorial cover"
 msgstr "Couverture territoriale"
 
-#: filters.py:40 filters.py:50 filters.py:60 tables.py:40 tables.py:50
-#: tables.py:59 templates/providers/goods/details.html:32
+#: filters.py:40 filters.py:50 filters.py:60 tables.py:44 tables.py:54
+#: tables.py:63 templates/providers/goods/details.html:32
 #: templates/providers/services/details.html:33
 #: templates/providers/works/details.html:32
 msgid "Name"
@@ -41,30 +41,76 @@ msgstr "Nom"
 msgid "Name should contain"
 msgstr "Le nom doit contenir"
 
-#: forms.py:62 forms.py:75 models.py:328 models.py:337
-#, fuzzy
-#| msgid "Delete provider"
+#: forms.py:62 forms.py:75 forms.py:88 models.py:328 models.py:337
 msgid "see provider"
 msgstr "voir le fournisseur"
 
-#: forms.py:64 models.py:339
-#, fuzzy
-#| msgid "A provider with the same vendor number or Unicef number exist."
+#: forms.py:64
+msgid "Provider with same tax identification number exist"
+msgstr "Il existe un fournisseur avec le même numéro fournisseur Unicef"
+
+#: forms.py:77 models.py:339
 msgid "Provider with same UNGM number exist"
 msgstr "Il existe un fournisseur avec le même numéro UNGM"
 
-#: forms.py:77
-#, fuzzy
-#| msgid "A provider with the same vendor number or Unicef number exist."
+#: forms.py:90
 msgid "Provider with same Unicef vendor number exist"
 msgstr "Il existe un fournisseur avec le même numéro fournisseur Unicef"
 
-#: forms.py:152 forms.py:154 forms.py:156 forms.py:158 forms.py:162
-#: forms.py:164 forms.py:166 forms.py:168
+#: forms.py:98
+msgid ""
+"No good had been selected, please select the goods provided in the field "
+"Goods provided."
+msgstr ""
+"Aucun type de bien n'a été sélectionné, veuillez sélectionner les types de "
+"bien fournis dans le champs Biens fournis."
+
+#: forms.py:100
+msgid ""
+"No city had been selected for goods, please select the city/cities where "
+"googs are provided."
+msgstr ""
+"Aucune ville n'a été sélectionnée pour les bien, veuillez sélectionner la ou "
+"les villes où les biens sont fournis."
+
+#: forms.py:108
+msgid ""
+"No work had been selected, please select the work provided in the field "
+"works provided."
+msgstr ""
+"Aucun type de travail n'a été sélectionné, veuillez sélectionner les type de "
+"travaux fournis dans le champs Travaux exécutés."
+
+#: forms.py:110
+msgid ""
+"No city had been selected for work, please select the city/cities where "
+"works are provided."
+msgstr ""
+"Aucune ville n'a été sélectionnée pour les travaux, veuillez sélectionner la "
+"ou les villes où les travaux sont exécutés."
+
+#: forms.py:117
+msgid ""
+"No service had been selected, please select the services provided in the "
+"field Services provided."
+msgstr ""
+"Aucun service n'a été sélectionné, veuillez sélectionner les services "
+"fournis dans le champs Services fournis."
+
+#: forms.py:119
+msgid ""
+"No city had been selected for services, please select the city/cities where "
+"services are provided"
+msgstr ""
+"Aucune ville n'a été sélectionnée pour les services, veuillez sélectionner "
+"la ou les villes où les services sont fournis."
+
+#: forms.py:192 forms.py:194 forms.py:196 forms.py:198 forms.py:202
+#: forms.py:204 forms.py:206 forms.py:208
 msgid "Evaluation timing confict with another evalution."
 msgstr "Le timing de l’évaluation est en conflit avec une autre évaluation."
 
-#: forms.py:180
+#: forms.py:220
 msgid "Period start cannot be greater or equal to period end"
 msgstr ""
 "Le début de la période ne peut pas être supérieur ou égal à la fin de la "
@@ -184,8 +230,11 @@ msgstr "nom"
 msgid "city"
 msgstr "ville"
 
-#: models.py:62 models.py:63 models.py:98 models.py:135 models.py:174
-#: models.py:384
+#: models.py:62 models.py:274
+msgid "address"
+msgstr "adresse"
+
+#: models.py:63 models.py:98 models.py:135 models.py:174 models.py:384
 msgid "description"
 msgstr "description"
 
@@ -300,10 +349,6 @@ msgstr "site web"
 #: models.py:272
 msgid "country"
 msgstr "pays"
-
-#: models.py:274
-msgid "address"
-msgstr "adresse"
 
 #: models.py:275
 msgid "subsidiaries"
@@ -516,6 +561,10 @@ msgstr "Montant du bon de commande"
 msgid "fiability"
 msgstr "fiabilité"
 
+#: models.py:385 models.py:386 models.py:387 models.py:388
+msgid "Note on the scale from 1 to 5"
+msgstr "Note sur l'échelle de 1 à 5"
+
 #: models.py:386
 msgid "timing"
 msgstr "Ponctualité"
@@ -532,31 +581,31 @@ msgstr "spécifications techniques"
 msgid "conclusion"
 msgstr "conclusion"
 
-#: models.py:416
+#: models.py:419
 msgid "can create a new evaluation"
 msgstr ""
 
-#: models.py:417
+#: models.py:420
 #, fuzzy
 #| msgid "Making evaluation for"
 msgid "can remove evaluation"
 msgstr "Faire une évaluation pour"
 
-#: models.py:418
+#: models.py:421
 #, fuzzy
 #| msgid "Editing evaluation of"
 msgid "can update an evaluation"
 msgstr "Édition de l'évaluation de"
 
-#: models.py:419
+#: models.py:422
 msgid "can visualize evaluation"
-msgstr ""
+msgstr "peut visualiser l'évaluation"
 
-#: tables.py:20 tables.py:67
+#: tables.py:20 tables.py:71
 msgid "Created at"
 msgstr "date de création"
 
-#: tables.py:21 tables.py:68
+#: tables.py:21 tables.py:72
 msgid "Created by"
 msgstr "Créé par"
 
@@ -566,9 +615,9 @@ msgstr "Ville"
 
 #: tables.py:25
 msgid "Contractor"
-msgstr "Contracteur"
+msgstr "Contractant"
 
-#: tables.py:32 tables.py:34 tables.py:36
+#: tables.py:36 tables.py:38 tables.py:40
 #: templates/providers/providers/details.html:238
 #: templates/providers/providers/details.html:239
 #: templates/providers/providers/details.html:240
@@ -578,7 +627,7 @@ msgstr "Contracteur"
 msgid "Yes"
 msgstr "Oui"
 
-#: tables.py:32 tables.py:34 tables.py:36
+#: tables.py:36 tables.py:38 tables.py:40
 #: templates/providers/providers/details.html:238
 #: templates/providers/providers/details.html:239
 #: templates/providers/providers/details.html:240
@@ -588,16 +637,20 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: tables.py:41 tables.py:51 tables.py:60
+#: tables.py:45 tables.py:55 tables.py:64
 #: templates/providers/goods/details.html:38
 #: templates/providers/services/details.html:39
 #: templates/providers/works/details.html:38
 msgid "Description"
 msgstr "Description"
 
-#: tables.py:69
+#: tables.py:73
 msgid "Performance"
 msgstr "Performance"
+
+#: tables.py:75
+msgid "Result"
+msgstr "Résultat"
 
 #: templates/providers/evaluations/form.html:5
 #: templates/providers/goods/form.html:5 templates/providers/goods/form.html:30
@@ -621,11 +674,19 @@ msgstr "Date de création: "
 msgid "Creator: "
 msgstr "Créateur: "
 
-#: templates/providers/evaluations/form.html:37
+#: templates/providers/evaluations/form.html:34
+msgid "Modification date: "
+msgstr "Dernière modification: "
+
+#: templates/providers/evaluations/form.html:35
+msgid "Modify by: "
+msgstr "Modifiée par :"
+
+#: templates/providers/evaluations/form.html:39
 msgid "Making evaluation for"
 msgstr "Faire une évaluation pour"
 
-#: templates/providers/evaluations/form.html:43
+#: templates/providers/evaluations/form.html:45
 #: templates/providers/goods/details.html:25
 #: templates/providers/providers/details.html:26
 #: templates/providers/services/details.html:27
@@ -633,7 +694,7 @@ msgstr "Faire une évaluation pour"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/providers/evaluations/form.html:55
+#: templates/providers/evaluations/form.html:57
 #: templates/providers/goods/form.html:39
 #: templates/providers/providers/form.html:42
 #: templates/providers/services/form.html:39
@@ -641,12 +702,12 @@ msgstr "Supprimer"
 msgid "Submit"
 msgstr "Soumettre"
 
-#: templates/providers/evaluations/form.html:63
+#: templates/providers/evaluations/form.html:65
 #: templates/providers/providers/details.html:406
 msgid "Delete provider"
 msgstr "Supprimer le fournisseur"
 
-#: templates/providers/evaluations/form.html:67
+#: templates/providers/evaluations/form.html:69
 msgid ""
 "Do you really want to delete the evaluation\n"
 "              "
@@ -654,27 +715,27 @@ msgstr ""
 "Voulez-vous vraiment supprimer l'évaluation\n"
 " "
 
-#: templates/providers/evaluations/form.html:71
+#: templates/providers/evaluations/form.html:73
 #: templates/providers/goods/details.html:80
-#: templates/providers/goods/index.html:85
+#: templates/providers/goods/index.html:87
 #: templates/providers/providers/details.html:414
 #: templates/providers/providers/index.html:101
 #: templates/providers/services/details.html:80
-#: templates/providers/services/index.html:84
+#: templates/providers/services/index.html:86
 #: templates/providers/works/details.html:78
-#: templates/providers/works/index.html:85
+#: templates/providers/works/index.html:87
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/providers/evaluations/form.html:73
+#: templates/providers/evaluations/form.html:75
 #: templates/providers/goods/details.html:85
-#: templates/providers/goods/index.html:101
+#: templates/providers/goods/index.html:103
 #: templates/providers/providers/details.html:416
 #: templates/providers/providers/index.html:117
 #: templates/providers/services/details.html:85
-#: templates/providers/services/index.html:100
+#: templates/providers/services/index.html:102
 #: templates/providers/works/details.html:83
-#: templates/providers/works/index.html:101
+#: templates/providers/works/index.html:103
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -733,29 +794,37 @@ msgstr ""
 " <!-- break -->\n"
 " "
 
-#: templates/providers/goods/index.html:38
+#: templates/providers/goods/index.html:25
+#: templates/providers/services/index.html:25
+#: templates/providers/works/index.html:25
+#, fuzzy
+#| msgid "Filters"
+msgid "filter"
+msgstr "Filtrer"
+
+#: templates/providers/goods/index.html:40
 #: templates/providers/providers/index.html:55
-#: templates/providers/services/index.html:38
-#: templates/providers/works/index.html:38
+#: templates/providers/services/index.html:40
+#: templates/providers/works/index.html:40
 msgid "Bulk delete"
 msgstr "Suppression groupée"
 
-#: templates/providers/goods/index.html:47
+#: templates/providers/goods/index.html:49
 #: templates/providers/providers/index.html:64
-#: templates/providers/services/index.html:47
-#: templates/providers/works/index.html:47
+#: templates/providers/services/index.html:49
+#: templates/providers/works/index.html:49
 msgid "Create new"
 msgstr "Créer un nouveau"
 
-#: templates/providers/goods/index.html:63
+#: templates/providers/goods/index.html:65
 #: templates/providers/providers/index.html:80
 #: templates/providers/services/details.html:59
-#: templates/providers/services/index.html:63
-#: templates/providers/works/index.html:63
+#: templates/providers/services/index.html:65
+#: templates/providers/works/index.html:65
 msgid "Delete service"
 msgstr "Supprimer le service"
 
-#: templates/providers/goods/index.html:73
+#: templates/providers/goods/index.html:75
 msgid ""
 "Do you really want to delete theses categories\n"
 "                of goods\n"
@@ -766,20 +835,6 @@ msgstr ""
 " de biens\n"
 " <!-- break -->\n"
 " "
-
-#: templates/providers/goods/table.html:64
-#: templates/providers/providers/table.html:64
-#: templates/providers/services/table.html:64
-#: templates/providers/works/table.html:64
-msgid "previous"
-msgstr "précédent"
-
-#: templates/providers/goods/table.html:88
-#: templates/providers/providers/table.html:88
-#: templates/providers/services/table.html:88
-#: templates/providers/works/table.html:88
-msgid "next"
-msgstr "suivant"
 
 #: templates/providers/providers/details.html:31
 msgid "Evaluate"
@@ -1062,7 +1117,7 @@ msgstr "Modification service"
 msgid "Creating service"
 msgstr "Création service"
 
-#: templates/providers/services/index.html:73
+#: templates/providers/services/index.html:75
 msgid ""
 "Do you really want to delete theses services\n"
 "                <!-- break -->\n"
@@ -1097,7 +1152,7 @@ msgstr "Modification travaux"
 msgid "Creating work"
 msgstr "Création travaux"
 
-#: templates/providers/works/index.html:73
+#: templates/providers/works/index.html:75
 msgid ""
 "Do you really want to delete theses categories\n"
 "                of works\n"
@@ -1111,7 +1166,7 @@ msgstr ""
 
 #: views.py:173
 msgid "The provider was delete successfully"
-msgstr ""
+msgstr "Le fournisseur a été supprimé avec succès"
 
 #: views.py:238
 msgid "The service was delete successfully"
@@ -1125,9 +1180,18 @@ msgstr "Le bien a été supprimé avec succès"
 msgid "The work was delete successfully"
 msgstr "Les travaux a été supprimé avec succès"
 
-#: views.py:468
+#: views.py:473
 msgid "The evaluation was delete successfully"
 msgstr "L'évaluation a été supprimée avec succès"
+
+#~ msgid "Note"
+#~ msgstr "Note"
+
+#~ msgid "previous"
+#~ msgstr "précédent"
+
+#~ msgid "next"
+#~ msgstr "suivant"
 
 #~ msgid "A provider with the same vendor number or Unicef number exist."
 #~ msgstr ""

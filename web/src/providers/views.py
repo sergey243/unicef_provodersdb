@@ -131,11 +131,12 @@ class ProviderUpdate(UpdateView,PermissionRequiredMixin):
         context = dict()
         user = request.user
         provider = get_object_or_404(Provider,pk=pk)
-        form = ProviderForm(request.POST,request.FILES,instance=provider)
+        form = ProviderForm(request.POST,instance=provider)
         if form.is_valid():
-            _provider = form.save()
-            _provider.last_modify_by = user            
+            _provider = form.save(commit=False)
+            _provider.last_modify_by = user          
             _provider.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
         context["form"] = form
         context["object"] = provider
@@ -147,19 +148,18 @@ class ProviderCreate(CreateView,PermissionRequiredMixin):
     model = Provider
     template_name = 'providers/providers/form.html'
     form_class = ProviderForm
-    def post(self, request: HttpRequest, pk:int, *args: str, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         context = dict()
         user = request.user
-        provider = get_object_or_404(Provider,pk=pk)
-        form = ProviderForm(request.POST,request.FILES,instance=provider)
+        form = ProviderForm(request.POST)
         if form.is_valid():
-            _provider = form.save()
+            _provider = form.save(commit=False)
             _provider.last_modify_by = user   
             _provider.created_by = user          
             _provider.save()
-            return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
+            form.save_m2m()
+            return HttpResponseRedirect(reverse_lazy('providers-list'))
         context["form"] = form
-        context["object"] = provider
         context["creator"] = user.get_username()
         return render(request, self.template_name, context)
 
@@ -405,8 +405,10 @@ class EvaluationCreate(CreateView,PermissionRequiredMixin):
         if form.is_valid():
             evaluation = form.save(commit=False)
             evaluation.created_by = request.user
+            evaluation.last_modify_by = request.user    
             evaluation.provider = provider
             evaluation.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
         form.fields['goods'].queryset = provider.goods.all()
         form.fields['works'].queryset = provider.works.all()
@@ -434,7 +436,8 @@ class EvaluationUpdate(UpdateView,PermissionRequiredMixin):
         context["form"] = form
         context["object"] = evaluation
         context["provider"] = evaluation.provider
-        context["creator"] = user.get_username()
+        context["creator"] = evaluation.created_by.get_username()
+        context["modifier"] = evaluation.last_modify_by.get_username()
         return render(request,self.template_name,context)
         
     
@@ -445,9 +448,10 @@ class EvaluationUpdate(UpdateView,PermissionRequiredMixin):
         form = EvaluationForm(request.POST,instance=evaluation)
         provider = get_object_or_404(Provider,pk=request.POST["provider"])
         if form.is_valid():
-            _evaluation = form.save()
-            _evaluation.last_modify_by = user            
+            _evaluation = form.save(commit=False)
+            _evaluation.last_modify_by = user      
             _evaluation.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse_lazy('provider-details', args=[provider.pk]))
         form.fields['goods'].queryset = provider.goods.all()
         form.fields['works'].queryset = provider.works.all()
@@ -455,7 +459,8 @@ class EvaluationUpdate(UpdateView,PermissionRequiredMixin):
         context["form"] = form
         context["provider"] = provider
         context["object"] = evaluation
-        context["creator"] = user.get_username()
+        context["creator"] = evaluation.created_by.get_username()
+        context["modifier"] = evaluation.last_modify_by.get_username()
         return render(request, self.template_name, context)
 
 

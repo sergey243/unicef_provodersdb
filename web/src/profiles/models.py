@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from provider_mngt.settings_old.base import MEDIA_ROOT
+from provider_mngt.settings import MEDIA_ROOT
 
 
 GENDER =(('man',_(u'Man')),('woman',_(u'Woman')))

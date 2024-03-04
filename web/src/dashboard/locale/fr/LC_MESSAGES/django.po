@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-28 22:51+0100\n"
+"POT-Creation-Date: 2024-03-03 11:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: dashboard/tables.py:7
+#: tables.py:7
 msgid "name"
 msgstr "nom"
 
-#: dashboard/tables.py:8
+#: tables.py:8
 msgid "region"
-msgstr "région"
+msgstr "province"
 
-#: dashboard/tables.py:9
+#: tables.py:9
 msgid "Count"
-msgstr "Comptes"
+msgstr "Compte"
 
-#: dashboard/templates/dashboard/index.html:19
+#: templates/dashboard/index.html:19
 msgid "Services Providers"
-msgstr "Fournisseurs services"
+msgstr "Fournisseurs de services"
 
-#: dashboard/templates/dashboard/index.html:30
+#: templates/dashboard/index.html:30
 msgid "Contractors"
-msgstr "contracteurs"
+msgstr "Contractants"
 
-#: dashboard/templates/dashboard/index.html:41
+#: templates/dashboard/index.html:41
 msgid "Goods Providers"
-msgstr "Fournisseurs biens"
+msgstr "Fournisseurs de biens"
+
+#: templates/dashboard/index.html:55
+msgid "Providers based in cities"
+msgstr "Fournisseurs basés dans les villes"

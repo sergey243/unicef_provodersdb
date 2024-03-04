@@ -1,6 +1,6 @@
 from django.utils.safestring import mark_safe
 from django_tables2 import tables
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from cities_light.models import City
 
 class CitiesTable(tables.Table) :

@@ -59,7 +59,7 @@ class Site(Model):
     last_modify_by = models.ForeignKey(get_user_model(),editable=False,related_name="site_modifier",null=True,blank=True,on_delete=models.PROTECT)
     name = models.CharField(verbose_name=_('name'),unique=True,blank=False,null=False,max_length=150)
     city = models.ForeignKey('cities_light.City',verbose_name= _('city'), on_delete=models.SET_NULL, null=True, blank=True)
-    address = fields.TextField(verbose_name=_("description"),editable=True,max_length=250,null=True,blank=True)
+    address = fields.TextField(verbose_name=_("address"),editable=True,max_length=250,null=True,blank=True)
     description = fields.TextField(verbose_name=_("description"),editable=True,max_length=500,null=True,blank=True)
     
     def __str__(self) -> str:
@@ -326,7 +326,7 @@ class Provider(Model):
             else:
                 url = reverse_lazy('provider-details', args=[queryset.first().pk])
                 link_text = _("see provider")
-                link = '<a href="{}">{}</a>'.format(url,link_text)
+                link = '<a target="_blank" href="{}">{}</a>'.format(url,link_text)
                 error_text = _('Provider with same  Unicef vendor number exist')
                 raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
         queryset = Provider.objects.filter(ungm_number= self.ungm_number)
@@ -335,7 +335,7 @@ class Provider(Model):
             else:
                 url = reverse_lazy('provider-details', args=[queryset.first().pk])
                 link_text = _("see provider")
-                link = '<a href="{}">{}</a>'.format(url,link_text)
+                link = '<a target="_blank" href="{}">{}</a>'.format(url,link_text)
                 error_text = _('Provider with same UNGM number exist')
                 raise ValidationError(format_html('{} ({}).'.format(error_text,link)))
 
@@ -382,10 +382,10 @@ class Evaluation(Model):
     po_number = models.CharField(verbose_name=_('PO number'),max_length=50,blank=False,null=False)
     po_amount = models.DecimalField(verbose_name=_('PO amount'),decimal_places=2,max_digits=20,blank=False,null=False)
     description = fields.TextField(verbose_name=_("description"),max_length=500,null=True,blank=True)
-    fiability = fields.IntegerField(verbose_name=_('fiability'),choices=EVALUATION,blank=False, null=False)
-    timing = fields.IntegerField(verbose_name=_('timing'),choices=EVALUATION,blank=False, null=False)
-    best_value = fields.IntegerField(verbose_name=_('quality-price report'),choices=EVALUATION,blank=False, null=False)
-    tech_specification = fields.IntegerField(verbose_name=_('technical specifications'),choices=EVALUATION,blank=False, null=False)
+    fiability = fields.IntegerField(verbose_name=_('fiability'),choices=EVALUATION,blank=False, null=False,help_text=_('Note on the scale from 1 to 5'))
+    timing = fields.IntegerField(verbose_name=_('timing'),choices=EVALUATION,blank=False, null=False,help_text=_('Note on the scale from 1 to 5'))
+    best_value = fields.IntegerField(verbose_name=_('quality-price report'),choices=EVALUATION,blank=False, null=False,help_text=_('Note on the scale from 1 to 5'))
+    tech_specification = fields.IntegerField(verbose_name=_('technical specifications'),choices=EVALUATION,blank=False, null=False,help_text=_('Note on the scale from 1 to 5'))
     conclusion = models.IntegerField(verbose_name=_("conclusion"),choices=EVALUATION_CONCLUSION,blank=False,null=False)
     comment = fields.TextField(verbose_name=_("comment"),max_length=500,null=True,blank=True)
 
@@ -396,6 +396,9 @@ class Evaluation(Model):
         elif(_performance <= 14 and _performance >= 10): return 'B'
         elif(_performance < 10 and _performance >= 3): return 'C'
         else: return 'D'
+    @property
+    def note(self):
+        return self.fiability + self.best_value + self.tech_specification + self.timing
     
     def __str__(self):
         return '{}:'.format(self.pk)

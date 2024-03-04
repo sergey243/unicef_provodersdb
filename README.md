@@ -11,7 +11,7 @@
 <p>
   <ol>
     <li>Make a copy of the projecct to the deployment server</li>
-    <li>Change directory to the copied repositry into the repository and buld the docker containers using the command: <b>$ docker-compose build</b></li>
+    <li>Change directory to the copied repositry and from within the repository buld the docker containers using the command: <b>$ docker-compose build</b></li>
     <li>Open the web application container: <b>$ docker-compose run web bash</b></li>
     <li>Within the web application container, run the base configuration file: <b>$ bash ./initapp.sh && exit</b></br>You will be prompted to enter the details of the superuser</li>
     <li>Generate an SSL Certificatte store it undern <b>./nginx/certs</b></li>

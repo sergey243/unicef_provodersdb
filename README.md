@@ -7,6 +7,13 @@
     <li>The relational database management server (Postgres)</li>
   </ol>
 </p>
+<h2>Switching to production settings</h2>
+<p>For developement and debuging purse some paremeters have been set, while moving to production make sure the following is done:<br/>
+<ol>
+  <li>Change the credentials details in the file <b>./web/.env</b></li>
+  <li>Set the <b>DEBUG</b> variable to <b>0</b> to disable the debug mode</li>
+</ol>
+</p>
 <h2>Deployment steps</h2>
 <p>
   <ol>
@@ -19,4 +26,5 @@
     <li>Run the container: <b>$ docker-compose up -d</b></li>
   </ol>
 </p>
+
 

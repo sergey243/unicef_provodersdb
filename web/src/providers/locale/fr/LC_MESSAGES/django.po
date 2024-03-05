@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 11:49+0100\n"
+"POT-Creation-Date: 2024-03-04 18:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,75 +240,67 @@ msgstr "description"
 
 #: models.py:80
 msgid "can create a new site"
-msgstr ""
+msgstr "peut créer un nouveau site"
 
 #: models.py:81
 msgid "can remove site"
-msgstr ""
+msgstr "peut supprimer un site"
 
 #: models.py:82
 msgid "can update a site"
-msgstr ""
+msgstr "peut mettre à jour un site"
 
 #: models.py:83
 msgid "can visualize sites"
-msgstr ""
+msgstr "peut visualiser un site"
 
 #: models.py:117
 msgid "can create a new work"
-msgstr ""
+msgstr "peut créer une nouvelle catégorie de travaux"
 
 #: models.py:118
 msgid "can remove work"
-msgstr ""
+msgstr "peut supprimer une catégorie de travaux"
 
 #: models.py:119
 msgid "can update a work"
-msgstr ""
+msgstr "peut mettre à jour une catégorie de travaux"
 
 #: models.py:120
 msgid "can visualize work"
-msgstr ""
+msgstr "peut visualiser une catégorie de travaux"
 
 #: models.py:156
-#, fuzzy
-#| msgid "Creating service"
 msgid "can create a new service"
-msgstr "Création service"
+msgstr "peut créer un nouveau service"
 
 #: models.py:157
-#, fuzzy
-#| msgid "Provide services in"
 msgid "can remove service"
-msgstr "Fournit des services à"
+msgstr "peut supprimer un services"
 
 #: models.py:158
-#, fuzzy
-#| msgid "After sales service"
 msgid "can update a service"
-msgstr "Service après-vente"
+msgstr "peut mettre à jour un service"
 
 #: models.py:159
-#, fuzzy
-#| msgid "After sales service"
 msgid "can visualize service"
-msgstr "Service après-vente"
+msgstr "peut visualiser un service"
 
 #: models.py:192
 msgid "can create a new good"
-msgstr ""
+msgstr "peut créer un nouveau bien"
 
 #: models.py:193
 msgid "can remove good"
-msgstr ""
+msgstr "peut supprimer un bien"
 
 #: models.py:194
 msgid "can update a good"
-msgstr ""
+msgstr "peut mettre à jour un bien"
 
 #: models.py:195
 msgid "can visualize good"
-msgstr ""
+msgstr "peut visualiser un bien"
 
 #: models.py:263
 msgid "designation"
@@ -488,34 +480,24 @@ msgid "comment"
 msgstr "commentaire"
 
 #: models.py:330
-#, fuzzy
-#| msgid "A provider with the same vendor number or Unicef number exist."
 msgid "Provider with same  Unicef vendor number exist"
 msgstr "Il existe un fournisseur avec le même numéro fournisseur Unicef"
 
 #: models.py:357
-#, fuzzy
-#| msgid "Creating provider"
 msgid "can create a new provider"
 msgstr "Création fournisseur"
 
 #: models.py:358
-#, fuzzy
-#| msgid "Delete provider"
 msgid "can remove provider"
 msgstr "Supprimer le fournisseur"
 
 #: models.py:359
-#, fuzzy
-#| msgid "Delete provider"
 msgid "can update a provider"
-msgstr "Supprimer le fournisseur"
+msgstr "peut mettre à jour un fournisseur"
 
 #: models.py:360
-#, fuzzy
-#| msgid "is acrredited provider"
 msgid "can visualize provider"
-msgstr "est un fournisseur accrédité"
+msgstr "peut visualiser un fournisseur"
 
 #: models.py:374
 msgid "provider"
@@ -583,19 +565,15 @@ msgstr "conclusion"
 
 #: models.py:419
 msgid "can create a new evaluation"
-msgstr ""
+msgstr "peut créer une nouvelle évaluation"
 
 #: models.py:420
-#, fuzzy
-#| msgid "Making evaluation for"
 msgid "can remove evaluation"
-msgstr "Faire une évaluation pour"
+msgstr "peut supprimer une évaluation"
 
 #: models.py:421
-#, fuzzy
-#| msgid "Editing evaluation of"
 msgid "can update an evaluation"
-msgstr "Édition de l'évaluation de"
+msgstr "peut mettre à jour une évaluation"
 
 #: models.py:422
 msgid "can visualize evaluation"
@@ -696,7 +674,9 @@ msgstr "Supprimer"
 
 #: templates/providers/evaluations/form.html:57
 #: templates/providers/goods/form.html:39
+#: templates/providers/providers/export.html:27
 #: templates/providers/providers/form.html:42
+#: templates/providers/providers/index.html:41
 #: templates/providers/services/form.html:39
 #: templates/providers/works/form.html:39
 msgid "Submit"
@@ -719,7 +699,7 @@ msgstr ""
 #: templates/providers/goods/details.html:80
 #: templates/providers/goods/index.html:87
 #: templates/providers/providers/details.html:414
-#: templates/providers/providers/index.html:101
+#: templates/providers/providers/index.html:105
 #: templates/providers/services/details.html:80
 #: templates/providers/services/index.html:86
 #: templates/providers/works/details.html:78
@@ -731,7 +711,7 @@ msgstr "Annuler"
 #: templates/providers/goods/details.html:85
 #: templates/providers/goods/index.html:103
 #: templates/providers/providers/details.html:416
-#: templates/providers/providers/index.html:117
+#: templates/providers/providers/index.html:121
 #: templates/providers/services/details.html:85
 #: templates/providers/services/index.html:102
 #: templates/providers/works/details.html:83
@@ -797,27 +777,25 @@ msgstr ""
 #: templates/providers/goods/index.html:25
 #: templates/providers/services/index.html:25
 #: templates/providers/works/index.html:25
-#, fuzzy
-#| msgid "Filters"
 msgid "filter"
 msgstr "Filtrer"
 
 #: templates/providers/goods/index.html:40
-#: templates/providers/providers/index.html:55
+#: templates/providers/providers/index.html:59
 #: templates/providers/services/index.html:40
 #: templates/providers/works/index.html:40
 msgid "Bulk delete"
 msgstr "Suppression groupée"
 
 #: templates/providers/goods/index.html:49
-#: templates/providers/providers/index.html:64
+#: templates/providers/providers/index.html:68
 #: templates/providers/services/index.html:49
 #: templates/providers/works/index.html:49
 msgid "Create new"
 msgstr "Créer un nouveau"
 
 #: templates/providers/goods/index.html:65
-#: templates/providers/providers/index.html:80
+#: templates/providers/providers/index.html:84
 #: templates/providers/services/details.html:59
 #: templates/providers/services/index.html:65
 #: templates/providers/works/index.html:65
@@ -964,14 +942,10 @@ msgid "Annual turn over"
 msgstr "Chiffre d'affaires annuel"
 
 #: templates/providers/providers/details.html:248
-#, fuzzy
-#| msgid "Past year to registration"
 msgid "Previous year to registration"
 msgstr "Année avant l'inscription"
 
 #: templates/providers/providers/details.html:249
-#, fuzzy
-#| msgid "Past year to registration"
 msgid "Two years before registration"
 msgstr "Deux ans avant l'inscription"
 
@@ -1083,7 +1057,7 @@ msgstr "Création fournisseur"
 msgid "Filters"
 msgstr "Filtres"
 
-#: templates/providers/providers/index.html:90
+#: templates/providers/providers/index.html:94
 msgid ""
 "Do you really want to delete theses providers\n"
 "                <!-- break -->\n"

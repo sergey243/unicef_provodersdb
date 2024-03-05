@@ -114,3 +114,6 @@ db.sqlite3
 
 # Current project generated files to ignore
 db/data/*
+
+# Ignore ssl certificates
+nginx/certs/*

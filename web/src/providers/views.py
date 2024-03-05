@@ -184,7 +184,8 @@ def providers_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Provider.objects.filter(pk_in=_selection).delete()
+
+                Provider.objects.filter(pk__in=_selection).delete()
             except Exception as e:
                 pass
             
@@ -249,7 +250,7 @@ def services_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Service.objects.filter(pk_in=_selection).delete()
+                Service.objects.filter(pk__in=_selection).delete()
             except Exception as e:
                 pass
             
@@ -313,7 +314,7 @@ def goods_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Good.objects.filter(pk_in=_selection).delete()
+                Good.objects.filter(pk__in=_selection).delete()
             except Exception as e:
                 pass
             
@@ -376,7 +377,7 @@ def works_delete(request):
             try:
                 for id in selection:
                     _selection.append(int(id))
-                Work.objects.filter(pk_in=_selection).delete()
+                Work.objects.filter(pk__in=_selection).delete()
             except Exception as e:
                 pass
             

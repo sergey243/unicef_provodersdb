@@ -20,6 +20,18 @@
 <p>
   <ol>
     <li>Make a copy of the projecct to the deployment server</li>
+    <li>Under the repository web/ create a file named .env with the content below: <br/>
+      DEBUG=0<br/>
+      SECRET_KEY="django-insecure-yx%@%k82qg7_*^y^%sxblp8or-ksxx30n%^3+3-^7kawt2x%lh"<br/>
+      DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 142.93.46.193 web<br/>
+      CSRF_TRUSTED_ORIGINS=http://localhost:1337 http://nginx https://nginx http://web https://web https://localhost http://localhost<br/>
+      ENGINE=django.contrib.gis.db.backends.postgis<br/>
+      DATABASE=providers_dev<br/>
+      DB_USER=django_admin<br/>
+      DB_PASSWORD=hello_django<br/>
+      DB_HOST=db<br/>
+      DB_PORT=5432<br/>
+    </li>
     <li>Change directory to the copied repositry and from within the repository buld the docker containers using the command: <b>$ docker-compose build</b></li>
     <li>Open the web application container: <b>$ docker-compose run web bash</b></li>
     <li>Within the web application container, run the base configuration file: <b>$ bash ./initapp.sh && exit</b></br>You will be prompted to enter the details of the superuser</li>

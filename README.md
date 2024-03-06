@@ -34,6 +34,7 @@
       EMAIL_HOST=smtp.gmail.com<br/>
       EMAIL_HOST_USER=sergeyassudev@gmail.com<br/>
       EMAIL_HOST_PASSWORD=test@12345<br/>
+      EMAIL_PORT = 587<br/>
     </li>
     <li>Change directory to the copied repositry and from within the repository buld the docker containers using the command: <b>$ docker-compose build</b></li>
     <li>Open the web application container: <b>$ docker-compose run web bash</b></li>

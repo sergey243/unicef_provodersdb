@@ -127,7 +127,7 @@ DB = os.environ.get("DATABASE", None)
 HOST = os.environ.get("DB_HOST", "localhost")
 PORT = os.environ.get("DB_PORT", "5432")
 USERNAME = os.environ.get("DB_USER", None)
-PASSWORD = os.environ.get("SQL_PASSWORD", None)
+PASSWORD = os.environ.get("DB_PASSWORD", None)
 
 DATABASES = {
     "default": {

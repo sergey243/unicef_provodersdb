@@ -2,3 +2,6 @@ label.required::after {
     content: ' *';
     color: red;
 }
+.active-page a {
+    font-weight: bold!;
+}

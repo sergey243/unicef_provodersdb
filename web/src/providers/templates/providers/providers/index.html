@@ -25,8 +25,7 @@
               href="#collapseExample"
               role="button"
               aria-expanded="false"
-              aria-controls="collapseExample"
-            >
+              aria-controls="collapseExample">
               {% translate 'Filters' %}
             </a>
           </div>
@@ -39,8 +38,7 @@
               <input
                 type="submit"
                 value="{% trans 'Submit' %}"
-                class="btn btn-success"
-              />
+                class="btn btn-success" />
             </form>
           </div>
         </div>
@@ -54,8 +52,7 @@
               id="delbutton"
               type="button"
               class="btn btn-primary red"
-              disabled
-            >
+              disabled>
               {% translate 'Bulk delete' %}
             </button>
           </div>
@@ -63,8 +60,7 @@
             <a
               href="{% url 'provider-create' %}"
               class="btn btn-primary red"
-              type="submit"
-            >
+              type="submit">
               {% translate 'Create new' %}
             </a>
           </div>
@@ -75,8 +71,7 @@
           id="exampleModal"
           tabindex="-1"
           aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+          aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -87,8 +82,7 @@
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 {% blocktrans %}Do you really want to delete theses providers
@@ -100,8 +94,7 @@
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
+                  data-bs-dismiss="modal">
                   {% translate 'Cancel' %}
                 </button>
                 <form method="post" action="{% url 'providers-delete' %}">
@@ -111,13 +104,11 @@
                     name="selection"
                     type="text"
                     value="[]"
-                    hidden
-                  />
+                    hidden />
                   <button
                     id="delbutton"
                     type="submit"
-                    class="btn btn-primary red"
-                  >
+                    class="btn btn-primary red">
                     {% translate 'Confirm' %}
                   </button>
                 </form>

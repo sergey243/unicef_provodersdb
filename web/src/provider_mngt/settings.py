@@ -140,10 +140,8 @@ DATABASES = {
     }
 }
 if not DEBUG:
-    #DATABASES["default"]["OPTION"] = {
-    #        'sslmode': 'require'
-    #    }
-    DATABASE_URL='postgres://{}:{}@{}:{}/{}?sslmode=require'.format(USERNAME,PASSWORD,HOST,PORT,DB)
+    #DATABASE_URL='postgres://{}:{}@{}:{}/{}?sslmode=require'.format(USERNAME,PASSWORD,HOST,PORT,DB)
+    DATABASE_URL='postgres://{}:{}@{}:{}/{}'.format(USERNAME,PASSWORD,HOST,PORT,DB)
     db_from_env = dj_database_url.config(default=DATABASE_URL,conn_max_age=500)
     DATABASES['default'].update(db_from_env)
 

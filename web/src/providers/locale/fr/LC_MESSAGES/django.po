@@ -817,7 +817,7 @@ msgstr "conclusion"
 
 #: templates/providers/evaluations/pdf.html:174
 msgid "Comment"
-msgstr "commentaire"
+msgstr "Commentaire"
 
 #: templates/providers/evaluations/pdf.html:176
 msgid "No comment"

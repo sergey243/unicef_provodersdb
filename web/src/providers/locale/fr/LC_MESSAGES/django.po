@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 07:55+0100\n"
+"POT-Creation-Date: 2024-03-07 12:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -422,6 +422,10 @@ msgstr "partenaires"
 msgid "workspace"
 msgstr "espace de travail"
 
+#: models.py:294
+msgid "Area of your workshops/offices/stores in square meters."
+msgstr "Superficie de vos ateliers/bureaux/magasins en mètres carrés."
+
 #: models.py:295
 msgid "equipments"
 msgstr "équipements"
@@ -521,7 +525,7 @@ msgstr "fin de période"
 
 #: models.py:378
 msgid "works evaluated"
-msgstr "travaux évaluées"
+msgstr "travaux évalués"
 
 #: models.py:379
 msgid "services evaluated"
@@ -626,7 +630,7 @@ msgstr "Non"
 msgid "Description"
 msgstr "Description"
 
-#: tables.py:73
+#: tables.py:73 templates/providers/evaluations/pdf.html:131
 msgid "Performance"
 msgstr "Performance"
 
@@ -649,18 +653,22 @@ msgid "Editing evaluation of"
 msgstr "Édition de l'évaluation de"
 
 #: templates/providers/evaluations/form.html:32
+#: templates/providers/evaluations/pdf.html:12
 msgid "Creation date: "
 msgstr "Date de création: "
 
 #: templates/providers/evaluations/form.html:33
+#: templates/providers/evaluations/pdf.html:13
 msgid "Creator: "
 msgstr "Créateur: "
 
 #: templates/providers/evaluations/form.html:34
+#: templates/providers/evaluations/pdf.html:14
 msgid "Modification date: "
 msgstr "Dernière modification: "
 
 #: templates/providers/evaluations/form.html:35
+#: templates/providers/evaluations/pdf.html:15
 msgid "Modify by: "
 msgstr "Modifiée par :"
 
@@ -675,6 +683,10 @@ msgstr "Faire une évaluation pour"
 #: templates/providers/works/details.html:25
 msgid "Delete"
 msgstr "Supprimer"
+
+#: templates/providers/evaluations/form.html:45
+msgid "Printable page"
+msgstr "Page imprimable"
 
 #: templates/providers/evaluations/form.html:57
 #: templates/providers/goods/form.html:39
@@ -722,6 +734,98 @@ msgstr "Annuler"
 #: templates/providers/works/index.html:103
 msgid "Confirm"
 msgstr "Confirmer"
+
+#: templates/providers/evaluations/pdf.html:9
+msgid "Evaluation for: "
+msgstr "Évaluation pour"
+
+#: templates/providers/evaluations/pdf.html:19
+msgid "Evaluation Details"
+msgstr "Détails de l'Évaluation"
+
+#: templates/providers/evaluations/pdf.html:23
+msgid "Start Period"
+msgstr "Début de Période"
+
+#: templates/providers/evaluations/pdf.html:31
+msgid "End Period"
+msgstr "Fin de Période"
+
+#: templates/providers/evaluations/pdf.html:39
+msgid "Site"
+msgstr "Site"
+
+#: templates/providers/evaluations/pdf.html:42
+msgid "Address: "
+msgstr "Adresse: "
+
+#: templates/providers/evaluations/pdf.html:48
+msgid "PO Number"
+msgstr "Numéro de bon de commande"
+
+#: templates/providers/evaluations/pdf.html:56
+msgid "PO Amount"
+msgstr "Montant du bon de commande"
+
+#: templates/providers/evaluations/pdf.html:64
+msgid "LTA Number"
+msgstr "Numéro LTA"
+
+#: templates/providers/evaluations/pdf.html:76
+msgid "Evaluation Target"
+msgstr "Cible de l'Évaluation"
+
+#: templates/providers/evaluations/pdf.html:80
+msgid "Goods Evaluated"
+msgstr "Biens évalués"
+
+#: templates/providers/evaluations/pdf.html:88
+#: templates/providers/evaluations/pdf.html:104
+#: templates/providers/evaluations/pdf.html:120
+msgid "Not specified"
+msgstr "Non fourni"
+
+#: templates/providers/evaluations/pdf.html:96
+msgid "Services Evaluated"
+msgstr "Services évalués"
+
+#: templates/providers/evaluations/pdf.html:112
+msgid "Works Evaluated"
+msgstr "Travaux évalués"
+
+#: templates/providers/evaluations/pdf.html:135
+msgid "Fiability"
+msgstr "Fiabilité"
+
+#: templates/providers/evaluations/pdf.html:143
+msgid "Ponctuality"
+msgstr "Ponctualité"
+
+#: templates/providers/evaluations/pdf.html:151
+msgid "Quality vs Price"
+msgstr "Rapport qualité/prix"
+
+#: templates/providers/evaluations/pdf.html:159
+msgid "Technical"
+msgstr "Technicité"
+
+#: templates/providers/evaluations/pdf.html:170
+#, fuzzy
+#| msgid "conclusion"
+msgid "Conclusion"
+msgstr "conclusion"
+
+#: templates/providers/evaluations/pdf.html:174
+msgid "Comment"
+msgstr "commentaire"
+
+#: templates/providers/evaluations/pdf.html:176
+msgid "No comment"
+msgstr "Pas de commentaire"
+
+#: templates/providers/evaluations/pdf.html:182
+msgid "Mention"
+msgstr "Mention"
 
 #: templates/providers/goods/details.html:5
 msgid "Goods details"
@@ -1150,23 +1254,23 @@ msgstr ""
 " <!-- break -->\n"
 " "
 
-#: views.py:173
+#: views.py:175
 msgid "The provider was delete successfully"
 msgstr "Le fournisseur a été supprimé avec succès"
 
-#: views.py:239
+#: views.py:241
 msgid "The service was delete successfully"
 msgstr "Le fournisseur a été supprimé avec succès"
 
-#: views.py:303
+#: views.py:305
 msgid "The good was delete successfully"
 msgstr "Le bien a été supprimé avec succès"
 
-#: views.py:366
+#: views.py:368
 msgid "The work was delete successfully"
 msgstr "Les travaux a été supprimé avec succès"
 
-#: views.py:474
+#: views.py:476
 msgid "The evaluation was delete successfully"
 msgstr "L'évaluation a été supprimée avec succès"
 

@@ -36,5 +36,6 @@ urlpatterns = [
     path('explore/evaluation/update/<int:pk>',login_required(views.EvaluationUpdate.as_view()),name='evaluation-update'),
     path('explore/evaluation/create/<int:pk>/',login_required(views.EvaluationCreate.as_view()),name='evaluation-create'),
     path('explore/evaluation/delete/<int:pk>/',login_required(views.EvaluationDelete.as_view()),name='evaluation-delete'),
+    path('explore/evaluation/print/<int:pk>/',login_required(views.print_evaluation),name='evaluation-print'),
 
 ]

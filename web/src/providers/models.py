@@ -291,7 +291,7 @@ class Provider(Model):
     is_accredited_provider = fields.BooleanField(verbose_name=_("is acrredited provider"),default=False,blank=False,null=False)
     goods_orgin = fields.CharField(verbose_name=_('origin of goods'), max_length=500,blank=True,null=True)
     partners = fields.CharField(verbose_name=_("partners"),max_length=500, blank=True, null=True)
-    workspaces = fields.CharField(verbose_name=_("workspace"),max_length=500, blank=True, null=True)
+    workspaces = fields.CharField(verbose_name=_("workspace"),max_length=500, blank=True, null=True,help_text=_('Area of your workshops/offices/stores in square meters.'))
     equipments = fields.TextField(verbose_name=_("equipments"),max_length=2500, blank=True, null=True)
     competition = fields.TextField(verbose_name=_("competition"),max_length=500, blank=True, null=True)
     affiliations = fields.TextField(verbose_name=_("affiliations"),max_length=500, blank=True, null=True, help_text=_('Is the provider part of a syndicate or an assciation.'))

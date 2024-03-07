@@ -42,7 +42,7 @@
           <!-- Break -->
           {% endif %}
         
-        {% if object.pk %}<a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a>{% endif %}
+        {% if object.pk %}<a data-bs-toggle="modal"onclick="return clickfunc()" data-bs-target="#exampleModal"  href = "#">{% translate 'Delete' %}</a> | <a href = "{% url 'evaluation-print' object.pk  %}">{% translate 'Printable page' %}</a> {% endif %}
         <form method="post" action="" novalidate>
           {% csrf_token %}{{ form.media }}
           <input

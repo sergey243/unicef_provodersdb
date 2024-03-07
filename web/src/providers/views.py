@@ -1,7 +1,7 @@
 import csv
 from typing import Any
 from django.db.models.query import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, FileResponse
 from djqscsv import render_to_csv_response
 from django.db.models.base import Model as Model
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -17,7 +17,9 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 import pandas as pd
 from io import BytesIO
-from .models import Provider, Service, Work, Good, Evaluation, SELECTION_MODE, ADVANTAGES
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from .models import Provider, Service, Work, Good, Evaluation, SELECTION_MODE, ADVANTAGES, EVALUATION_CONCLUSION
 from .tables import ProviderTable, ServicesTable, WorksTable, GoodsTable, EvaluationTable
 from .filters import ProviderFilter, ServiceFilter, GoodFilter, WorkFilter
 from .forms import ProviderForm,ServiceForm, GoodForm, WorkForm, EvaluationForm, BulkDeleteForm
@@ -473,6 +475,22 @@ class EvaluationDelete(DeleteView,PermissionRequiredMixin):
         self.success_url = reverse_lazy('provider-details',kwargs={'pk': self.get_object().provider.pk})
         messages.success(self.request, _("The evaluation was delete successfully"))
         return super().form_valid(form)
+
+@permission_required("providers.can_visualize_evaluation")       
+def print_evaluation(request,pk):
+    context = dict()
+    evaluation =  get_object_or_404(Evaluation,pk=pk)
+    context['object'] = evaluation
+    context['provider'] = evaluation.provider
+    context['goods'] = [x.name for x in evaluation.goods.all()]
+    context['services'] = [x.name for x in evaluation.services.all()]
+    context['works'] = [x.name for x in evaluation.works.all()]
+    context["creator"] = evaluation.created_by.get_username()
+    context["modifier"] = evaluation.last_modify_by.get_username()
+    context["conclusion"] = dict(EVALUATION_CONCLUSION).get(evaluation.conclusion)
+    return render(request,"providers/evaluations/pdf.html",context)
+
+
 
 
 

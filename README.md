@@ -10,7 +10,7 @@
 <h2>Switching to production settings</h2>
 <p>For developement and debuging purse some paremeters have been set, while moving to production make sure the following is done:<br/>
 <ol>
-  <li>Change the credentials details in the file <b>./web/.env</b></li>
+  <li>Change the credentials details and allowed host details in the file <b>./web/.env</b></li>
   <li>Set the <b>DEBUG</b> variable to <b>0</b> to disable the debug mode</li>
   <li>Within the <b>docker-compose</b> file, update the <b>pg_admin</b> container credentials as required</li>
   <li>Within the <b>docker-compose</b> file, update the <b>web</b> container parmeters by commenting the <b>port</b> section. This will the keept the server from exposing internal ports</li>
@@ -44,5 +44,3 @@
     <li>Run the container: <b>$ docker-compose up -d</b></li>
   </ol>
 </p>
-
-

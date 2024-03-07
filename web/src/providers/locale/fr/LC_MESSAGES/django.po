@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 18:13+0100\n"
+"POT-Creation-Date: 2024-03-07 07:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -343,8 +343,8 @@ msgid "country"
 msgstr "pays"
 
 #: models.py:275
-msgid "subsidiaries"
-msgstr "filiales"
+msgid "subsidiaries/representations"
+msgstr "filiales/représentations"
 
 #: models.py:276
 msgid "tax id"
@@ -433,6 +433,10 @@ msgstr "concurrents"
 #: models.py:297
 msgid "affiliations"
 msgstr "affiliations"
+
+#: models.py:297
+msgid "Is the provider part of a syndicate or an assciation."
+msgstr "Le fournisseur fait-il partie d'un syndicat ou d'une association."
 
 #: models.py:298
 msgid "is member of the commerce chamber"
@@ -601,7 +605,7 @@ msgstr "Contractant"
 #: templates/providers/providers/details.html:240
 #: templates/providers/providers/details.html:241
 #: templates/providers/providers/details.html:242
-#: templates/providers/providers/details.html:258
+#: templates/providers/providers/details.html:259
 msgid "Yes"
 msgstr "Oui"
 
@@ -611,7 +615,7 @@ msgstr "Oui"
 #: templates/providers/providers/details.html:240
 #: templates/providers/providers/details.html:241
 #: templates/providers/providers/details.html:242
-#: templates/providers/providers/details.html:258
+#: templates/providers/providers/details.html:259
 msgid "No"
 msgstr "Non"
 
@@ -676,14 +680,14 @@ msgstr "Supprimer"
 #: templates/providers/goods/form.html:39
 #: templates/providers/providers/export.html:27
 #: templates/providers/providers/form.html:42
-#: templates/providers/providers/index.html:41
+#: templates/providers/providers/index.html:40
 #: templates/providers/services/form.html:39
 #: templates/providers/works/form.html:39
 msgid "Submit"
 msgstr "Soumettre"
 
 #: templates/providers/evaluations/form.html:65
-#: templates/providers/providers/details.html:406
+#: templates/providers/providers/details.html:411
 msgid "Delete provider"
 msgstr "Supprimer le fournisseur"
 
@@ -698,8 +702,8 @@ msgstr ""
 #: templates/providers/evaluations/form.html:73
 #: templates/providers/goods/details.html:80
 #: templates/providers/goods/index.html:87
-#: templates/providers/providers/details.html:414
-#: templates/providers/providers/index.html:105
+#: templates/providers/providers/details.html:419
+#: templates/providers/providers/index.html:98
 #: templates/providers/services/details.html:80
 #: templates/providers/services/index.html:86
 #: templates/providers/works/details.html:78
@@ -710,8 +714,8 @@ msgstr "Annuler"
 #: templates/providers/evaluations/form.html:75
 #: templates/providers/goods/details.html:85
 #: templates/providers/goods/index.html:103
-#: templates/providers/providers/details.html:416
-#: templates/providers/providers/index.html:121
+#: templates/providers/providers/details.html:421
+#: templates/providers/providers/index.html:112
 #: templates/providers/services/details.html:85
 #: templates/providers/services/index.html:102
 #: templates/providers/works/details.html:83
@@ -751,8 +755,9 @@ msgstr "Modifier"
 #: templates/providers/providers/details.html:249
 #: templates/providers/providers/details.html:256
 #: templates/providers/providers/details.html:257
-#: templates/providers/providers/details.html:331
-#: templates/providers/providers/details.html:335
+#: templates/providers/providers/details.html:332
+#: templates/providers/providers/details.html:336
+#: templates/providers/providers/details.html:340
 #: templates/providers/services/details.html:36
 #: templates/providers/services/details.html:42
 #: templates/providers/works/details.html:35
@@ -781,21 +786,21 @@ msgid "filter"
 msgstr "Filtrer"
 
 #: templates/providers/goods/index.html:40
-#: templates/providers/providers/index.html:59
+#: templates/providers/providers/index.html:56
 #: templates/providers/services/index.html:40
 #: templates/providers/works/index.html:40
 msgid "Bulk delete"
 msgstr "Suppression groupée"
 
 #: templates/providers/goods/index.html:49
-#: templates/providers/providers/index.html:68
+#: templates/providers/providers/index.html:64
 #: templates/providers/services/index.html:49
 #: templates/providers/works/index.html:49
 msgid "Create new"
 msgstr "Créer un nouveau"
 
 #: templates/providers/goods/index.html:65
-#: templates/providers/providers/index.html:84
+#: templates/providers/providers/index.html:79
 #: templates/providers/services/details.html:59
 #: templates/providers/services/index.html:65
 #: templates/providers/works/index.html:65
@@ -881,13 +886,16 @@ msgid "Email"
 msgstr "Email"
 
 #: templates/providers/providers/details.html:172
-#: templates/providers/providers/details.html:176
 msgid "Website"
 msgstr "Site web"
 
+#: templates/providers/providers/details.html:176
+msgid "Contacts"
+msgstr "contacts"
+
 #: templates/providers/providers/details.html:180
-msgid "Subsidiaries"
-msgstr "Filiales"
+msgid "Subsidiaries/representations"
+msgstr "filiales/représentations"
 
 #: templates/providers/providers/details.html:196
 msgid "Adminstrative details"
@@ -935,7 +943,7 @@ msgstr "Grossiste"
 
 #: templates/providers/providers/details.html:242
 msgid "Accredited distributor"
-msgstr "Distributeur accrédité"
+msgstr "Distributeur agréé"
 
 #: templates/providers/providers/details.html:246
 msgid "Annual turn over"
@@ -961,35 +969,39 @@ msgstr "Concurrents"
 msgid "Affiliations"
 msgstr "Affiliations"
 
-#: templates/providers/providers/details.html:258
+#: templates/providers/providers/details.html:259
 msgid "Memberof the commerce chamber"
 msgstr "Membre de la chambre de commerce"
 
-#: templates/providers/providers/details.html:275
+#: templates/providers/providers/details.html:276
 msgid "Offers"
 msgstr "Offres"
 
-#: templates/providers/providers/details.html:287
+#: templates/providers/providers/details.html:288
 msgid "Goods provided"
 msgstr "Bien fournis"
 
-#: templates/providers/providers/details.html:297
+#: templates/providers/providers/details.html:298
 msgid "Services provided"
 msgstr "Services fournis"
 
-#: templates/providers/providers/details.html:307
+#: templates/providers/providers/details.html:308
 msgid "Works executed"
 msgstr "Travaux exécutés"
 
-#: templates/providers/providers/details.html:330
+#: templates/providers/providers/details.html:331
 msgid "Production equipement (with delivery equipments)"
 msgstr "Équipement de production (avec équipements de livraison)"
 
-#: templates/providers/providers/details.html:334
+#: templates/providers/providers/details.html:335
 msgid "Number of permanent employes"
 msgstr "Nombre d'employés permanents"
 
-#: templates/providers/providers/details.html:347
+#: templates/providers/providers/details.html:339
+msgid "Work spaces"
+msgstr "Espaces de travail"
+
+#: templates/providers/providers/details.html:352
 msgid ""
 "Services, goods or works offered to Unicef, other united nation agencies, "
 "bilateral coperation agencies, or gorvenmental or non governmental engencies"
@@ -998,39 +1010,39 @@ msgstr ""
 "Unies,agences de coopération bilatérales, agences gouvernementales ou non "
 "gouvernementales"
 
-#: templates/providers/providers/details.html:348
-#: templates/providers/providers/details.html:352
+#: templates/providers/providers/details.html:353
 #: templates/providers/providers/details.html:357
+#: templates/providers/providers/details.html:362
 msgid "No details provided"
 msgstr "Aucun détail fourni"
 
-#: templates/providers/providers/details.html:351
+#: templates/providers/providers/details.html:356
 msgid "Selection mode"
 msgstr "Mode de selection"
 
-#: templates/providers/providers/details.html:355
+#: templates/providers/providers/details.html:360
 msgid "Advantages to Unicef"
 msgstr "Avantages pour l'UNICEF"
 
-#: templates/providers/providers/details.html:369
+#: templates/providers/providers/details.html:374
 msgid "Provide works in"
 msgstr "Fournit des travaux à"
 
-#: templates/providers/providers/details.html:374
-#: templates/providers/providers/details.html:382
-#: templates/providers/providers/details.html:390
+#: templates/providers/providers/details.html:379
+#: templates/providers/providers/details.html:387
+#: templates/providers/providers/details.html:395
 msgid "None"
 msgstr "Aucun"
 
-#: templates/providers/providers/details.html:378
+#: templates/providers/providers/details.html:383
 msgid "Provide services in"
 msgstr "Fournit des services à"
 
-#: templates/providers/providers/details.html:386
+#: templates/providers/providers/details.html:391
 msgid "Provide goods in"
 msgstr "Fournit des biens à"
 
-#: templates/providers/providers/details.html:410
+#: templates/providers/providers/details.html:415
 msgid ""
 "Do you really want to delete the provider\n"
 "              "
@@ -1053,11 +1065,11 @@ msgstr "Modification fournisseur"
 msgid "Creating provider"
 msgstr "Création fournisseur"
 
-#: templates/providers/providers/index.html:30
+#: templates/providers/providers/index.html:29
 msgid "Filters"
 msgstr "Filtres"
 
-#: templates/providers/providers/index.html:94
+#: templates/providers/providers/index.html:88
 msgid ""
 "Do you really want to delete theses providers\n"
 "                <!-- break -->\n"
@@ -1142,21 +1154,24 @@ msgstr ""
 msgid "The provider was delete successfully"
 msgstr "Le fournisseur a été supprimé avec succès"
 
-#: views.py:238
+#: views.py:239
 msgid "The service was delete successfully"
 msgstr "Le fournisseur a été supprimé avec succès"
 
-#: views.py:302
+#: views.py:303
 msgid "The good was delete successfully"
 msgstr "Le bien a été supprimé avec succès"
 
-#: views.py:365
+#: views.py:366
 msgid "The work was delete successfully"
 msgstr "Les travaux a été supprimé avec succès"
 
-#: views.py:473
+#: views.py:474
 msgid "The evaluation was delete successfully"
 msgstr "L'évaluation a été supprimée avec succès"
+
+#~ msgid "Subsidiaries"
+#~ msgstr "Filiales"
 
 #~ msgid "Note"
 #~ msgstr "Note"

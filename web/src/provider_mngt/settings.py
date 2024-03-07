@@ -123,20 +123,21 @@ WSGI_APPLICATION = "provider_mngt.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-DB = os.environ.get("DATABASE", None)
+DB = os.environ.get("POSTGRES_DB", None)
 HOST = os.environ.get("DB_HOST", "localhost")
 PORT = os.environ.get("DB_PORT", "5432")
-USERNAME = os.environ.get("DB_USER", None)
-PASSWORD = os.environ.get("DB_PASSWORD", None)
+USERNAME = os.environ.get("POSTGRES_USER", "user")
+PASSWORD = os.environ.get("POSTGRES_PASSWORD", "password")
+ENGINE = os.environ.get("ENGINE", "django.db.backends.sqlite3")
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DATABASE", None),
-        "USER": os.environ.get("DB_USER", "user"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "password"),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
-        "PORT": os.environ.get("DB_PORT", "5432"),
+        "ENGINE": ENGINE,
+        "NAME": DB,
+        "USER": USERNAME,
+        "PASSWORD": PASSWORD,
+        "HOST": HOST,
+        "PORT": PORT,
     }
 }
 if not DEBUG:
@@ -230,7 +231,7 @@ LOGIN_REDIRECT_URL = '/'
 # Whitenoise
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": 'django.contrib.staticfiles.storage.StaticFilesStorage'
     },
 }
 

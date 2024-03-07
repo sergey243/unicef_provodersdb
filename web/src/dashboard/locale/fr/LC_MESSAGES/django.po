@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-03 11:15+0100\n"
+"POT-Creation-Date: 2024-03-06 15:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: tables.py:7
+
+#: web/src/dashboard/tables.py:7
 msgid "name"
 msgstr "nom"
 
-#: tables.py:8
+#: web/src/dashboard/tables.py:8
 msgid "region"
 msgstr "province"
 
-#: tables.py:9
+#: web/src/dashboard/tables.py:9
 msgid "Count"
 msgstr "Compte"
 
-#: templates/dashboard/index.html:19
+#: web/src/dashboard/templates/dashboard/index.html:19
 msgid "Services Providers"
 msgstr "Fournisseurs de services"
 
-#: templates/dashboard/index.html:30
+#: web/src/dashboard/templates/dashboard/index.html:30
 msgid "Contractors"
 msgstr "Contractants"
 
-#: templates/dashboard/index.html:41
+#: web/src/dashboard/templates/dashboard/index.html:41
 msgid "Goods Providers"
 msgstr "Fournisseurs de biens"
 
-#: templates/dashboard/index.html:55
+#: web/src/dashboard/templates/dashboard/index.html:55
 msgid "Providers based in cities"
 msgstr "Fournisseurs basés dans les villes"

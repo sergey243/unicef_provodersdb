@@ -2,6 +2,7 @@ from . import views
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 
+
 urlpatterns = [
     path('explore/',login_required(views.ProvidersList.as_view()),name='providers-list'),
     path('export/',login_required(views.ProviderExport.as_view()),name='providers-export'),

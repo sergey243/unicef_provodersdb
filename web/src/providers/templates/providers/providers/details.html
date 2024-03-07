@@ -173,11 +173,11 @@
                           {% if object.website %} {{ object.website }}{% else %}{% translate 'Not provided' %}{% endif %}
                         </p>
                         <p>
-                          <b>{% translate 'Website' %}</b><br />
+                          <b>{% translate 'Contacts' %}</b><br />
                           {% if object.contacts %} {{ object.contacts }}{% else %}{% translate 'Not provided' %}{% endif %}
                         </p>
                         <p>
-                          <b>{% translate 'Subsidiaries' %}</b><br />
+                          <b>{% translate 'Subsidiaries/representations' %}</b><br />
                           {% if object.subsidiaries %} {{ object.subsidiaries }}{% else %}{% translate 'Not provided' %}{% endif %}
                         </p>
                       </div>
@@ -235,7 +235,7 @@
                         <p>
                           <b>{% translate 'Provider nature' %}</b><br />
                           <ul>
-                            <li>{% translate 'Importateur' %}: {% if object.is_importer %}{% translate 'Yes' %} {% if object.goods_orgin %}(with goods comming from{{ object.goods_orgin }}){% endif %}{% else %}{% translate 'No' %}{% endif %}</li>
+                            <li>{% translate 'Importateur' %}: {% if object.is_importer %}{% translate 'Yes' %} {% if object.goods_orgin %}(with goods comming from {{ object.goods_orgin }}){% endif %}{% else %}{% translate 'No' %}{% endif %}</li>
                             <li>{% translate 'Manifactor' %}: {% if object.is_manifactor %}{% translate 'Yes' %}{% else %}{% translate 'No' %}{% endif %}</li>
                             <li>{% translate 'Retailer' %}: {% if object.is_retailer %}{% translate 'Yes' %}{% else %}{% translate 'No' %}{% endif %}</li>
                             <li>{% translate 'Wholeseller' %}: {% if object.is_wholeseller %}{% translate 'Yes' %}{% else %}{% translate 'No' %}{% endif %}</li>
@@ -245,8 +245,8 @@
                         <p>
                           <b>{% translate 'Annual turn over' %}</b><br />
                           <ol>
-                            <li>{% translate 'Previous year to registration' %}:{% if object.last_turnover %} {{ object.last_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
-                            <li>{% translate 'Two years before registration' %}: {% if object.past_annual_turnover %} {{ object.past_annual_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
+                            <li>{% translate 'Previous year to registration' %}: {% if object.annual_turnover_crncy %}{{ object.annual_turnover_crncy }}{% endif %}{% if object.last_turnover %} {{ object.last_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
+                            <li>{% translate 'Two years before registration' %}: {% if object.annual_turnover_crncy %}{{ object.annual_turnover_crncy }}{% endif %} {% if object.past_annual_turnover %} {{ object.past_annual_turnover }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
                           </ol>
                       
                         </p>
@@ -254,7 +254,8 @@
                           <b>{% translate 'Other derails' %}</b><br />
                           <ol>
                             <li>{% translate 'Competitors' %}: {% if object.competition %} {{ object.competition }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
-                            <li>{% translate 'Affiliations' %}: {% if object.affiliation %} {{ object.affiliation }}{% else %}{% translate 'Not provided' %}{% endif %}</li>
+                            <li>{% translate 'Affiliations' %}: {% if object.affiliations %} {{ object.affiliations }}{% else %}{% translate 'Not provided' %}
+                              {% endif %}</li>
                             <li>{% translate 'Memberof the commerce chamber' %}: {% if object.affiliate_to_commerce_chamber %} {% translate 'Yes' %}{% else %}{% translate 'No' %} {% if object.reason_no_affiliate %}-  {{ object.reason_no_affiliate }}{% endif %}{% endif %}</li>
                           </ol>
                       
@@ -333,6 +334,10 @@
             <p>
                 <b>{% translate 'Number of permanent employes' %}</b><br />
                 {% if object.employees_count %}{{ object.employees_count }}{% else %}{% translate 'Not provided' %}{% endif %}
+            </p>
+            <p>
+                <b>{% translate 'Work spaces' %}</b><br />
+                {% if object.workspaces %}{{ object.workspaces }}{% else %}{% translate 'Not provided' %}{% endif %}
             </p>
              
             

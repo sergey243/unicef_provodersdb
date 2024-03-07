@@ -26,9 +26,9 @@
       DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 142.93.46.193 web<br/>
       CSRF_TRUSTED_ORIGINS=http://localhost:1337 http://nginx https://nginx http://web https://web https://localhost http://localhost<br/>
       ENGINE=django.contrib.gis.db.backends.postgis<br/>
-      DATABASE=providers_dev<br/>
-      DB_USER=django_admin<br/>
-      DB_PASSWORD=hello_django<br/>
+      POSTGRES_DB=providers_dev<br/>
+      POSTGRES_USER=django_admin<br/>
+      POSTGRES_PASSWORD=hello_django<br/>
       DB_HOST=db<br/>
       DB_PORT=5432<br/>
       EMAIL_HOST=smtp.gmail.com<br/>

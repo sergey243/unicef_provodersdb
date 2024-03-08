@@ -12,7 +12,7 @@ services:
     ports:
       - "6432:5432"
     env_file:
-      - ./web/.env
+      - ./.env
     networks:
       - network
 
@@ -38,7 +38,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ./web/.env
+      - ./.env
     networks:
       - network
 
@@ -52,11 +52,11 @@ services:
       - "80"
     environment:
       - GUNICORN_THREADS=1
-      - PGADMIN_DEFAULT_EMAIL=user@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=password@123
       - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
       - PGADMIN_CONFIG_LOGIN_BANNER="Authorised users only!"
       - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
+    env_file:
+      - ./.env
     depends_on:
       - db
     networks:

@@ -20,21 +20,27 @@
 <p>
   <ol>
     <li>Make a copy of the projecct to the deployment server</li>
-    <li>Under the repository web/ create a file named .env with the content below: <br/>
+    <li>Under the base repository create a file named .env with the content below: <br/>
       DEBUG=0<br/>
-      SECRET_KEY="django-insecure-yx%@%k82qg7_*^y^%sxblp8or-ksxx30n%^3+3-^7kawt2x%lh"<br/>
-      DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 142.93.46.193 web<br/>
-      CSRF_TRUSTED_ORIGINS=http://localhost:1337 http://nginx https://nginx http://web https://web https://localhost http://localhost<br/>
-      ENGINE=django.contrib.gis.db.backends.postgis<br/>
-      POSTGRES_DB=providers_dev<br/>
-      POSTGRES_USER=django_admin<br/>
-      POSTGRES_PASSWORD=hello_django<br/>
-      DB_HOST=db<br/>
-      DB_PORT=5432<br/>
-      EMAIL_HOST=smtp.gmail.com<br/>
-      EMAIL_HOST_USER=sergeyassudev@gmail.com<br/>
-      EMAIL_HOST_PASSWORD=test@12345<br/>
-      EMAIL_PORT = 587<br/>
+ # DJANGO APP VARS<br/>
+DEBUG=0<br/>
+SECRET_KEY="django-insecure-yx%@%k82qg7_*^y^%sxblp8or-ksxx30n%^3+3-^7kawt2x%lh"<br/>
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] 142.93.46.193 web<br/>
+CSRF_TRUSTED_ORIGINS=http://localhost:1337 http://nginx https://nginx http://web https://web https://localhost http://localhost https://142.93.46.193 http://142.93.46.193<br/>
+ENGINE=django.contrib.gis.db.backends.postgis<br/>
+DB_HOST=db<br/>
+DB_PORT=5432<br/>
+EMAIL_HOST=smtp.gmail.com<br/>
+EMAIL_HOST_USER=sergeyassudev@gmail.com<br/>
+EMAIL_HOST_PASSWORD=test@12345<br/>
+EMAIL_PORT = 587<br/>
+# DJANGO APP AND POSTGRES<br/>
+POSTGRES_DB=providers_dev<br/>
+POSTGRES_USER=django_admin<br/>
+POSTGRES_PASSWORD=hello_django<br/>
+# PG ADMIN VARS<br/>
+PGADMIN_DEFAULT_EMAIL=user@domain.com<br/>
+PGADMIN_DEFAULT_PASSWORD=password@123<br/>
     </li>
     <li>Change directory to the copied repositry and from within the repository buld the docker containers using the command: <b>$ docker-compose build</b></li>
     <li>Open the web application container: <b>$ docker-compose run web bash</b></li>

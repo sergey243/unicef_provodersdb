@@ -4,7 +4,7 @@ services:
   db:
     container_name: provider_mngt_db
     image: postgis/postgis:16-3.4
-    #restart: always
+    restart: always
     volumes:
       - ./db/data:/var/lib/postgresql/data
     expose:
@@ -19,6 +19,7 @@ services:
   web:
     container_name: provider_mngt_app
     build: ./web
+    restart: always
     # Production
     command: bash -c "python manage.py makemigrations && python manage.py collectstatic --noinput && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
     # Dev command
@@ -31,9 +32,9 @@ services:
       - "443"
       - "6800"
       - "8000"
-    ports:
-      - "6801:6800"
-      - "8000:8000"
+    #ports:
+    #  - "6801:6800"
+    #  - "8000:8000"
     depends_on:
       - db
     env_file:
@@ -44,7 +45,7 @@ services:
   pg_admin:
     container_name: provider_mngt_pg_admin
     image: dpage/pgadmin4:latest
-    #restart: always
+    restart: always
     ports:
       - "8001:80"
     expose:
@@ -63,7 +64,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: provider_mngt_nginx
-    #restart: always
+    restart: always
     volumes:
       - ./nginx/:/etc/nginx/conf.d
     ports:

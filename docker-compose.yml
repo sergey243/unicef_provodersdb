@@ -81,9 +81,9 @@ services:
       resources:
         limits:
           cpus: "0.50"
-          memory: 150M
+          memory: 200M
         reservations:
-          cpus: "0.25"
+          cpus: "0.5"
           memory: 80M
   nginx:
     image: nginx:latest

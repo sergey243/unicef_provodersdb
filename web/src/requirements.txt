@@ -25,6 +25,7 @@ django-bootstrap5==23.3
 django-cities-light==3.10.0
 django-crispy-forms==2.1
 django-filter==23.5
+django-init-admin-command==0.1.0
 django-model-utils==4.3.1
 django-multiselectfield==0.1.12
 django-permissions-auditor==1.2.0

@@ -9,12 +9,20 @@ services:
       - ./db/data:/var/lib/postgresql/data
     expose:
       - 5432
-    ports:
-      - "6432:5432"
+    #ports:
+    #  - "6432:5432"
     env_file:
       - ./.env
     networks:
       - network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 150M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
 
   web:
     container_name: provider_mngt_app
@@ -41,6 +49,14 @@ services:
       - ./.env
     networks:
       - network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 100M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
 
   pg_admin:
     container_name: provider_mngt_pg_admin
@@ -61,6 +77,14 @@ services:
       - db
     networks:
       - network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 50M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
   nginx:
     image: nginx:latest
     container_name: provider_mngt_nginx
@@ -74,6 +98,14 @@ services:
       - web
     networks:
       - network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 80M
+        reservations:
+          cpus: "0.25"
+          memory: 20M
 networks:
   network:
     driver: bridge

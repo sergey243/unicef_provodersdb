@@ -53,10 +53,10 @@ services:
       resources:
         limits:
           cpus: "0.50"
-          memory: 100M
+          memory: 200M
         reservations:
-          cpus: "0.25"
-          memory: 20M
+          cpus: "0.50"
+          memory: 50M
 
   pg_admin:
     container_name: provider_mngt_pg_admin

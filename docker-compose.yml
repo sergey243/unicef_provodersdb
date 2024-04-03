@@ -29,7 +29,7 @@ services:
     build: ./web
     restart: always
     # Production
-    command: bash -c "python manage.py makemigrations  && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
+    command: bash -c "python manage.py makemigrations  && python manage.py migrate &&  python manage.py initadmin && python manage.py collectstatic --noinput && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
     # Dev command
     #command: bash -c "python manage.py makemigrations  && python manage.py migrate && python manage.py collectstatic --noinput && django-admin compilemessages && python manage.py runserver 0.0.0.0:8000"
     volumes:

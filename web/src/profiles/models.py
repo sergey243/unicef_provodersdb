@@ -21,7 +21,7 @@ class Profile(models.Model):
     last_name  = models.CharField(verbose_name=_('last name'),max_length=100,null=True,blank=True)
     address    = models.CharField(verbose_name=_('address'),blank=True,null=True,max_length=200)
     mobile     = models.CharField(verbose_name=_('mobile'), max_length=17,blank=True,null=True,unique=True)
-    email      = models.EmailField(verbose_name=_('email'),null=False,blank=False,unique=True)
+    email      = models.EmailField(verbose_name=_('email'),null=False,blank=False)
     branch     = models.CharField(verbose_name=_("branch"),null=True,blank=True,max_length=50)
     picture    = models.ImageField(upload_to=upload_user_data, null=True, blank=True, verbose_name=_(u"image"))
 

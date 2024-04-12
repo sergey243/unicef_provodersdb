@@ -18,7 +18,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
+          cpus: "0.80"
           memory: 150M
         reservations:
           cpus: "0.25"
@@ -29,7 +29,7 @@ services:
     build: ./web
     restart: always
     # Production
-    command: bash -c "python manage.py makemigrations && python manage.py collectstatic --noinput && python manage.py migrate && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
+    command: bash -c "python manage.py makemigrations  && python manage.py migrate &&  python manage.py initadmin && python manage.py collectstatic --noinput && gunicorn --certfile=/etc/certs/localhost.crt --keyfile=/etc/certs/localhost.key provider_mngt.wsgi:application --bind 0.0.0.0:443"
     # Dev command
     #command: bash -c "python manage.py makemigrations  && python manage.py migrate && python manage.py collectstatic --noinput && django-admin compilemessages && python manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -52,11 +52,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 100M
+          cpus: "0.80"
+          memory: 200M
         reservations:
-          cpus: "0.25"
-          memory: 20M
+          cpus: "0.50"
+          memory: 50M
 
   pg_admin:
     container_name: provider_mngt_pg_admin
@@ -80,11 +80,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 50M
+          cpus: "0.80"
+          memory: 200M
         reservations:
-          cpus: "0.25"
-          memory: 20M
+          cpus: "0.5"
+          memory: 80M
   nginx:
     image: nginx:latest
     container_name: provider_mngt_nginx
@@ -101,11 +101,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 80M
+          cpus: "0.80"
+          memory: 150M
         reservations:
           cpus: "0.25"
-          memory: 20M
+          memory: 80M
 networks:
   network:
     driver: bridge
